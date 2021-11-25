@@ -9,6 +9,8 @@ import Banner from "../components/Banner/Banner";
 import Heading from "../components/Typography/Heading";
 import Spacer from "../components/layout/utilities/Spacer/Spacer";
 import Grid from "../components/layout/utilities/Grid/Grid";
+import Main from "../components/layout/Main/Main";
+import SkeletonLoader from "../components/layout/SkeleteonLoader/SkeletonLoader";
 
 type CategorySuggestion = {
   category_image: CategoryImage;
@@ -44,7 +46,7 @@ const Home = () => {
   }, [baseUrl]);
 
   return (
-    <main>
+    <Main>
       <Hero>
         <SearchBar />
       </Hero>
@@ -55,7 +57,7 @@ const Home = () => {
             Looking for something special?
           </Heading.H2>
           <Grid>
-            {isLoading && <div>Is loading</div>}
+            {isLoading && <SkeletonLoader numberofLoaders={3} />}
             {error && <div>{error}</div>}
             {category.map((suggestion: CategorySuggestion) => {
               const { category_suggestion_title, id, Slug } = suggestion;
@@ -79,7 +81,7 @@ const Home = () => {
           <Banner />
         </Section>
       </Container>
-    </main>
+    </Main>
   );
 };
 

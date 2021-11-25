@@ -8,7 +8,6 @@ import Contact from "./pages/Contact";
 import Establishments from "./pages/Establishments";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import Search from "./pages/Search";
 import Spacer from "./components/layout/utilities/Spacer/Spacer";
 import Footer from "./components/layout/Footer/Footer";
 import Establishment from "./pages/Establishment";
@@ -25,7 +24,6 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/search" element={<Search />} />
           <Route path="/establishments" element={<Establishments />} />
           <Route
             path="/establishments/:establishmentSlug"

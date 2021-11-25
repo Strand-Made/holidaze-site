@@ -8,12 +8,11 @@ type TModal = {
 };
 
 const ModalStyled = styled.div<TModal>`
-  background: var(--teal-1);
+  background: white;
   padding: 2rem;
   width: 100%;
   top: 0;
   left: 0;
-  margin: 1rem;
   border-radius: ${borderRadius.md};
   box-shadow: ${shadows.lg};
 `;

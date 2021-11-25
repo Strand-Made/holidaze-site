@@ -8,6 +8,7 @@ import CreateEstablishmentForm from "../components/forms/CreateEstablishment/Cre
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { baseUrl } from "../api/baseUrl";
+import Main from "../components/layout/Main/Main";
 
 const CreateEstablishment = () => {
   const [error, setError] = useState(null);
@@ -63,7 +64,7 @@ const CreateEstablishment = () => {
   }
 
   return (
-    <main>
+    <Main>
       <Container>
         <Heading>New Establishment</Heading>
         <Link to="/admin">Go back</Link>
@@ -75,7 +76,7 @@ const CreateEstablishment = () => {
           auth={auth}
         />
       </Container>
-    </main>
+    </Main>
   );
 };
 

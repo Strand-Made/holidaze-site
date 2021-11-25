@@ -80,9 +80,8 @@ a {
     text-decoration: none;
     color: var(--blue-5);
 }
-::placeholder, input, textarea, fieldset, select, option {
-    font-family: "Nunito Sans", Montserrat, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue", sans-serif;
-    font-size: inherit;
+::placeholder, input, textarea, fieldset, select, option, legend {
+    font: inherit;
 }
 li {
     list-style: none;

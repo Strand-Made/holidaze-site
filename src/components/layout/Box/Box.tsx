@@ -1,29 +1,23 @@
 import { ReactNode } from "react";
 import styled, { css } from "styled-components";
 import { borderRadius, shadows } from "../../../globalStyle/_variables";
+import { SpacingScale } from "../../../utils/globalTypes";
 
 interface IBox {
   children: ReactNode;
-  padding?:
-    | "0"
-    | "0.5rem"
-    | "0.75rem"
-    | "1rem"
-    | "1.5rem"
-    | "2rem"
-    | "3rem"
-    | "4rem"
-    | "5rem";
+  padding?: SpacingScale;
   borderRadius?: boolean;
   borderRadiusT?: boolean;
   borderRadiusB?: boolean;
   color?: string;
   background?: string;
   shadow?: boolean;
+  style?: {
+    "--padding": SpacingScale;
+  };
 }
 
 const StyledBox = styled.div<IBox>`
-  --padding: ${(props) => props.padding};
   border-radius: ${(props) => props.borderRadius && `${borderRadius.md}`};
   box-shadow: ${(props) => props.shadow && `${shadows.sm}`};
   ${(props) => {
@@ -44,7 +38,7 @@ const StyledBox = styled.div<IBox>`
       `
     );
   }}
-  padding: var(--padding);
+  padding: var(--padding, 0);
   color: ${(props) => (props.color ? props.color : "inherit")};
   background: ${(props) => (props.background ? props.background : "inherit")};
 `;
@@ -61,13 +55,15 @@ const Box = ({
 }: IBox) => {
   return (
     <StyledBox
-      padding={padding}
       borderRadius={borderRadius}
       borderRadiusT={borderRadiusT}
       borderRadiusB={borderRadiusB}
       color={color}
       background={background}
       shadow={shadow}
+      style={{
+        "--padding": padding,
+      }}
     >
       {children}
     </StyledBox>

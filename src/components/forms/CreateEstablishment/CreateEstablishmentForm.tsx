@@ -8,7 +8,6 @@ import Box from "../../layout/Box/Box";
 import Stack from "../../layout/Stack/Stack";
 import FlexContainer from "../../layout/utilities/Flex/FlexContainer";
 import Switcher from "../../layout/utilities/Switcher/Switcher";
-import Paragraph from "../../Typography/Paragraph";
 import TextBox from "../Input/TextBox";
 import Label from "../Label/Label";
 import Message from "../../Message/Message";
@@ -16,6 +15,7 @@ import Fieldset from "../Fieldset/Fieldset";
 import DisabledInput from "../Input/DisabledInput";
 import Select from "../Select/Select";
 import Input from "../Input/Input";
+import InputContainer from "../Input/InputContainer";
 
 const Form = styled.form``;
 
@@ -26,7 +26,7 @@ const Checkbox = styled.input`
 const schema = yup.object({
   establishmentName: yup
     .string()
-    .min(5)
+    .min(3, "Name must be longer than 3 characters ")
     .required("Please name your establishment"),
   category: yup.string().required("Please choose a category"),
   slug: yup.string(),
@@ -39,12 +39,20 @@ const schema = yup.object({
   }),
   price: yup
     .number()
+    .typeError("Please include price per night")
     .min(5, "Price has to be higher than 5")
     .required("Please include a price"),
-  bedrooms: yup.number().min(1).required("Please include how many bedrooms"),
-  distanceToCentre: yup.number().required(),
+  bedrooms: yup
+    .number()
+    .typeError("Please include how many bedrooms you offer")
+    .min(1)
+    .required("Please include how many bedrooms"),
+  distanceToCentre: yup
+    .number()
+    .typeError("Please include how far it is to the city centre")
+    .required(),
   establishmentDescription: yup.string().required("An description is required"),
-  file: yup.object(),
+  file: yup.object().required("Please include a image of your establishment"),
 });
 
 const CreateEstablishmentForm = ({
@@ -140,174 +148,182 @@ const CreateEstablishmentForm = ({
   return (
     <Box background="white" borderRadius padding="3rem" shadow>
       <Form onSubmit={handleSubmit(onSubmit)}>
-        {error && <Message.Error>{error}</Message.Error>}
-        {success && <Message.Success> Successfully created! </Message.Success>}
-        <Stack>
-          <Label htmlFor="establishmentName"> Establishment Name </Label>
-          <Input
-            value={name}
-            type="text"
-            name="establishmentName"
-            {...register("establishmentName")}
-            onChange={(e) => handleChange(e, setName)}
-          />
-          {errors.establishmentName && (
-            <Message.Error>{errors.establishmentName.message}</Message.Error>
+        <Stack space={"0.5rem"}>
+          {error && <Message.Error>{error}</Message.Error>}
+          {success && (
+            <Message.Success> Successfully created! </Message.Success>
           )}
-        </Stack>
-        <Stack>
-          <Label htmlFor="category">Category</Label>
-          <Select
-            name="category"
-            {...register("category")}
-            onChange={(e) => handleSelect(e)}
-          >
-            <option value="">Choose category</option>
-            <option value="hotels">Hotel</option>
-            <option value="cabin">Cabin</option>
-            <option value="house">House</option>
-          </Select>
-          {errors.category && (
-            <Message.Error>{errors.category.message}</Message.Error>
-          )}
-        </Stack>
-
-        <Stack>
-          <Label htmlFor="slug">Slug</Label>
-          <DisabledInput
-            type="text"
-            name="slug"
-            readOnly
-            {...register("slug")}
-            placeholder="your-slug"
-            value={slug}
-            onChange={(e) => {
-              handleChange(e, setSlug);
-            }}
-          />
-        </Stack>
-        <Stack>
-          <Label htmlFor="price">Price</Label>
-          <Input
-            name="price"
-            placeholder="$0"
-            type="number"
-            {...register("price")}
-          />
-          {errors.price && (
-            <Message.Error>{errors.price.message}</Message.Error>
-          )}
-        </Stack>
-        <Stack>
-          <Fieldset>
-            <legend>Amenities</legend>
-            <Paragraph>Which amenities do your establishment offer?</Paragraph>
-            <Switcher>
-              <FlexContainer col alignItems="center">
-                <Label htmlFor="shower"> Shower </Label>
-                <Checkbox
-                  type="checkbox"
-                  name="shower"
-                  {...register("shower")}
-                  value="shower"
-                  checked={shower}
-                  onChange={(e) => handleCheckbox(shower, setShower)}
-                />
-              </FlexContainer>
-              <FlexContainer col alignItems="center">
-                <Label> Cleaning </Label>
-                <Checkbox
-                  type="checkbox"
-                  name="cleaning"
-                  {...register("cleaning")}
-                  value="cleaning"
-                  checked={cleaning}
-                  onChange={(e) => handleCheckbox(cleaning, setCleaning)}
-                />
-              </FlexContainer>
-              <FlexContainer col alignItems="center">
-                <Label> Office </Label>
-                <Checkbox
-                  type="checkbox"
-                  name="office"
-                  {...register("office")}
-                  value="office"
-                  checked={office}
-                  onChange={(e) => handleCheckbox(office, setOffice)}
-                />
-              </FlexContainer>
-              <FlexContainer col alignItems="center">
-                <Label> Gym </Label>
-                <Checkbox
-                  type="checkbox"
-                  name="gym"
-                  {...register("gym")}
-                  value="gym"
-                  checked={gym}
-                  onChange={(e) => handleCheckbox(gym, setGym)}
-                />
-              </FlexContainer>
-              <FlexContainer col alignItems="center">
-                <Label> Breakfast </Label>
-                <Checkbox
-                  type="checkbox"
-                  name="breakfast"
-                  {...register("breakfast")}
-                  value="breakfast"
-                  defaultChecked={breakfast}
-                  onChange={(e) => handleCheckbox(breakfast, setBreakfast)}
-                />
-              </FlexContainer>
-            </Switcher>
-            {errors.amenities && (
-              <Message.Error>{errors.amenities.message}</Message.Error>
+          <InputContainer>
+            <Label htmlFor="establishmentName"> Establishment Name </Label>
+            <Input
+              value={name}
+              type="text"
+              name="establishmentName"
+              {...register("establishmentName")}
+              onChange={(e) => handleChange(e, setName)}
+            />
+            {errors.establishmentName && (
+              <Message.Error>{errors.establishmentName.message}</Message.Error>
             )}
-          </Fieldset>
-        </Stack>
-        <Stack>
-          <Label htmlFor="bedrooms">Bedrooms</Label>
-          <Input type="number" name="bedrooms" {...register("bedrooms")} />
-          {errors.bedrooms && (
-            <Message.Error>{errors.bedrooms.message}</Message.Error>
-          )}
-          <Label htmlFor="distance-to-city-centre">
-            Distance to city centre
-          </Label>
-          <Input
-            name="distance-to-city-centre"
-            type="number"
-            {...register("distanceToCentre")}
-          />
-          {errors.distanceToCentre && (
-            <Message.Error>{errors.distanceToCentre.message}</Message.Error>
-          )}
-        </Stack>
-        <Stack>
-          <Label htmlFor="description">Establishment description</Label>
-          <TextBox
-            name="description"
-            {...register("establishmentDescription")}
-          />
-          {errors.establishmentDescription && (
-            <Message.Error>
-              {errors.establishmentDescription.message}
-            </Message.Error>
-          )}
-        </Stack>
-        <Stack>
-          <Label htmlFor="files">Upload Image (Accepts ,jpg files)</Label>
-          <input
-            type="file"
-            name="files"
-            accept="image/*"
-            onChange={handleInputChange}
-          />
-          {errors.file && <Message.Error>{errors.file.message}</Message.Error>}
-        </Stack>
+          </InputContainer>
+          <InputContainer>
+            <Label htmlFor="category">Category</Label>
+            <Select
+              name="category"
+              {...register("category")}
+              onChange={(e) => handleSelect(e)}
+            >
+              <option value="">Choose category</option>
+              <option value="hotels">Hotel</option>
+              <option value="cabin">Cabin</option>
+              <option value="house">House</option>
+            </Select>
+            {errors.category && (
+              <Message.Error>{errors.category.message}</Message.Error>
+            )}
+          </InputContainer>
 
-        <PrimaryButton type="submit" role="submit" full size="md">
-          Create Establishment
-        </PrimaryButton>
+          <InputContainer>
+            <Label htmlFor="slug">Slug</Label>
+            <DisabledInput
+              type="text"
+              name="slug"
+              readOnly
+              {...register("slug")}
+              placeholder="your-slug"
+              value={slug}
+              onChange={(e) => {
+                handleChange(e, setSlug);
+              }}
+            />
+          </InputContainer>
+          <InputContainer>
+            <Label htmlFor="price">Price</Label>
+            <Input
+              name="price"
+              placeholder="$0"
+              type="number"
+              {...register("price")}
+            />
+            {errors.price && (
+              <Message.Error>{errors.price.message}</Message.Error>
+            )}
+          </InputContainer>
+          <Stack space={"0.5rem"}>
+            <Fieldset>
+              <legend>Amenities</legend>
+              <Switcher>
+                <FlexContainer col alignItems="center">
+                  <Label htmlFor="shower"> Shower </Label>
+                  <Checkbox
+                    type="checkbox"
+                    name="shower"
+                    {...register("shower")}
+                    value="shower"
+                    checked={shower}
+                    onChange={(e) => handleCheckbox(shower, setShower)}
+                  />
+                </FlexContainer>
+                <FlexContainer col alignItems="center">
+                  <Label> Cleaning </Label>
+                  <Checkbox
+                    type="checkbox"
+                    name="cleaning"
+                    {...register("cleaning")}
+                    value="cleaning"
+                    checked={cleaning}
+                    onChange={(e) => handleCheckbox(cleaning, setCleaning)}
+                  />
+                </FlexContainer>
+                <FlexContainer col alignItems="center">
+                  <Label> Office </Label>
+                  <Checkbox
+                    type="checkbox"
+                    name="office"
+                    {...register("office")}
+                    value="office"
+                    checked={office}
+                    onChange={(e) => handleCheckbox(office, setOffice)}
+                  />
+                </FlexContainer>
+                <FlexContainer col alignItems="center">
+                  <Label> Gym </Label>
+                  <Checkbox
+                    type="checkbox"
+                    name="gym"
+                    {...register("gym")}
+                    value="gym"
+                    checked={gym}
+                    onChange={(e) => handleCheckbox(gym, setGym)}
+                  />
+                </FlexContainer>
+                <FlexContainer col alignItems="center">
+                  <Label> Breakfast </Label>
+                  <Checkbox
+                    type="checkbox"
+                    name="breakfast"
+                    {...register("breakfast")}
+                    value="breakfast"
+                    defaultChecked={breakfast}
+                    onChange={(e) => handleCheckbox(breakfast, setBreakfast)}
+                  />
+                </FlexContainer>
+              </Switcher>
+              {errors.amenities && (
+                <Message.Error>{errors.amenities.message}</Message.Error>
+              )}
+            </Fieldset>
+          </Stack>
+          <InputContainer>
+            <Label htmlFor="bedrooms">Bedrooms</Label>
+            <Input type="number" name="bedrooms" {...register("bedrooms")} />
+            {errors.bedrooms && (
+              <Message.Error>{errors.bedrooms.message}</Message.Error>
+            )}
+          </InputContainer>
+          <InputContainer>
+            <Label htmlFor="distance-to-city-centre">
+              Distance to city centre
+            </Label>
+            <Input
+              name="distance-to-city-centre"
+              type="number"
+              {...register("distanceToCentre")}
+            />
+            {errors.distanceToCentre && (
+              <Message.Error>{errors.distanceToCentre.message}</Message.Error>
+            )}
+          </InputContainer>
+
+          <InputContainer>
+            <Label htmlFor="description">Establishment description</Label>
+            <TextBox
+              name="description"
+              {...register("establishmentDescription")}
+            />
+            {errors.establishmentDescription && (
+              <Message.Error>
+                {errors.establishmentDescription.message}
+              </Message.Error>
+            )}
+          </InputContainer>
+          <InputContainer>
+            <Label htmlFor="files">Upload Image (Accepts ,jpg files)</Label>
+            <input
+              type="file"
+              name="files"
+              accept="image/*"
+              onChange={handleInputChange}
+            />
+            {errors.file && (
+              <Message.Error>{errors.file.message}</Message.Error>
+            )}
+          </InputContainer>
+
+          <PrimaryButton type="submit" role="submit" full size="md">
+            Create Establishment
+          </PrimaryButton>
+        </Stack>
       </Form>
     </Box>
   );

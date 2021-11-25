@@ -5,13 +5,14 @@ interface IImage {
   src: string;
   alt: string;
   fullWidth?: boolean;
+  forceHeight?: boolean;
 }
 
 const StyledImage = styled.img<IImage>`
   width: 100%;
   object-fit: cover;
   border-radius: inherit;
-
+  min-height: ${(props) => (props.forceHeight ? "100%" : "")};
   ${(props) => {
     return (
       props.fullWidth &&
@@ -33,11 +34,18 @@ const StyledImage = styled.img<IImage>`
         `}
       `
     );
-  }}
+  }};
 `;
 
-const Image = ({ src, alt, fullWidth }: IImage) => {
-  return <StyledImage fullWidth={fullWidth} alt={alt} src={src} />;
+const Image = ({ src, alt, fullWidth, forceHeight }: IImage) => {
+  return (
+    <StyledImage
+      forceHeight={forceHeight}
+      fullWidth={fullWidth}
+      alt={alt}
+      src={src}
+    />
+  );
 };
 
 export default Image;

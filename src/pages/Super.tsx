@@ -3,16 +3,13 @@ import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import Container from "../components/layout/Container/Container";
 import Heading from "../components/Typography/Heading";
-
-import Box from "../components/layout/Box/Box";
 import { FetchStatus } from "../utils/globalTypes";
 import { baseUrl } from "../api/baseUrl";
 import axios from "axios";
 import Stack from "../components/layout/Stack/Stack";
-import Switcher from "../components/layout/utilities/Switcher/Switcher";
-import { EnquiriesContainer } from "../components/admin-dashboard/Enquiries/Enquiries";
-import Paragraph from "../components/Typography/Paragraph";
 import ContactMessages from "../components/admin-dashboard/contact-messages/ContactMessages";
+import Main from "../components/layout/Main/Main";
+import Message from "../components/Message/Message";
 
 const Super = () => {
   const { auth } = useAuth();
@@ -24,7 +21,7 @@ const Super = () => {
     if (auth.userinfo.type === "authenticated") {
       navigate("/admin");
     }
-  }, [auth]);
+  }, [auth, navigate]);
 
   const [error, setError] = useState(null);
   const [status, setStatus] = useState<FetchStatus>(FetchStatus.IDLE);
@@ -52,17 +49,26 @@ const Super = () => {
   }, [auth.token]);
 
   return (
-    <Container>
-      <Heading>Dashboard</Heading>
-      <Stack>
-        <Heading.H2>Messages</Heading.H2>
-        <Stack space={1}>
-          {messages.map((message) => (
-            <ContactMessages key={message.id} message={message} />
-          ))}
+    <Main>
+      <Container>
+        <Heading>Dashboard</Heading>
+        <Stack>
+          <Heading.H2>Messages</Heading.H2>
+          {status === FetchStatus.ERROR && (
+            <Message.Error>{error}</Message.Error>
+          )}
+          <Stack space={"1rem"}>
+            {messages.map((message) => (
+              <ContactMessages
+                key={message.id}
+                status={status}
+                message={message}
+              />
+            ))}
+          </Stack>
         </Stack>
-      </Stack>
-    </Container>
+      </Container>
+    </Main>
   );
 };
 

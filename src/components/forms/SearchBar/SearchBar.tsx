@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { HiOutlineLocationMarker } from "react-icons/hi";
 import { borderRadius, shadows } from "../../../globalStyle/_variables";
 import useDebounce from "../../../hooks/useDebounce";
 import InputContainer from "../Input/InputContainer";
@@ -12,6 +11,7 @@ import { PrimaryButton } from "../../Button/Button";
 import SearchResultList from "./SearchResults";
 import { baseUrl } from "../../../api/baseUrl";
 import { FetchStatus } from "../../../utils/globalTypes";
+import Heading from "../../Typography/Heading";
 
 const SearchHotel = styled.form`
   position: relative;
@@ -41,7 +41,7 @@ const SearchBar = () => {
   const [searchValue, setSearchValue] = useState("");
   const [hotels, setHotels] = useState([]);
 
-  const debouncedSearchValue = useDebounce(searchValue, 500);
+  const debouncedSearchValue = useDebounce(searchValue, 350);
 
   useEffect(() => {
     async function searchHotels(search: string) {
@@ -67,7 +67,7 @@ const SearchBar = () => {
         return setHotels(data);
       });
     }
-  }, [baseUrl, debouncedSearchValue]);
+  }, [debouncedSearchValue, url]);
 
   return (
     <SearchHotel
@@ -79,11 +79,13 @@ const SearchBar = () => {
         <InputContainer>
           <FlexContainer col>
             <Label>
-              <HiOutlineLocationMarker color="var(--cool-gray-6)" size={25} />
-              <span>Hotel</span>
+              <Heading.H2 color="var(--cool-gray-9)" size="xl">
+                Find your next stay
+              </Heading.H2>
             </Label>
             <TextInput
               onChange={(e) => {
+                setHotels([]);
                 setSearchValue(e.target.value);
                 setStatus(FetchStatus.FETCHING);
               }}

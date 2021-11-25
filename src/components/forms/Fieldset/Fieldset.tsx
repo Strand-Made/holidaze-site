@@ -2,10 +2,7 @@ import styled from "styled-components";
 
 const Fieldset = styled.fieldset`
   border: none;
-  legend {
-    font-size: inherit;
-    font-weight: 600;
-  }
+  padding: 0;
 `;
 
 export default Fieldset;

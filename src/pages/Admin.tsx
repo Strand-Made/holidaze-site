@@ -14,6 +14,7 @@ import { baseUrl } from "../api/baseUrl";
 import EstablishmentElement from "../components/admin-dashboard/EstablishmentsPanel/EstablishmentElement";
 import Box from "../components/layout/Box/Box";
 import Spacer from "../components/layout/utilities/Spacer/Spacer";
+import Main from "../components/layout/Main/Main";
 
 const Admin = () => {
   let navigate = useNavigate();
@@ -81,8 +82,8 @@ const Admin = () => {
   }, [user]);
 
   return (
-    <Container>
-      <main>
+    <Main>
+      <Container>
         <Heading>Admin Dashboard</Heading>
         <span>
           Welcome <Emphasize>{user}</Emphasize>
@@ -111,8 +112,8 @@ const Admin = () => {
             ))}
           </EstablishmentsPanel>
         </Switcher>
-      </main>
-    </Container>
+      </Container>
+    </Main>
   );
 };
 

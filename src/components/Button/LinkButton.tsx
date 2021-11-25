@@ -13,20 +13,21 @@ interface LinkProps {
   state?: State;
   onClick?: any;
   to: To;
+  invert?: boolean;
   full?: boolean;
   size?: keyof typeof buttonSizes;
 }
 
 const StyledLink = styled(Link)<LinkProps>`
   display: inline-block;
-  background: var(--blue-5);
+  background: ${(props) => (props.invert ? "var(--blue-1)" : "var(--blue-5)")};
   font-size: ${(props) => {
     if (props.size === "sm") return "0.833rem";
     if (props.size === "md") return "1rem";
     if (props.size === "l") return "1.4rem";
     return "1rem";
   }};
-  color: var(--blue-1);
+  color: ${(props) => (props.invert ? "var(--blue-6)" : "var(--blue-1)")};
   font-weight: 600;
   border-radius: 8px;
   width: ${(props) => props.full && "100%"};
@@ -56,6 +57,7 @@ const LinkButton = ({
   state,
   onClick,
   size,
+  invert,
 }: LinkProps) => {
   return (
     <StyledLink
@@ -64,6 +66,7 @@ const LinkButton = ({
       state={state}
       replace={replace}
       to={to}
+      invert={invert}
     >
       {children}
     </StyledLink>

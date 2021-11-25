@@ -30,6 +30,7 @@ const MobileMenuContainer = styled.div<IMobileNavProps>`
   `}
 `;
 const MobileNavList = styled.ul`
+  font-size: 1.3rem;
   margin-bottom: 1.5rem;
   background: white;
 `;

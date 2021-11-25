@@ -141,7 +141,10 @@ const EnquireForm = ({
         </Box>
         <Box>
           <PrimaryButton type="submit" size="md">
-            Submit
+            {status === FetchStatus.IDLE && "Submit"}
+            {status === FetchStatus.FETCHING && "Submitting..."}
+            {status === FetchStatus.SUCCESS && "Message sent!"}
+            {!status && "Submit"}
           </PrimaryButton>
         </Box>
       </Stack>

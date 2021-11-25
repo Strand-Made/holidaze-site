@@ -7,14 +7,24 @@ import { borderRadius, shadows } from "../../../globalStyle/_variables";
 import FlexContainer from "../../layout/utilities/Flex/FlexContainer";
 import Heading from "../../Typography/Heading";
 import Label from "../Label/Label";
-import InputContainer from "../Input/InputContainer";
 import Input from "../Input/Input";
-import { PrimaryButton, SecondaryButton } from "../../Button/Button";
+import { PrimaryButton } from "../../Button/Button";
 import { baseUrl } from "../../../api/baseUrl";
 import { useAuth } from "../../../context/AuthContext";
 import Message from "../../Message/Message";
 import Spacer from "../../layout/utilities/Spacer/Spacer";
 import { useState } from "react";
+import Stack from "../../layout/Stack/Stack";
+import { FetchStatus } from "../../../utils/globalTypes";
+
+const Modal = styled.div`
+  background: var(--teal-1);
+  border-radius: ${borderRadius.md};
+  box-shadow: ${shadows.md};
+  padding: 5rem;
+  max-width: 600px;
+  margin: 0 auto;
+`;
 
 const Form = styled.form`
   width: 100%;
@@ -25,19 +35,10 @@ const FormContainer = styled.div`
   margin: 0 auto;
 `;
 
-const Modal = styled.div`
-  background: var(--teal-1);
-  border-radius: ${borderRadius.md};
-  box-shadow: ${shadows.md};
-  padding: 1rem;
-`;
-
 type FormData = {
   email: string;
   password: string;
 };
-
-type TFormErrors = "400" | "405" | null;
 
 const schema = yup
   .object({
@@ -54,10 +55,12 @@ const LoginForm = () => {
   } = useForm<FormData>({
     resolver: yupResolver(schema),
   });
-  const [formError, setFormError] = useState<TFormErrors>(null);
+  const [formError, setFormError] = useState("");
+  const [status, setStatus] = useState<FetchStatus>(FetchStatus.IDLE);
 
   const { setAuth } = useAuth();
   const loginUser = async (user: FormData) => {
+    setStatus(FetchStatus.FETCHING);
     setFormError(null);
     const res = axios
       .post(`${baseUrl}/auth/local`, {
@@ -80,11 +83,20 @@ const LoginForm = () => {
             role,
           },
         };
+        setStatus(FetchStatus.SUCCESS);
         setAuth(user);
       })
       .catch((error) => {
-        console.log(error.response);
-        setFormError(error.response.statusText);
+        console.log(error.response.status);
+        setStatus(FetchStatus.ERROR);
+        if (error.response.status === 400) {
+          return setFormError("Could not find user");
+        }
+        if (error.response.status === 405) {
+          return setFormError(
+            "Looks like we have an issue with our server, please try again later"
+          );
+        }
       });
   };
 
@@ -92,44 +104,45 @@ const LoginForm = () => {
   return (
     <Modal>
       <FlexContainer col alignItems="center">
-        <Heading size="xl">Login</Heading>
+        <Heading size="xl">Welcome Back!</Heading>
         <Form onSubmit={onSubmit}>
           <FormContainer>
-            {formError && <Message.Error>{formError}</Message.Error>}
-            <InputContainer>
-              <Label htmlFor="email">Email</Label>
+            <Stack space={"0.5rem"}>
+              {formError && <Message.Error>{formError}</Message.Error>}
+              <Stack space={"0.25rem"}>
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  {...register("email")}
+                  name="email"
+                  type="email"
+                  placeholder="Your email"
+                />
+                <Spacer mt="0.5" />
+                {errors.email && (
+                  <Message.Error>{errors.email.message}</Message.Error>
+                )}
+              </Stack>
+              <Stack space={"0.25rem"}>
+                <Label htmlFor="password">Password</Label>
 
-              <Input
-                {...register("email")}
-                name="email"
-                type="email"
-                placeholder="Your email"
-              />
-              <Spacer mt="0.5" />
-              {errors.email && (
-                <Message.Error>{errors.email.message}</Message.Error>
-              )}
-            </InputContainer>
-            <InputContainer>
-              <Label htmlFor="password">Password</Label>
-
-              <Input
-                {...register("password")}
-                name="password"
-                type="password"
-                placeholder="Your password"
-              />
-              <Spacer mt="0.5" />
-              {errors.password && (
-                <Message.Error>{errors.password.message}</Message.Error>
-              )}
-            </InputContainer>
-            <FlexContainer col gap="0.75rem">
-              <PrimaryButton size="md" full>
-                Login
-              </PrimaryButton>
-              <SecondaryButton>Sign Up</SecondaryButton>
-            </FlexContainer>
+                <Input
+                  {...register("password")}
+                  name="password"
+                  type="password"
+                  placeholder="Your password"
+                />
+                <Spacer mt="0.5" />
+                {errors.password && (
+                  <Message.Error>{errors.password.message}</Message.Error>
+                )}
+              </Stack>
+              <FlexContainer col gap="0.75rem">
+                <PrimaryButton size="md" full>
+                  {status === FetchStatus.IDLE && "Login"}
+                  {status === FetchStatus.FETCHING && "Logging in..."}
+                </PrimaryButton>
+              </FlexContainer>
+            </Stack>
           </FormContainer>
         </Form>
       </FlexContainer>

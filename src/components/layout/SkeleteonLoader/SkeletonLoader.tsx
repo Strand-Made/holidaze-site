@@ -1,18 +1,32 @@
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import Box from "../Box/Box";
+import ContentLoader from "react-content-loader";
+
+import Grid from "../utilities/Grid/Grid";
 
 interface ISkeletonLoader {
-  width: number | string;
-  height: number | string;
+  numberofLoaders: number;
 }
 
-const SkeletonLoader = ({ width, height }: ISkeletonLoader) => {
+const SkeletonLoader = ({ numberofLoaders }: ISkeletonLoader) => {
+  let skeletonArray = new Array(numberofLoaders).fill(1, 0);
+
   return (
-    <Box>
-      <SkeletonTheme>
-        <Skeleton />
-      </SkeletonTheme>
-    </Box>
+    <Grid>
+      {skeletonArray &&
+        skeletonArray.map((i) => (
+          <ContentLoader
+            key={i + Math.random()}
+            width={450}
+            height={400}
+            viewBox="0 0 450 400"
+            backgroundColor="#f0f0f0"
+            foregroundColor="#dedede"
+          >
+            <rect x="43" y="304" rx="4" ry="4" width="271" height="9" />
+            <rect x="44" y="323" rx="3" ry="3" width="119" height="6" />
+            <rect x="42" y="77" rx="10" ry="10" width="388" height="217" />
+          </ContentLoader>
+        ))}
+    </Grid>
   );
 };
 

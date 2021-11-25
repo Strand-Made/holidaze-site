@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { borderRadius } from "../../globalStyle/_variables";
 
 interface IStayDatePicker {
   startDate?: Date;

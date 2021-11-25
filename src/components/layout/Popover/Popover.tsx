@@ -1,14 +1,15 @@
 import { ReactNode } from "react";
 import styled from "styled-components";
 import { borderRadius, shadows } from "../../../globalStyle/_variables";
+import { SpacingScale } from "../../../utils/globalTypes";
 
 interface IPopover {
   position?: "absolute" | "sticky" | "fixed";
   children: ReactNode;
-  margin?: "0.5rem" | "1rem" | "1.5rem" | "2rem" | "3rem";
+  margin?: SpacingScale;
 }
 type TContain = {
-  margin?: "0.5rem" | "1rem" | "1.5rem" | "2rem" | "3rem";
+  margin?: SpacingScale;
 };
 
 const StyledPopover = styled.div<IPopover>`

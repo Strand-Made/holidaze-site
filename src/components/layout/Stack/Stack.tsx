@@ -1,36 +1,22 @@
 import { ReactNode } from "react";
 import styled, { css } from "styled-components";
+import { SpacingScale } from "../../../utils/globalTypes";
 
 interface IStack {
   children: ReactNode;
-  space?: number;
+  space?: SpacingScale;
   splitAfter?: number;
-  recursive?: boolean;
 }
 
 const StyledStack = styled.div<IStack>`
-  --space: ${(props) => props.space}rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-
   & > * {
-    margin-top: 0;
-    margin-bottom: 0;
+    margin-top: ${(props) => (props.space ? props.space : 0)};
+    margin-bottom: ${(props) => (props.space ? props.space : 0)};
   }
 
-  ${(props) => {
-    return props.recursive
-      ? css`
-          & * + * {
-            margin-top: var(--space);
-          }
-        `
-      : css`
-          & > * + * {
-            margin-top: var(--space);
-          }
-        `;
   }}
 
   ${(props) => {
@@ -48,9 +34,9 @@ const StyledStack = styled.div<IStack>`
   }}
 `;
 
-const Stack = ({ children, space, splitAfter, recursive }: IStack) => {
+const Stack = ({ children, space, splitAfter }: IStack) => {
   return (
-    <StyledStack space={space} splitAfter={splitAfter} recursive={recursive}>
+    <StyledStack space={space} splitAfter={splitAfter}>
       {children}
     </StyledStack>
   );

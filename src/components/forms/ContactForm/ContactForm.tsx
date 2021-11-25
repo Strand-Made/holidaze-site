@@ -22,7 +22,6 @@ const ContactBox = styled.div`
 `;
 
 const FormContainer = styled.div`
-  flex-grow: 1;
   max-width: 600px;
 `;
 
@@ -38,9 +37,9 @@ const ContactImage = styled.div`
 
 const schema = yup.object({
   name: yup.string(),
-  email: yup.string().email().required(),
-  subject: yup.string().required(),
-  message: yup.string().required(),
+  email: yup.string().email().required("Please include an email"),
+  subject: yup.string().required("Please include a subject"),
+  message: yup.string().required("Please include a message"),
 });
 
 const ContactForm = ({ status, sendFormData, error }) => {
@@ -81,8 +80,8 @@ const ContactForm = ({ status, sendFormData, error }) => {
       <Form onSubmit={handleSubmit(onSubmit)}>
         {error && <Message.Error>{error}</Message.Error>}
         <FormContainer>
-          <Heading.H2 size="l">Contact form</Heading.H2>
-          <Stack space={1}>
+          <Heading.H2 size="l">Drop us a line</Heading.H2>
+          <Stack space={"0.5rem"}>
             <Box>
               <Label htmlFor="name">Name</Label>
               <Input
@@ -98,7 +97,7 @@ const ContactForm = ({ status, sendFormData, error }) => {
             </Box>
             <Box>
               <Label htmlFor="email">Email</Label>
-              <Stack space={0.5}>
+              <Stack space={"0.5rem"}>
                 <Input
                   type="text"
                   name="email"
@@ -113,7 +112,7 @@ const ContactForm = ({ status, sendFormData, error }) => {
             </Box>
             <Box>
               <Label htmlFor="subject">Subject</Label>
-              <Stack space={0.5}>
+              <Stack space={"0.5rem"}>
                 <Input
                   type="text"
                   name="subject"
@@ -128,7 +127,7 @@ const ContactForm = ({ status, sendFormData, error }) => {
             </Box>
             <Box>
               <Label htmlFor="message">Message</Label>
-              <Stack space={0.5}>
+              <Stack space={"0.5rem"}>
                 <TextBox
                   name="message"
                   {...register("message")}
@@ -153,7 +152,8 @@ const ContactForm = ({ status, sendFormData, error }) => {
       </Form>
       <ContactImage>
         <Image
-          src="https://images.unsplash.com/photo-1543511213-42ed72118e81?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=786&q=80"
+          forceHeight
+          src="https://images.unsplash.com/photo-1551927411-95e412943b58?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=749&q=80"
           alt="bergen"
         />
       </ContactImage>

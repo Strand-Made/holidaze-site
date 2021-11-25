@@ -7,7 +7,6 @@ interface IParagraph {
 }
 
 const StyledParagraph = styled.p<IParagraph>`
-  max-width: 60ch;
   &.truncate {
     overflow: hidden;
     text-overflow: ellipsis;

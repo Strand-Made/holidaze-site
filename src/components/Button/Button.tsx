@@ -4,7 +4,7 @@ import { shadows } from "../../globalStyle/_variables";
 import Header from "../layout/Header/Header";
 import { ReactNode } from "react";
 
-export interface ButtonProps {
+export interface IButtonProps {
   children: ReactNode | string;
   full?: boolean;
   size?: keyof typeof buttonSizes;
@@ -16,7 +16,7 @@ export const buttonSizes = {
   md: "12px 16px",
   l: "15px 12px",
 };
-export const PrimaryButton = styled.button<ButtonProps>`
+export const PrimaryButton = styled.button<IButtonProps>`
   display: inline-block;
   background: ${(props) => (props.invert ? "var(--blue-1)" : "var(--blue-5)")};
   font-size: ${(props) => {

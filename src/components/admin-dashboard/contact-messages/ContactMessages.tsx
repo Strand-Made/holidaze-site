@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { FetchStatus } from "../../../utils/globalTypes";
 import Box from "../../layout/Box/Box";
 import Switcher from "../../layout/utilities/Switcher/Switcher";
 import Heading from "../../Typography/Heading";
@@ -10,9 +11,10 @@ const MessageContainer = styled(EnquiriesContainer)`
   background: white;
 `;
 
-const ContactMessages = ({ message }) => {
+const ContactMessages = ({ message, status }) => {
   return (
     <MessageContainer>
+      {status === FetchStatus.FETCHING && "Loading"}
       <Switcher limit={1} threshold={200}>
         <Box>
           <Heading.H3 size="md">{message.from_name}</Heading.H3>

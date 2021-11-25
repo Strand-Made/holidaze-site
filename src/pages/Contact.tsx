@@ -6,8 +6,15 @@ import axios from "axios";
 import { FormStatus } from "../utils/globalTypes";
 import Heading from "../components/Typography/Heading";
 import Box from "../components/layout/Box/Box";
-import Banner from "../components/Banner/Banner";
 import Spacer from "../components/layout/utilities/Spacer/Spacer";
+import Main from "../components/layout/Main/Main";
+import Stack from "../components/layout/Stack/Stack";
+import Modal from "../components/Modal/Modal";
+import SmallBanner from "../components/Banner/SmallBanner/SmallBanner";
+import Paragraph from "../components/Typography/Paragraph";
+import Emphasize from "../components/Typography/Emphasize";
+import FlexContainer from "../components/layout/utilities/Flex/FlexContainer";
+import { MdLocalPhone } from "react-icons/md";
 
 const Contact = () => {
   useEffect(() => {
@@ -36,20 +43,36 @@ const Contact = () => {
   }
 
   return (
-    <Container>
-      <Box padding="1rem">
-        <Heading size="md">
-          For all questions regarding refunds, booking or any other problem
-          you're facing. Don't hesitate to contact our customer service below
-        </Heading>
-      </Box>
-      <Spacer mt="1.5" />
-      <ContactForm
-        status={status}
-        error={error}
-        sendFormData={sendContactData}
-      />
-    </Container>
+    <Main>
+      <Container>
+        <Box padding="1rem">
+          <Heading size="2xl">Get in touch</Heading>
+          <Paragraph>How can we help?</Paragraph>
+        </Box>
+        <Spacer mt="1.5" />
+        <ContactForm
+          status={status}
+          error={error}
+          sendFormData={sendContactData}
+        />
+        <Spacer mt="2" />
+        <Stack>
+          <Heading.H3 size="xl">You can also call us </Heading.H3>
+          <SmallBanner>
+            <FlexContainer gap="1.5rem" alignItems="baseline">
+              <MdLocalPhone size="42" />
+              <Box padding="0">
+                <Paragraph>
+                  <Heading.H4 size="xl">Phone</Heading.H4>
+                  You can reach us 24/7 at this number:
+                  <Emphasize> +999 999 999</Emphasize>
+                </Paragraph>
+              </Box>
+            </FlexContainer>
+          </SmallBanner>
+        </Stack>
+      </Container>
+    </Main>
   );
 };
 

@@ -66,13 +66,17 @@ const Establishment = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(null);
-  const [stay, setStay] = useState(null);
   const [guests, setGuests] = useState(1);
   const [establishment, setEstablishment] = useState<EstablishmentType | null>(
     null
   );
   const [toggle, setToggle] = useToggle(false);
   const [error, setError] = useState(false);
+
+  useEffect(() => {
+    document.title = `${establishment?.title} | Holidaze`;
+  }, [establishment]);
+
   useEffect(() => {
     const fetchEstablishment = async () => {
       setIsLoading(true);
@@ -91,16 +95,11 @@ const Establishment = () => {
     };
     fetchEstablishment();
   }, [baseUrl, establishmentSlug, setEstablishment]);
-  useEffect(() => {
-    document.title = `${establishment?.title} | Holidaze`;
-  }, [establishment]);
 
   const dateOnChange = (dates) => {
     const [start, end] = dates;
     setStartDate(start);
     setEndDate(end);
-    setStay(dates);
-    console.log(end);
   };
   const host = establishment?.user;
   const establishmentTitle = establishment?.title;
@@ -136,8 +135,7 @@ const Establishment = () => {
                       <Heading.H4 size="l">Amenities</Heading.H4>
                       <Amenitites amenities={establishment.amenities} />
                     </Box>
-                    {/* more details */}
-                    {/* location  */}
+
                     <Box>
                       <Heading.H5 size="l">Reviews</Heading.H5>
                     </Box>

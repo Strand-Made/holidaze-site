@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { borderRadius } from "../../globalStyle/_variables";
+import { borderRadius, shadows } from "../../globalStyle/_variables";
 import { mediaQueries } from "../../utils/styleHelpers";
-import { PrimaryButton } from "../Button/Button";
+import { buttonSizes } from "../Button/Button";
 
 interface SuggestionProps {
   title: string;
@@ -18,7 +18,19 @@ const ImageContainer = styled.div`
   position: relative;
 `;
 
-const ButtonContainer = styled.div`
+const TitleBox = styled.div`
+  display: inline-block;
+  background: var(--blue-1);
+  font-size: 1rem;
+  }};
+  color: var(--blue-6);
+  font-weight: 600;
+  border-radius: 8px;
+  padding: ${buttonSizes.md};
+  box-shadow: ${shadows.md};
+  `;
+
+const TitleContainer = styled.div`
   position: absolute;
   bottom: 1rem;
   left: 1rem;
@@ -37,11 +49,11 @@ const SuggestionsCard = ({ title, img, imgDesc, slug }: SuggestionProps) => {
     <SuggestionContainer to={link}>
       <ImageContainer>
         <Image width="300" src={img} alt={imgDesc} />
-        <ButtonContainer>
-          <PrimaryButton invert size="md">
+        <TitleContainer>
+          <TitleBox>
             <span>{title}</span>
-          </PrimaryButton>
-        </ButtonContainer>
+          </TitleBox>
+        </TitleContainer>
       </ImageContainer>
     </SuggestionContainer>
   );

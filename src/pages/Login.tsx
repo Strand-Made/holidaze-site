@@ -4,6 +4,7 @@ import Spacer from "../components/layout/utilities/Spacer/Spacer";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
+import Main from "../components/layout/Main/Main";
 
 const Login = () => {
   useEffect(() => {
@@ -15,15 +16,16 @@ const Login = () => {
     if (auth) {
       navigate("/admin");
     }
-  }, [auth]);
+  }, [auth, navigate]);
 
   return (
-    <Container>
-      <Spacer mt="1.5" />
-      <main>
+    <Main>
+      <Container>
+        <Spacer mt="1.5" />
+
         <LoginForm />
-      </main>
-    </Container>
+      </Container>
+    </Main>
   );
 };
 
