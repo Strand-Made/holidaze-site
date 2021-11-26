@@ -1,7 +1,9 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { mediaQueries } from "../../../utils/styleHelpers";
 import Logo from "../../Logo/Logo";
 import Heading from "../../Typography/Heading";
+import Box from "../Box/Box";
 import Container from "../Container/Container";
 
 const FooterMain = styled.footer`
@@ -25,7 +27,6 @@ const Flex = styled.div`
   gap: 10rem;
   `}
 `;
-const FooterSection = styled.div``;
 
 const Footer = () => {
   return (
@@ -33,21 +34,25 @@ const Footer = () => {
       <Logo white />
       <Container>
         <Flex>
-          <FooterSection>
+          <Box>
             <Heading.H6 weight="400" size="l">
               Get Notified
             </Heading.H6>
-          </FooterSection>
-          <FooterSection>
-            <Heading.H6 weight="400" size="md">
-              Establishments
-            </Heading.H6>
-          </FooterSection>
-          <FooterSection>
-            <Heading.H6 weight="400" size="md">
-              Contact
-            </Heading.H6>
-          </FooterSection>
+          </Box>
+          <Box>
+            <Link to="/establishments">
+              <Heading.H6 weight="400" size="md">
+                Establishments
+              </Heading.H6>
+            </Link>
+          </Box>
+          <Box>
+            <Link to="/contact">
+              <Heading.H6 weight="400" size="md">
+                Contact
+              </Heading.H6>
+            </Link>
+          </Box>
         </Flex>
       </Container>
     </FooterMain>

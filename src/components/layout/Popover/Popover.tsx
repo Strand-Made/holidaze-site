@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import styled from "styled-components";
 import { borderRadius, shadows } from "../../../globalStyle/_variables";
 import { SpacingScale } from "../../../utils/globalTypes";
+import { mediaQueries } from "../../../utils/styleHelpers";
 
 interface IPopover {
   position?: "absolute" | "sticky" | "fixed";
@@ -18,9 +19,12 @@ const StyledPopover = styled.div<IPopover>`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  ${mediaQueries("md")`
+  width: 600px;
+  `}
 `;
 const Contain = styled.div<TContain>`
-  --margin: ${(props) => (props.margin ? props.margin : "0.5rem")};
+  --margin: ${(props) => (props.margin ? props.margin : "0")};
   max-width: calc(100% - var(--margin) * 2);
   max-height: calc(100% - var(--margin) * 2);
   border-radius: ${borderRadius.md};

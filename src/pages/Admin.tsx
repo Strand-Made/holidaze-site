@@ -1,9 +1,7 @@
 import { useAuth } from "../context/AuthContext";
 import Container from "../components/layout/Container/Container";
 import Heading from "../components/Typography/Heading";
-import Enquiries, {
-  EnquiriesContainer,
-} from "../components/admin-dashboard/Enquiries/Enquiries";
+import Enquiries from "../components/admin-dashboard/Enquiries/Enquiries";
 import EstablishmentsPanel from "../components/admin-dashboard/EstablishmentsPanel/EstablishmentsPanel";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
@@ -15,12 +13,17 @@ import EstablishmentElement from "../components/admin-dashboard/EstablishmentsPa
 import Box from "../components/layout/Box/Box";
 import Spacer from "../components/layout/utilities/Spacer/Spacer";
 import Main from "../components/layout/Main/Main";
+import useToggle from "../hooks/useToggle";
+import EnquiriesContainer from "../components/admin-dashboard/Enquiries/EnquiriesContainer/EnquiriresContainer";
+import EnquiryModal from "../components/admin-dashboard/Enquiries/EnquiryModal/EnquiriyModal";
 
 const Admin = () => {
   let navigate = useNavigate();
   const { auth } = useAuth();
   const [enquiries, setEnquiries] = useState([]);
+  const [openEnquiry, setOpenEnquiry] = useState(null);
   const [establishments, setEstablishments] = useState([]);
+  const [toggle, setToggle] = useToggle(false);
 
   const user = auth?.userinfo?.email;
   const userType = auth.userinfo.type;
@@ -89,13 +92,18 @@ const Admin = () => {
           Welcome <Emphasize>{user}</Emphasize>
         </span>
         <Spacer mt={"3"} />
-        <Switcher space={2} threshold={200} limit={3}>
+        <Switcher space={2} threshold={800} limit={4}>
           <Box>
             <Heading.H2>Your Enquiries</Heading.H2>
             <EnquiriesContainer>
               {enquiries.length > 0 ? (
                 enquiries.map((enquiry) => (
-                  <Enquiries key={enquiry.id} enquiry={enquiry} />
+                  <Enquiries
+                    key={enquiry.id}
+                    enquiry={enquiry}
+                    setToggle={setToggle}
+                    setOpenEnquiry={setOpenEnquiry}
+                  />
                 ))
               ) : (
                 <p>You have no enquiries at this moment</p>
@@ -111,6 +119,15 @@ const Admin = () => {
               />
             ))}
           </EstablishmentsPanel>
+
+          {toggle && (
+            <EnquiryModal
+              enquiry={openEnquiry}
+              token={auth.token}
+              setToggle={setToggle}
+              toggle={toggle}
+            />
+          )}
         </Switcher>
       </Container>
     </Main>

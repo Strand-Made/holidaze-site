@@ -31,6 +31,7 @@ interface FlexProps {
   wrap?: "wrap" | "wrap-reverse" | "nowrap";
   responsive?: "row" | "column";
   responsiveAlignItems?: "stretch" | "center" | "start" | "end";
+  flexGrow?: "1" | "0";
   children: React.ReactNode;
 }
 
@@ -47,6 +48,7 @@ const Flex = styled.div<FlexProps>`
   flex-direction: ${props.responsive};
   align-items: ${props.responsiveAlignItems};
   `)}
+  flex-grow: ${(props) => props.flexGrow && props.flexGrow};
 `;
 
 const FlexContainer = ({
@@ -58,6 +60,7 @@ const FlexContainer = ({
   responsive,
   responsiveAlignItems,
   wrap,
+  flexGrow,
   children,
 }: FlexProps) => {
   return (
@@ -69,6 +72,7 @@ const FlexContainer = ({
       responsiveAlignItems={responsiveAlignItems}
       alignContent={alignContent}
       responsive={responsive}
+      flexGrow={flexGrow}
       wrap={wrap}
     >
       {children}

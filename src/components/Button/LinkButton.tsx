@@ -20,6 +20,7 @@ interface LinkProps {
 
 const StyledLink = styled(Link)<LinkProps>`
   display: inline-block;
+  text-align: center;
   background: ${(props) => (props.invert ? "var(--blue-1)" : "var(--blue-5)")};
   font-size: ${(props) => {
     if (props.size === "sm") return "0.833rem";

@@ -37,7 +37,7 @@ const EstablishmentsPanel = ({ children }: TEstablishmentPanel) => {
         <Spacer mt="1" />
         <FlexContainer justifyContent="end">
           <LinkButton to="create-establishment" size="md">
-            Create new
+            Create establishment
           </LinkButton>
         </FlexContainer>
       </Box>

@@ -84,7 +84,7 @@ const MobileNav = ({ isToggled, setIsToggled }: IMobileNavProps) => {
                   Log Out
                 </SecondaryButton>
               ) : (
-                <LinkButton onClick={setIsToggled} to="/login" size="sm">
+                <LinkButton onClick={setIsToggled} to="/login" size="md" full>
                   Login
                 </LinkButton>
               )}

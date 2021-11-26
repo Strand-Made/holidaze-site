@@ -4,9 +4,11 @@ import styled from "styled-components";
 interface IParagraph {
   children: ReactNode;
   truncate?: boolean;
+  weight?: "400" | "500" | "600";
 }
 
 const StyledParagraph = styled.p<IParagraph>`
+  font-weight: ${(props) => props.weight && props.weight};
   &.truncate {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -14,9 +16,10 @@ const StyledParagraph = styled.p<IParagraph>`
   }
 `;
 
-const Paragraph = ({ children, truncate }: IParagraph) => {
+const Paragraph = ({ children, truncate, weight }: IParagraph) => {
   return (
     <StyledParagraph
+      weight={weight}
       className={`${truncate && "truncate"}`}
       truncate={truncate}
     >

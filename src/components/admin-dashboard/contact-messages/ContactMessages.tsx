@@ -1,12 +1,20 @@
 import styled from "styled-components";
+import { borderRadius, shadows } from "../../../globalStyle/_variables";
 import { FetchStatus } from "../../../utils/globalTypes";
 import Box from "../../layout/Box/Box";
 import Switcher from "../../layout/utilities/Switcher/Switcher";
 import Heading from "../../Typography/Heading";
 import Paragraph from "../../Typography/Paragraph";
-import { EnquiriesContainer } from "../Enquiries/Enquiries";
 
-const MessageContainer = styled(EnquiriesContainer)`
+const MessageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: var(--cool-gray-2);
+  border-radius: ${borderRadius.md};
+  padding: 1rem;
+  overflow-y: scroll;
+  box-shadow: ${shadows.sm};
   overflow: hidden;
   background: white;
 `;

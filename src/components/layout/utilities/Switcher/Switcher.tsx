@@ -8,7 +8,6 @@ type TSwitcher = {
   space?: number;
 };
 const Switch = styled.div<TSwitcher>`
-  --threshold: 950px;
   --customThreshold: ${(props) => props.threshold}px;
   --space: 2rem;
   --customSpace: ${(props) => props.space}rem;

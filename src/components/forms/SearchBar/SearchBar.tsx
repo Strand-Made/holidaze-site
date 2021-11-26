@@ -1,33 +1,34 @@
 import styled from "styled-components";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { borderRadius, shadows } from "../../../globalStyle/_variables";
+import { MdSearch } from "react-icons/md";
+import { borderRadius } from "../../../globalStyle/_variables";
 import useDebounce from "../../../hooks/useDebounce";
 import InputContainer from "../Input/InputContainer";
 import FlexContainer from "../../layout/utilities/Flex/FlexContainer";
-import TextInput from "../Input/Input";
-import Label from "../Label/Label";
 import { PrimaryButton } from "../../Button/Button";
 import SearchResultList from "./SearchResults";
 import { baseUrl } from "../../../api/baseUrl";
 import { FetchStatus } from "../../../utils/globalTypes";
-import Heading from "../../Typography/Heading";
+import Input from "../Input/Input";
 
 const SearchHotel = styled.form`
   position: relative;
   padding: 1.2rem;
-  background: var(--teal-1);
-  border-radius: ${borderRadius.md};
-  box-shadow: ${shadows.lg};
   width: 100%;
   max-width: 900px;
   margin: 0 auto;
 `;
 
-const Flex = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+const SearchContainer = styled.div`
+  background: var(--cool-gray-1);
+  padding: 1rem;
+  border-radius: ${borderRadius.md};
+`;
+
+const SearchInput = styled(Input)`
+  border: none;
+  background: inherit;
 `;
 
 const ButtonContainer = styled.div`
@@ -75,15 +76,11 @@ const SearchBar = () => {
         e.preventDefault();
       }}
     >
-      <Flex>
+      <SearchContainer>
         <InputContainer>
-          <FlexContainer col>
-            <Label>
-              <Heading.H2 color="var(--cool-gray-9)" size="xl">
-                Find your next stay
-              </Heading.H2>
-            </Label>
-            <TextInput
+          <FlexContainer>
+            <MdSearch size="36" color="var(--cool-gray-4)" />
+            <SearchInput
               onChange={(e) => {
                 setHotels([]);
                 setSearchValue(e.target.value);
@@ -92,12 +89,13 @@ const SearchBar = () => {
               value={searchValue}
               placeholder="Where are you staying?"
             />
+            <ButtonContainer>
+              <PrimaryButton size="md"> Search</PrimaryButton>
+            </ButtonContainer>
           </FlexContainer>
         </InputContainer>
-        <ButtonContainer>
-          <PrimaryButton size="md"> Search</PrimaryButton>
-        </ButtonContainer>
-      </Flex>
+      </SearchContainer>
+
       {error && <div>An error occured!</div>}
       {searchValue ? (
         <SearchResultList
