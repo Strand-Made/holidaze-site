@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import styled from "styled-components";
 import { PrimaryButton } from "../../Button/Button";
 import Box from "../../layout/Box/Box";
 import Stack from "../../layout/Stack/Stack";
@@ -16,12 +15,7 @@ import DisabledInput from "../Input/DisabledInput";
 import Select from "../Select/Select";
 import Input from "../Input/Input";
 import InputContainer from "../Input/InputContainer";
-
-const Form = styled.form``;
-
-const Checkbox = styled.input`
-  padding: 0.5rem;
-`;
+import Checkbox from "../Input/Checkbox/Checkbox";
 
 const schema = yup.object({
   establishmentName: yup
@@ -147,7 +141,7 @@ const CreateEstablishmentForm = ({
 
   return (
     <Box background="white" borderRadius padding="3rem" shadow>
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Stack space={"0.5rem"}>
           {error && <Message.Error>{error}</Message.Error>}
           {success && (
@@ -214,9 +208,8 @@ const CreateEstablishmentForm = ({
               <legend>Amenities</legend>
               <Switcher>
                 <FlexContainer col alignItems="center">
-                  <Label htmlFor="shower"> Shower </Label>
                   <Checkbox
-                    type="checkbox"
+                    labelText="Shower"
                     name="shower"
                     {...register("shower")}
                     value="shower"
@@ -225,9 +218,8 @@ const CreateEstablishmentForm = ({
                   />
                 </FlexContainer>
                 <FlexContainer col alignItems="center">
-                  <Label> Cleaning </Label>
                   <Checkbox
-                    type="checkbox"
+                    labelText="Cleaning"
                     name="cleaning"
                     {...register("cleaning")}
                     value="cleaning"
@@ -236,9 +228,8 @@ const CreateEstablishmentForm = ({
                   />
                 </FlexContainer>
                 <FlexContainer col alignItems="center">
-                  <Label> Office </Label>
                   <Checkbox
-                    type="checkbox"
+                    labelText="Office"
                     name="office"
                     {...register("office")}
                     value="office"
@@ -247,9 +238,8 @@ const CreateEstablishmentForm = ({
                   />
                 </FlexContainer>
                 <FlexContainer col alignItems="center">
-                  <Label> Gym </Label>
                   <Checkbox
-                    type="checkbox"
+                    labelText="Gym"
                     name="gym"
                     {...register("gym")}
                     value="gym"
@@ -258,13 +248,11 @@ const CreateEstablishmentForm = ({
                   />
                 </FlexContainer>
                 <FlexContainer col alignItems="center">
-                  <Label> Breakfast </Label>
                   <Checkbox
-                    type="checkbox"
+                    labelText="Breakfast"
                     name="breakfast"
                     {...register("breakfast")}
                     value="breakfast"
-                    defaultChecked={breakfast}
                     onChange={(e) => handleCheckbox(breakfast, setBreakfast)}
                   />
                 </FlexContainer>
@@ -324,7 +312,7 @@ const CreateEstablishmentForm = ({
             Create Establishment
           </PrimaryButton>
         </Stack>
-      </Form>
+      </form>
     </Box>
   );
 };

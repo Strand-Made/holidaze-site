@@ -8,9 +8,7 @@ import NavLinks from "./NavLinks";
 import MobileNav from "./MobileNav/MobileNav";
 import { HiMenu, HiX } from "react-icons/hi";
 import Container from "../Container/Container";
-import LinkButton from "../../Button/LinkButton";
-import { SecondaryButton } from "../../Button/Button";
-import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 
 const Nav = styled.nav`
   display: flex;
@@ -21,6 +19,12 @@ const NavList = styled.ul`
   ${mediaQueries("sm")`
   display: flex;
 `}
+`;
+const ButtonContainer = styled.div`
+  display: none;
+  ${mediaQueries("sm")`
+  display: block;
+  `}
 `;
 
 const ToggleMenuBtn = styled.button`
@@ -37,7 +41,6 @@ const ToggleMenuBtn = styled.button`
 
 const Navbar = () => {
   const [isToggled, setIsToggled] = useToggle();
-  let navigate = useNavigate();
   const { auth, setAuth } = useAuth();
   return (
     <Container>
@@ -68,22 +71,23 @@ const Navbar = () => {
             {isToggled ? <HiX size={24} /> : <HiMenu size={24} />}
           </ToggleMenuBtn>
         </Nav>
-        {auth ? (
-          <SecondaryButton
-            onClick={() => {
-              setAuth(null);
-              setIsToggled();
-              navigate("/");
-            }}
-            size="md"
-          >
-            Log Out
-          </SecondaryButton>
-        ) : (
-          <LinkButton onClick={setIsToggled} to="/login" size="md">
-            Log in
-          </LinkButton>
-        )}
+        <ButtonContainer>
+          {auth ? (
+            <Link
+              to="/"
+              onClick={() => {
+                setAuth(null);
+                setIsToggled();
+              }}
+            >
+              Log Out
+            </Link>
+          ) : (
+            <Link onClick={setIsToggled} to="/login">
+              Log in
+            </Link>
+          )}
+        </ButtonContainer>
       </Header>
       <MobileNav setIsToggled={setIsToggled} isToggled={isToggled} />
     </Container>

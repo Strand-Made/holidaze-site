@@ -12,6 +12,7 @@ import Grid from "../components/layout/utilities/Grid/Grid";
 import Main from "../components/layout/Main/Main";
 import SkeletonLoader from "../components/layout/SkeleteonLoader/SkeletonLoader";
 import Switcher from "../components/layout/utilities/Switcher/Switcher";
+import Box from "../components/layout/Box/Box";
 
 type CategorySuggestion = {
   category_image: CategoryImage;
@@ -54,7 +55,7 @@ const Home = () => {
       <Spacer mb="4" />
       <Container>
         <Section>
-          <Heading.H2 weight="700" size="xl">
+          <Heading.H2 weight="700" size="2xl">
             Looking for something special?
           </Heading.H2>
           <Grid>
@@ -79,23 +80,27 @@ const Home = () => {
         </Section>
         <Spacer mb="6" />
         <Section>
-          <Switcher threshold={3} limit={600} space={2}>
-            <Banner
-              heading=" Explore stays Bergen"
-              to={"/establishments"}
-              linkText="Explore"
-              image={
-                "https://images.unsplash.com/photo-1570571054854-8f5a9f80504a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"
-              }
-            />
-            <Banner
-              heading="Join us"
-              to={"/contact"}
-              linkText="Contact us"
-              image={
-                "https://images.unsplash.com/photo-1507038772120-7fff76f79d79?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"
-              }
-            />
+          <Switcher threshold={600} limit={3} space={2}>
+            <Box>
+              <Banner
+                heading=" Explore stays Bergen"
+                to={"/establishments"}
+                linkText="Explore"
+                image={
+                  "https://images.unsplash.com/photo-1570571054854-8f5a9f80504a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"
+                }
+              />
+            </Box>
+            <Box>
+              <Banner
+                heading="Join us"
+                to={"/contact"}
+                linkText="Contact us"
+                image={
+                  "https://images.unsplash.com/photo-1507038772120-7fff76f79d79?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"
+                }
+              />
+            </Box>
           </Switcher>
         </Section>
       </Container>

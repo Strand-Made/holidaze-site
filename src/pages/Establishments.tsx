@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import axios from "axios";
 import Card from "../components/establishment/Card/Card";
 import Container from "../components/layout/Container/Container";
@@ -13,6 +14,8 @@ import Main from "../components/layout/Main/Main";
 import SkeletonLoader from "../components/layout/SkeleteonLoader/SkeletonLoader";
 import FilterEstablishments from "../components/establishments/Filter/FilterEstablishments";
 import { SecondaryButton } from "../components/Button/Button";
+import { FetchStatus } from "../utils/globalTypes";
+import Message from "../components/Message/Message";
 
 type EstablishmentType = {
   id: number;
@@ -33,8 +36,8 @@ type EstablishmentType = {
   };
 };
 const Establishments = () => {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [status, setStatus] = useState<FetchStatus>(FetchStatus.IDLE);
+  const [error, setError] = useState("");
   const [sortPrice, setSortPrice] = useState(null);
   const [sortAlphabet, setSortAlphabet] = useState(null);
   const [categories, setCategories] = useState([]);
@@ -46,30 +49,24 @@ const Establishments = () => {
 
   let params = useLocation();
   let catergoryFilter = params.search;
-  useEffect(() => {
-    document.title = "Establishments | Holidaze";
-  });
+
   useEffect(() => {
     const url = catergoryFilter
       ? `${baseUrl}/categories${catergoryFilter}`
       : `${baseUrl}/establishments`;
     const fetchEstablishments = async () => {
-      setError(false);
-      setLoading(true);
-
+      setStatus(FetchStatus.FETCHING);
       try {
         const res = await axios.get(url);
-        setLoading(false);
         if (catergoryFilter) {
           let filteredEstablishments = res.data[0].establishments;
           return setEstablishments(filteredEstablishments);
         }
-
         setEstablishments(res.data);
+        setStatus(FetchStatus.SUCCESS);
       } catch (error) {
-        setError(true);
-      } finally {
-        setLoading(false);
+        setStatus(FetchStatus.ERROR);
+        setError(error.ToString());
       }
     };
     fetchEstablishments();
@@ -82,7 +79,6 @@ const Establishments = () => {
       let sortedByCheap = establishments.sort((a, b) =>
         a.price > b.price ? 1 : -1
       );
-      console.log(sortPrice);
       return setEstablishments(sortedByCheap);
     }
     let sortedByExpensive = establishments.sort((a, b) =>
@@ -104,64 +100,65 @@ const Establishments = () => {
     );
     return setEstablishments(sortedAlphDesc);
   }
-  // function filterByCategory(category) {
-  //   if (category) {
-  //     const sortArray = establishments.filter((establishment) => {
-  //       if (establishment.category.name === category) {
-  //         return establishment;
-  //       }
-  //       return establishments;
-  //     });
-  //     setEstablishments(sortArray);
-  //   }
-  // }
-  console.log(categories);
 
   return (
-    <Main>
-      <Container>
-        <FlexContainer justifyContent="space-between" alignItems="center">
-          <Heading size="xl">Establishments </Heading>
-          <SecondaryButton onClick={setShowFilter}>Filter</SecondaryButton>
-        </FlexContainer>
-        {showFilter && (
-          <FilterEstablishments
-            sortAlphabet={sortAlphabet}
-            sortByAlphabet={sortByAlphabet}
-            sortPrice={sortPrice}
-            sortByPrice={sortByPrice}
-            houses={houses}
-            setHouses={setHouses}
-            setHotels={setHotels}
-            hotels={hotels}
-            bb={bb}
-            setBb={setBb}
-            categories={categories}
-            setCategories={setCategories}
-          />
-        )}
-        <Spacer mt="2" />
-        {loading && <SkeletonLoader numberofLoaders={6} />}
-        {error && "An error occured"}
-        <Grid gap="1.5rem">
-          {establishments.map((establishment: EstablishmentType) => {
-            const { id, price, slug, title } = establishment;
-            const imgUrl = establishment.image.formats.small.url;
-            const altText = establishment.image.alternativeText;
-            return (
-              <Card
-                key={id}
-                price={price}
-                slug={slug}
-                title={title}
-                img={imgUrl}
-                altText={altText}
-              />
-            );
-          })}
-        </Grid>
-      </Container>
-    </Main>
+    <>
+      <Helmet>
+        <title>Establishments | Holidaze</title>
+        <meta
+          name="description"
+          content="Rent hotels, B&b's and guesthouses in Bergen."
+        />
+      </Helmet>
+      <Main>
+        <Container>
+          <FlexContainer justifyContent="space-between" alignItems="center">
+            <Heading size="xl">Establishments </Heading>
+            <SecondaryButton onClick={setShowFilter}>Filter</SecondaryButton>
+          </FlexContainer>
+          {showFilter && (
+            <FilterEstablishments
+              sortAlphabet={sortAlphabet}
+              sortByAlphabet={sortByAlphabet}
+              sortPrice={sortPrice}
+              sortByPrice={sortByPrice}
+              houses={houses}
+              setHouses={setHouses}
+              setHotels={setHotels}
+              hotels={hotels}
+              bb={bb}
+              setBb={setBb}
+              categories={categories}
+              setCategories={setCategories}
+            />
+          )}
+          <Spacer mt="2" />
+          {status === FetchStatus.FETCHING && (
+            <SkeletonLoader numberofLoaders={6} />
+          )}
+          {status === FetchStatus.ERROR && (
+            <Message.Error>{error}</Message.Error>
+          )}
+          <Grid gap="1.5rem">
+            {establishments.map((establishment: EstablishmentType) => {
+              const { id, price, slug, title } = establishment;
+              const imgUrl = establishment.image.formats.small.url;
+              const altText = establishment.image.alternativeText;
+              return (
+                <Card
+                  key={id}
+                  price={price}
+                  slug={slug}
+                  title={title}
+                  img={imgUrl}
+                  altText={altText}
+                />
+              );
+            })}
+          </Grid>
+        </Container>
+      </Main>
+    </>
   );
 };
 

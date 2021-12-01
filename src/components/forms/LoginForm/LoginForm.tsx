@@ -18,7 +18,7 @@ import Stack from "../../layout/Stack/Stack";
 import { FetchStatus } from "../../../utils/globalTypes";
 
 const Modal = styled.div`
-  background: var(--teal-1);
+  background: white;
   border-radius: ${borderRadius.md};
   box-shadow: ${shadows.md};
   padding: 5rem;

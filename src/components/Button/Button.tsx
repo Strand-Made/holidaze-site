@@ -56,7 +56,8 @@ export const PrimaryButton = styled.button<IButtonProps>`
 
 export const SecondaryButton = styled(PrimaryButton)`
   background: none;
-  color: var(--blue-5);
+  color: var(--blue-6);
+  border: 2px solid var(--blue-6);
   box-shadow: none;
   :active,
   :focus {

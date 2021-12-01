@@ -9,6 +9,7 @@ type LogoProp = {
 const LogoLink = styled.a<LogoProp>`
   font-family: "Abril Fatface", crusive;
   font-size: 1.5rem;
+  letter-spacing: 2px;
   color: ${(props) => (props.white ? "var(--teal-1)" : "var(--cool-gray-9)")};
   ${mediaQueries("md")`
     font-size: 2rem;

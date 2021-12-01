@@ -36,26 +36,29 @@ const FilterEstablishments = ({
   categories,
   setCategories,
 }: IFilter) => {
-  const handleChange = (category, setter, valueToSet) => {
-    if (category === "") {
-      return setter(valueToSet);
-    } else {
-      setter("");
-    }
-    let categoryArray = categories;
-    const found = categoryArray.includes(valueToSet);
-    if (found) {
-      let filtered = categoryArray.filter(
-        (specificCategory) => specificCategory === valueToSet
-      );
-      return setCategories(filtered);
-    } else {
-      categoryArray.push(category);
-    }
-    setCategories(categoryArray);
-  };
+  // const handleChange = (category, setter, valueToSet) => {
+  //   if (category === "") {
+  //     return setter(valueToSet);
+  //   } else {
+  //     setter("");
+  //   }
+  //   let categoryArray = categories;
+  //   const found = categoryArray.includes(valueToSet);
+  //   if (found) {
+  //     let filtered = categoryArray.filter(
+  //       (specificCategory) => specificCategory === valueToSet
+  //     );
+  //     return setCategories(filtered);
+  //   } else {
+  //     categoryArray.push(category);
+  //   }
+  //   setCategories(categoryArray);
+  // };
 
-  console.log(categories);
+  const resetFilter = () => {
+    sortByPrice(null);
+    sortByAlphabet(null);
+  };
 
   return (
     <>
@@ -74,24 +77,14 @@ const FilterEstablishments = ({
           <Box>
             <Emphasize>Categories</Emphasize>
             <Spacer mt={"0.75"} />
-            <Checkbox
-              labelText="Houses"
-              name="houses"
-              value={houses}
-              onChange={() => handleChange(houses, setHouses, "houses")}
-            />
-            <Checkbox
-              labelText="Hotels"
-              name="hotels"
-              value={hotels}
-              onChange={() => handleChange(hotels, setHotels, "hotels")}
-            />
-            <Checkbox
-              labelText="B&b's"
-              name="b&b"
-              value={bb}
-              onChange={() => handleChange(bb, setBb, "b&b")}
-            />
+            <Checkbox labelText="Houses" name="houses" value={houses} />
+            <Checkbox labelText="Hotels" name="hotels" value={hotels} />
+            <Checkbox labelText="B&b's" name="b&b" value={bb} />
+          </Box>
+          <Box>
+            <SecondaryButton onClick={resetFilter}>
+              Reset filter
+            </SecondaryButton>
           </Box>
         </Stack>
       </Modal>

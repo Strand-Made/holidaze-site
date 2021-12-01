@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 import axios from "axios";
 import Heading from "../components/Typography/Heading";
 import Container from "../components/layout/Container/Container";
@@ -35,11 +36,15 @@ export type EstablishmentType = {
   bedrooms: number;
   distance_city_centre_km: number;
   user: TUser;
+  slug: string;
   image: {
     alternativeText: string;
     url: string;
     formats: {
       large: {
+        url: string;
+      };
+      small: {
         url: string;
       };
     };
@@ -52,6 +57,7 @@ export type EstablishmentType = {
     cleaning: boolean;
   };
   description: string;
+  short_description: string;
 };
 
 const ImageContainer = styled.div`
@@ -72,10 +78,6 @@ const Establishment = () => {
   );
   const [toggle, setToggle] = useToggle(false);
   const [error, setError] = useState(false);
-
-  useEffect(() => {
-    document.title = `${establishment?.title} | Holidaze`;
-  }, [establishment]);
 
   useEffect(() => {
     const fetchEstablishment = async () => {
@@ -105,72 +107,81 @@ const Establishment = () => {
   const establishmentTitle = establishment?.title;
 
   return (
-    <Main>
-      {isLoading && "Loading..."}
-      {error && <div>Error</div>}
-      {establishment && (
-        <RelativeWrapper>
-          <Container>
-            <ImageContainer>
-              <Image
-                fullWidth
-                src={establishment?.image.formats.large.url}
-                alt={establishment.image.alternativeText}
-              />
-            </ImageContainer>
-            <Spacer mt="1.5" />
-            <Grid minWidth={400}>
-              <Aside minWidth={60} asideWidth={400}>
-                <Section>
-                  <Heading size="2xl">{establishment.title}</Heading>
-                  <OfferList establishment={establishment} />
-                  <Spacer mt="2" />
-
-                  <FlexContainer col gap="1.5rem">
-                    <Box>
-                      <Heading.H3 size="l">Description</Heading.H3>
-                      <Paragraph>{establishment.description}</Paragraph>
-                    </Box>
-                    <Box>
-                      <Heading.H4 size="l">Amenities</Heading.H4>
-                      <Amenitites amenities={establishment.amenities} />
-                    </Box>
-
-                    <Box>
-                      <Heading.H5 size="l">Reviews</Heading.H5>
-                    </Box>
-                  </FlexContainer>
-                </Section>
-                <Section>
-                  <StayCalculator
-                    setToggle={setToggle}
-                    guests={guests}
-                    setGuests={setGuests}
-                    startDate={startDate}
-                    handleDateSelect={dateOnChange}
-                    endDate={endDate}
-                    price={establishment.price}
-                  />
-                </Section>
-              </Aside>
-            </Grid>
-            {toggle && (
-              <Popover margin="0.5rem" position="fixed">
-                <EnquirePopup
-                  host={host}
-                  establishmentTitle={establishmentTitle}
-                  setToggle={setToggle}
-                  establishment={establishment}
-                  guests={guests}
-                  startDate={startDate}
-                  endDate={endDate}
+    <>
+      <Helmet>
+        <title>{`${establishmentTitle} | Holidaze`}</title>
+        <meta
+          name="description"
+          content={`${establishment?.short_description}`}
+        />
+      </Helmet>
+      <Main>
+        {isLoading && "Loading..."}
+        {error && <div>Error</div>}
+        {establishment && (
+          <RelativeWrapper>
+            <Container>
+              <ImageContainer>
+                <Image
+                  fullWidth
+                  src={establishment?.image.formats.large.url}
+                  alt={establishment.image.alternativeText}
                 />
-              </Popover>
-            )}
-          </Container>
-        </RelativeWrapper>
-      )}
-    </Main>
+              </ImageContainer>
+              <Spacer mt="1.5" />
+              <Grid minWidth={400}>
+                <Aside minWidth={60} asideWidth={400}>
+                  <Section>
+                    <Heading size="2xl">{establishment.title}</Heading>
+                    <OfferList establishment={establishment} />
+                    <Spacer mt="2" />
+
+                    <FlexContainer col gap="1.5rem">
+                      <Box>
+                        <Heading.H3 size="l">Description</Heading.H3>
+                        <Paragraph>{establishment.description}</Paragraph>
+                      </Box>
+                      <Box>
+                        <Heading.H4 size="l">Amenities</Heading.H4>
+                        <Amenitites amenities={establishment.amenities} />
+                      </Box>
+
+                      <Box>
+                        <Heading.H5 size="l">Reviews</Heading.H5>
+                      </Box>
+                    </FlexContainer>
+                  </Section>
+                  <Section>
+                    <StayCalculator
+                      setToggle={setToggle}
+                      guests={guests}
+                      setGuests={setGuests}
+                      startDate={startDate}
+                      handleDateSelect={dateOnChange}
+                      endDate={endDate}
+                      price={establishment.price}
+                    />
+                  </Section>
+                </Aside>
+              </Grid>
+              {toggle && (
+                <Popover margin="0.5rem" position="fixed">
+                  <EnquirePopup
+                    host={host}
+                    establishmentTitle={establishmentTitle}
+                    setToggle={setToggle}
+                    establishment={establishment}
+                    guests={guests}
+                    startDate={startDate}
+                    endDate={endDate}
+                  />
+                </Popover>
+              )}
+            </Container>
+          </RelativeWrapper>
+        )}
+      </Main>
+    </>
   );
 };
 

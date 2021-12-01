@@ -1,10 +1,10 @@
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { mediaQueries } from "../../../utils/styleHelpers";
 import Logo from "../../Logo/Logo";
 import Heading from "../../Typography/Heading";
 import Box from "../Box/Box";
 import Container from "../Container/Container";
+import Footerlink from "./FooterlInk/Footerlink";
 
 const FooterMain = styled.footer`
   background: var(--teal-6);
@@ -23,7 +23,7 @@ const Flex = styled.div`
   ${mediaQueries("sm")`
   flex-direction: row;
   justify-content: center;
-  align-items: flex-start;
+  align-items: baseline;
   gap: 10rem;
   `}
 `;
@@ -35,23 +35,25 @@ const Footer = () => {
       <Container>
         <Flex>
           <Box>
-            <Heading.H6 weight="400" size="l">
-              Get Notified
-            </Heading.H6>
-          </Box>
-          <Box>
-            <Link to="/establishments">
-              <Heading.H6 weight="400" size="md">
+            <Footerlink to="/establishments">
+              <Heading.H6 weight="400" size="l">
                 Establishments
               </Heading.H6>
-            </Link>
+            </Footerlink>
           </Box>
           <Box>
-            <Link to="/contact">
-              <Heading.H6 weight="400" size="md">
+            <Footerlink to="/contact">
+              <Heading.H6 weight="400" size="l">
                 Contact
               </Heading.H6>
-            </Link>
+            </Footerlink>
+          </Box>
+          <Box>
+            <Footerlink to="/login">
+              <Heading.H6 weight="400" size="l">
+                Login
+              </Heading.H6>
+            </Footerlink>
           </Box>
         </Flex>
       </Container>

@@ -2,30 +2,33 @@ import styled from "styled-components";
 import { MdApartment, MdHouseboat, MdHouse } from "react-icons/md";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { borderRadius, shadows } from "../../../globalStyle/_variables";
+import { borderRadius } from "../../../globalStyle/_variables";
 import { FetchStatus } from "../../../utils/globalTypes";
+import Box from "../../layout/Box/Box";
 
 const List = styled.ul`
-  position: absolute;
-  left: 0;
-  padding: 2rem;
-  box-shadow: ${shadows.md};
-  border-radius: ${borderRadius.md};
-  top: 50%;
-  margin-top: 0.5rem;
+  border-top: 1px solid var(--cool-gray-2);
   width: 100%;
-  background: var(--teal-1);
+  background: var(--cool-gray-1);
+  padding-left: 0;
 `;
 
 const ResultItem = styled.li`
-  padding: 0.5rem;
+  padding: 0.25rem;
   font-weight: 600;
   border-radius: ${borderRadius.md};
-  &:hover {
-    background: var(--teal-2);
+ 
   }
   a {
-    display: block;
+    padding: 0.25rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    &:hover,
+    &:focus,
+    &:active {
+      outline: none;
+      background: var(--teal-2);
   }
 `;
 
@@ -46,19 +49,33 @@ const SearchResultList = ({ establishments, status }: ListProps) => {
   const [lengthCheck, setLengthCheck] = useState(false);
   const iconCheck = (category) => {
     if (category === "Hotels") {
-      return <MdApartment size="24" color="inherit" />;
+      return (
+        <MdApartment
+          aria-label="Hotel Category"
+          size="24"
+          color="var(--blue-3)"
+        />
+      );
     }
-    if (category === "Cabin") {
-      return <MdHouseboat size="24" color="inherit" />;
+    if (category === "b&b") {
+      return (
+        <MdHouseboat
+          aria-label="B&B category"
+          size="24"
+          color="var(--blue-3)"
+        />
+      );
     }
     if (category === "House") {
-      return <MdHouse size="24" color="inherit" />;
+      return (
+        <MdHouse aria-label="House category" size="24" color="var(--blue-3)" />
+      );
     }
   };
   useEffect(() => {
-    if (establishments.length > 10) {
+    if (establishments.length > 6) {
       setLengthCheck(true);
-      establishments.length = 8;
+      establishments.length = 5;
     }
   }, [establishments]);
   return (
@@ -70,7 +87,9 @@ const SearchResultList = ({ establishments, status }: ListProps) => {
         <ResultItem aria-roledescription="list-item" key={establishment.id}>
           <Link to={`/establishments/${establishment.slug}`}>
             {iconCheck(establishment.category.name)}
-            <span>{establishment.title}</span>
+            <Box padding={"0"}>
+              <span>{establishment.title}</span>
+            </Box>
           </Link>
         </ResultItem>
       ))}

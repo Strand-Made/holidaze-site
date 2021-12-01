@@ -1,34 +1,29 @@
 import styled from "styled-components";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { MdSearch } from "react-icons/md";
-import { borderRadius } from "../../../globalStyle/_variables";
+import { borderRadius, shadows } from "../../../globalStyle/_variables";
 import useDebounce from "../../../hooks/useDebounce";
 import InputContainer from "../Input/InputContainer";
 import FlexContainer from "../../layout/utilities/Flex/FlexContainer";
-import { PrimaryButton } from "../../Button/Button";
 import SearchResultList from "./SearchResults";
 import { baseUrl } from "../../../api/baseUrl";
 import { FetchStatus } from "../../../utils/globalTypes";
+import Spacer from "../../layout/utilities/Spacer/Spacer";
 import Input from "../Input/Input";
+import Box from "../../layout/Box/Box";
+import SearchContainer from "./SearchContainer/SearchContainer";
+import { PrimaryButton } from "../../Button/Button";
 
 const SearchHotel = styled.form`
   position: relative;
-  padding: 1.2rem;
   width: 100%;
   max-width: 900px;
   margin: 0 auto;
-`;
-
-const SearchContainer = styled.div`
-  background: var(--cool-gray-1);
-  padding: 1rem;
+  box-shadow: ${shadows.md};
   border-radius: ${borderRadius.md};
-`;
-
-const SearchInput = styled(Input)`
-  border: none;
-  background: inherit;
+  z-index: 5;
 `;
 
 const ButtonContainer = styled.div`
@@ -42,13 +37,17 @@ const SearchBar = () => {
   const [searchValue, setSearchValue] = useState("");
   const [hotels, setHotels] = useState([]);
 
+  let navigate = useNavigate();
+
   const debouncedSearchValue = useDebounce(searchValue, 350);
 
   useEffect(() => {
     async function searchHotels(search: string) {
+      let searchParam = encodeURIComponent(search.replace(/&amp;/g, "&"));
+
       try {
         const res = await axios.get(
-          `${url}/establishments?title_contains=${search}`
+          `${url}/establishments?title_contains=${searchParam}`
         );
         const { data } = res;
         return data;
@@ -74,36 +73,48 @@ const SearchBar = () => {
     <SearchHotel
       onSubmit={(e) => {
         e.preventDefault();
+        if (searchValue === "") {
+          return null;
+        }
+        if (searchValue.length > 1) {
+          let navigateUrl = `/results/${searchValue}`;
+          navigate(navigateUrl);
+        }
       }}
     >
       <SearchContainer>
         <InputContainer>
-          <FlexContainer>
-            <MdSearch size="36" color="var(--cool-gray-4)" />
-            <SearchInput
-              onChange={(e) => {
-                setHotels([]);
-                setSearchValue(e.target.value);
-                setStatus(FetchStatus.FETCHING);
-              }}
-              value={searchValue}
-              placeholder="Where are you staying?"
-            />
+          <FlexContainer justifyContent="space-between" gap="1rem">
+            <FlexContainer flexGrow="1">
+              <MdSearch size="36" color="var(--cool-gray-4)" />
+              <Input
+                onChange={(e) => {
+                  setHotels([]);
+                  setSearchValue(e.target.value);
+                  setStatus(FetchStatus.FETCHING);
+                }}
+                value={searchValue}
+                placeholder="Where are you staying?"
+              />
+            </FlexContainer>
+
             <ButtonContainer>
-              <PrimaryButton size="md"> Search</PrimaryButton>
+              <PrimaryButton size="md">Search</PrimaryButton>
             </ButtonContainer>
           </FlexContainer>
         </InputContainer>
+        {error && <div>An error occured!</div>}
+        {searchValue ? (
+          <>
+            <Spacer mt={"0.5"} />
+            <SearchResultList
+              status={status}
+              setStatus={setStatus}
+              establishments={hotels}
+            />
+          </>
+        ) : null}
       </SearchContainer>
-
-      {error && <div>An error occured!</div>}
-      {searchValue ? (
-        <SearchResultList
-          status={status}
-          setStatus={setStatus}
-          establishments={hotels}
-        />
-      ) : null}
     </SearchHotel>
   );
 };

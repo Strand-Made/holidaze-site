@@ -10,7 +10,6 @@ import EnquireForm from "../../forms/EnquireForm/EnquireForm";
 import { shadows } from "../../../globalStyle/_variables";
 
 const EnquireModal = styled.div`
-  width: 100vw;
   background: var(--cool-gray-1);
   box-shadow: ${shadows.md};
   border-radius: 5px;

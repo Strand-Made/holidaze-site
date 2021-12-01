@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { borderRadius, shadows } from "../../../globalStyle/_variables";
+import { borderRadius } from "../../../globalStyle/_variables";
 import Heading from "../../Typography/Heading";
 import Switcher from "../../layout/utilities/Switcher/Switcher";
 import Box from "../../layout/Box/Box";

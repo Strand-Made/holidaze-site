@@ -20,7 +20,7 @@ const ImageContainer = styled.div`
 
 const TitleBox = styled.div`
   display: inline-block;
-  background: var(--blue-1);
+  background: var(--cool-gray-1);
   font-size: 1rem;
   }};
   color: var(--blue-6);

@@ -12,7 +12,6 @@ interface IEstablishmentElement {
 const Establishment = styled.div`
   display: flex;
   justify-content: space-between;
-  font-weight: 600;
   background: var(--cool-gray-1);
   padding: 1rem;
   border-radius: ${borderRadius.md};

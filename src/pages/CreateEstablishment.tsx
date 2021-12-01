@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router";
 import { useAuth } from "../context/AuthContext";
 import Container from "../components/layout/Container/Container";
@@ -18,7 +19,6 @@ const CreateEstablishment = () => {
   let navigate = useNavigate();
   const { auth } = useAuth();
   useEffect(() => {
-    document.title = "Create Establishment | Holidaze";
     if (!auth) {
       navigate("/");
     }
@@ -64,19 +64,28 @@ const CreateEstablishment = () => {
   }
 
   return (
-    <Main>
-      <Container>
-        <Heading>New Establishment</Heading>
-        <Link to="/admin">Go back</Link>
-        <CreateEstablishmentForm
-          createEstablishment={createEstablishment}
-          success={success}
-          error={error}
-          setFiles={setFiles}
-          auth={auth}
+    <>
+      <Helmet>
+        <title>Create Establishment | Holidaze</title>
+        <meta
+          name="description"
+          content="Creating your next establishments is a breeze with our creator"
         />
-      </Container>
-    </Main>
+      </Helmet>
+      <Main>
+        <Container>
+          <Heading>New Establishment</Heading>
+          <Link to="/admin">Go back</Link>
+          <CreateEstablishmentForm
+            createEstablishment={createEstablishment}
+            success={success}
+            error={error}
+            setFiles={setFiles}
+            auth={auth}
+          />
+        </Container>
+      </Main>
+    </>
   );
 };
 

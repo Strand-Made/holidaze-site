@@ -4,8 +4,7 @@ import NavLinks from "../NavLinks";
 import { mediaQueries } from "../../../../utils/styleHelpers";
 import FlexContainer from "../../utilities/Flex/FlexContainer";
 import { shadows } from "../../../../globalStyle/_variables";
-import LinkButton from "../../../Button/LinkButton";
-import { SecondaryButton } from "../../../Button/Button";
+import { Link } from "react-router-dom";
 
 interface IMobileNavProps {
   isToggled: boolean;
@@ -74,19 +73,19 @@ const MobileNav = ({ isToggled, setIsToggled }: IMobileNavProps) => {
             </MobileNavList>
             <FlexContainer justifyContent="end">
               {auth ? (
-                <SecondaryButton
+                <Link
+                  to="/"
                   onClick={() => {
                     setAuth(null);
                     setIsToggled();
                   }}
-                  size="md"
                 >
                   Log Out
-                </SecondaryButton>
+                </Link>
               ) : (
-                <LinkButton onClick={setIsToggled} to="/login" size="md" full>
+                <Link onClick={setIsToggled} to="/login">
                   Login
-                </LinkButton>
+                </Link>
               )}
             </FlexContainer>
           </>

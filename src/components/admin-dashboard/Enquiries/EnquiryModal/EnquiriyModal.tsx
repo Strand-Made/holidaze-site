@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { MdClose } from "react-icons/md";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { baseUrl } from "../../../../api/baseUrl";
 import { borderRadius } from "../../../../globalStyle/_variables";
 import { FetchStatus } from "../../../../utils/globalTypes";
@@ -91,7 +91,7 @@ const EnquiryModal = ({ enquiry, token, setToggle }: IEnquiryModal) => {
         </FlexContainer>
         <Box padding={"1rem"}>
           {status === FetchStatus.SUCCESS && (
-            <Stack>
+            <Stack space={"0.25rem"}>
               <Box padding={"0"}>
                 <span>
                   From <Emphasize>{myEnquiry.Name}</Emphasize>
@@ -102,18 +102,20 @@ const EnquiryModal = ({ enquiry, token, setToggle }: IEnquiryModal) => {
                   Guests <Emphasize>{myEnquiry.guests}</Emphasize>
                 </span>
               </Box>
-              <FlexContainer>
-                <FlexContainer col>
+
+              <FlexContainer gap={"0.5rem"}>
+                <FlexContainer alignItems="center" col>
                   <Box padding={"0"}>From</Box>
                   <Box padding={"0"}>
                     <Emphasize>{myEnquiry.from_date}</Emphasize>
                   </Box>
                 </FlexContainer>
-                <Box padding={"0"}>
-                  <span>
-                    To <Emphasize>{myEnquiry.to_date}</Emphasize>
-                  </span>
-                </Box>
+                <FlexContainer alignItems="center" col>
+                  <Box padding={"0"}>To</Box>
+                  <Box padding={"0"}>
+                    <Emphasize>{myEnquiry.to_date}</Emphasize>
+                  </Box>
+                </FlexContainer>
               </FlexContainer>
 
               <FlexContainer col gap={"1.5rem"}>

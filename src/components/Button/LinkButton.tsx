@@ -4,8 +4,6 @@ import { ReactNode } from "react";
 import { State, To } from "history";
 import { buttonSizes } from "./Button";
 import { shadows } from "../../globalStyle/_variables";
-import Header from "../layout/Header/Header";
-import { mediaQueries } from "../../utils/styleHelpers";
 
 interface LinkProps {
   children?: ReactNode;
@@ -15,19 +13,22 @@ interface LinkProps {
   to: To;
   invert?: boolean;
   full?: boolean;
+  shadow?: boolean;
   size?: keyof typeof buttonSizes;
 }
 
 const StyledLink = styled(Link)<LinkProps>`
-  display: inline-block;
+  display: block;
   text-align: center;
-  background: ${(props) => (props.invert ? "var(--blue-1)" : "var(--blue-5)")};
+  background: ${(props) =>
+    props.invert ? "var(--cool-gray-1)" : "var(--blue-5)"};
   font-size: ${(props) => {
     if (props.size === "sm") return "0.833rem";
     if (props.size === "md") return "1rem";
     if (props.size === "l") return "1.4rem";
     return "1rem";
   }};
+  border: ${(props) => props.invert && "2px solid var(--blue-6)"};
   color: ${(props) => (props.invert ? "var(--blue-6)" : "var(--blue-1)")};
   font-weight: 600;
   border-radius: 8px;
@@ -37,17 +38,11 @@ const StyledLink = styled(Link)<LinkProps>`
     if (props.size === "md") return buttonSizes.md;
     if (props.size === "l") return buttonSizes.l;
   }};
-  box-shadow: ${shadows.md};
+  box-shadow: ${(props) => props.shadow && `${shadows.md}`};
   :active,
   :focus {
-    background: var(--blue-6);
+    background: var(--blue-5);
     box-shadow: ${shadows.sm};
-  }
-  ${Header} & {
-    display: none;
-    ${mediaQueries("sm")`
-      display: inline-block;
-      `}
   }
 `;
 
@@ -59,6 +54,7 @@ const LinkButton = ({
   onClick,
   size,
   invert,
+  shadow,
 }: LinkProps) => {
   return (
     <StyledLink
@@ -68,6 +64,7 @@ const LinkButton = ({
       replace={replace}
       to={to}
       invert={invert}
+      shadow={shadow}
     >
       {children}
     </StyledLink>

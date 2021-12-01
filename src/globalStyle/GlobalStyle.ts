@@ -78,7 +78,8 @@ img, svg {
 
 a {
     text-decoration: none;
-    color: var(--blue-5);
+    color: var(--blue-6);
+    font-weight: 600;
 }
 ::placeholder, input, textarea, fieldset, select, option, legend {
     font: inherit;

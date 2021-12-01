@@ -11,7 +11,7 @@ const Link = styled(NavLink)<NavLinkProps>`
   color: var(--cool-gray-5);
   &:hover {
     background: var(--cool-gray-2);
-    color: var(--cool-gray-8);
+    color: var(--cool-gray-9);
   }
 
   &.active {
@@ -28,7 +28,8 @@ const Link = styled(NavLink)<NavLinkProps>`
       width: 40px;
       margin: 0 auto;
       content: "";
-      border-bottom: 3px solid var(--cool-gray-8);
+      border-bottom: 3px solid var(--cool-gray-9);
+     
     }
   }
     `}
@@ -38,18 +39,25 @@ const Link = styled(NavLink)<NavLinkProps>`
       background: none;
       
     }
+    ::after {
+      position: absolute;
+      height: 0px;
+      bottom: 10px;
+      left: 0;
+      right: 0;
+      width: 0px;
+      margin: 0 auto;
+      content: "";
+      border-bottom: 3px solid var(--cool-gray-9);
+      transition: all 0.5s ease-in-out;
+    
+    }
     :hover {
       background: none;
       ::after {
-        position: absolute;
         height: 1px;
-        bottom: 10px;
-        left: 0;
-        right: 0;
         width: 40px;
-        margin: 0 auto;
-        content: "";
-        border-bottom: 3px solid var(--cool-gray-8);
+      
       }
     }
   `}
