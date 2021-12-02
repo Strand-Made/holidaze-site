@@ -5,7 +5,6 @@ import styled from "styled-components";
 import { baseUrl } from "../../../../api/baseUrl";
 import { borderRadius } from "../../../../globalStyle/_variables";
 import { FetchStatus } from "../../../../utils/globalTypes";
-import LinkButton from "../../../Button/LinkButton";
 import MailButton from "../../../Button/MailButton";
 import Box from "../../../layout/Box/Box";
 import Popover from "../../../layout/Popover/Popover";
@@ -18,8 +17,8 @@ import Heading from "../../../Typography/Heading";
 import Paragraph from "../../../Typography/Paragraph";
 
 interface IEnquiryModal {
-  enquiry: number;
-  token: string;
+  enquiry: number | null;
+  token: string | undefined;
   toggle: boolean;
   setToggle: () => void;
 }
@@ -52,7 +51,7 @@ const MessageBox = styled.div`
 const EnquiryModal = ({ enquiry, token, setToggle }: IEnquiryModal) => {
   const [error, setError] = useState();
   const [status, setStatus] = useState<FetchStatus>(FetchStatus.IDLE);
-  const [myEnquiry, setMyEnquiry] = useState<TEnquiry>(null);
+  const [myEnquiry, setMyEnquiry] = useState<TEnquiry | null>(null);
 
   useEffect(() => {
     let url = `${baseUrl}/enquiries?id=${enquiry}`;
@@ -68,14 +67,14 @@ const EnquiryModal = ({ enquiry, token, setToggle }: IEnquiryModal) => {
         setMyEnquiry(res.data[0]);
 
         setStatus(FetchStatus.SUCCESS);
-      } catch (error) {
+      } catch (error: any) {
         setStatus(FetchStatus.ERROR);
         setError(error.toString());
       }
     };
     getEnquiry();
   }, [enquiry, token]);
-  console.log(myEnquiry);
+
   return (
     <Popover position="fixed">
       <StylingBox>
@@ -94,12 +93,12 @@ const EnquiryModal = ({ enquiry, token, setToggle }: IEnquiryModal) => {
             <Stack space={"0.25rem"}>
               <Box padding={"0"}>
                 <span>
-                  From <Emphasize>{myEnquiry.Name}</Emphasize>
+                  From <Emphasize>{myEnquiry?.Name}</Emphasize>
                 </span>
               </Box>
               <Box padding={"0"}>
                 <span>
-                  Guests <Emphasize>{myEnquiry.guests}</Emphasize>
+                  Guests <Emphasize>{myEnquiry?.guests}</Emphasize>
                 </span>
               </Box>
 
@@ -107,27 +106,27 @@ const EnquiryModal = ({ enquiry, token, setToggle }: IEnquiryModal) => {
                 <FlexContainer alignItems="center" col>
                   <Box padding={"0"}>From</Box>
                   <Box padding={"0"}>
-                    <Emphasize>{myEnquiry.from_date}</Emphasize>
+                    <Emphasize>{myEnquiry?.from_date}</Emphasize>
                   </Box>
                 </FlexContainer>
                 <FlexContainer alignItems="center" col>
                   <Box padding={"0"}>To</Box>
                   <Box padding={"0"}>
-                    <Emphasize>{myEnquiry.to_date}</Emphasize>
+                    <Emphasize>{myEnquiry?.to_date}</Emphasize>
                   </Box>
                 </FlexContainer>
               </FlexContainer>
 
               <FlexContainer col gap={"1.5rem"}>
                 <Stack>
-                  <Paragraph>{myEnquiry.Name} wrote:</Paragraph>
+                  <Paragraph>{myEnquiry?.Name} wrote:</Paragraph>
                   <MessageBox>
-                    <Paragraph>{myEnquiry.Message}</Paragraph>
+                    <Paragraph>{myEnquiry?.Message}</Paragraph>
                   </MessageBox>
                 </Stack>
 
                 <MailButton
-                  href={`mailto:${myEnquiry.email}?subject=Your stay at ${myEnquiry.establishment_name}`}
+                  href={`mailto:${myEnquiry?.email}?subject=Your stay at ${myEnquiry?.establishment_name}`}
                 >
                   Respond
                 </MailButton>

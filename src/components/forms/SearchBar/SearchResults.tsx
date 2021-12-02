@@ -14,14 +14,13 @@ const List = styled.ul`
 `;
 
 const ResultItem = styled.li`
-  padding: 0.25rem;
+  padding: 0.5rem;
   font-weight: 600;
   border-radius: ${borderRadius.md};
- 
-  }
   a {
-    padding: 0.25rem;
+    padding: 0.5rem;
     display: flex;
+    border-radius: inherit;
     align-items: baseline;
     gap: 0.5rem;
     &:hover,
@@ -29,25 +28,33 @@ const ResultItem = styled.li`
     &:active {
       outline: none;
       background: var(--teal-2);
+    }
   }
 `;
 
 interface ListProps {
   status: FetchStatus;
   setStatus: any;
+  searchValue: string;
   establishments: {
     id: number;
     title: string;
     slug: string;
-    category: {
-      name: string;
-    };
+    category: TCategory;
   }[];
 }
 
-const SearchResultList = ({ establishments, status }: ListProps) => {
+type TCategory = {
+  name: "Hotels" | "b&b" | "House";
+};
+
+const SearchResultList = ({
+  establishments,
+  status,
+  searchValue,
+}: ListProps) => {
   const [lengthCheck, setLengthCheck] = useState(false);
-  const iconCheck = (category) => {
+  const iconCheck = (category: string) => {
     if (category === "Hotels") {
       return (
         <MdApartment
@@ -95,7 +102,7 @@ const SearchResultList = ({ establishments, status }: ListProps) => {
       ))}
       {lengthCheck && (
         <li>
-          <Link to="/">View all results</Link>
+          <Link to={`/results/${searchValue}`}>View all results</Link>
         </li>
       )}
     </List>

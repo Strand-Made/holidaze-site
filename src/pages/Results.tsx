@@ -28,7 +28,7 @@ const Results = () => {
         let { data } = res;
         setStatus(FetchStatus.SUCCESS);
         setEstablishments(data);
-      } catch (err) {
+      } catch (err: any) {
         setStatus(FetchStatus.ERROR);
         setError(err.toString());
       }
@@ -36,9 +36,9 @@ const Results = () => {
     fetchEstablishments();
   }, [search]);
 
-  function filterSearch(arr, query) {
-    let searchKeyword = query.replace(" ", "-").toLowerCase();
-    return arr.filter((result) => {
+  function filterSearch(arr: EstablishmentType[], query: string | undefined) {
+    let searchKeyword = query?.replace(" ", "-").toLowerCase();
+    return arr.filter((result: any) => {
       let title = result.title.replace(" ", "-").toLowerCase();
       return title.indexOf(searchKeyword) !== -1;
     });

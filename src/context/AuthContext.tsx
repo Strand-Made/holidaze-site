@@ -17,7 +17,9 @@ type TAuthProvider = {
   children: ReactNode;
 };
 
-const AuthContext = createContext<{ auth: TState; setAuth: Function }>(null);
+const AuthContext = createContext<{ auth: TState; setAuth: Function } | any>(
+  null
+);
 
 const AuthProvider = ({ children }: TAuthProvider) => {
   const [auth, setAuth] = useLocalStorage("user", null);

@@ -13,7 +13,6 @@ const Input = styled.input`
   &:focus {
     border: 2px solid var(--cool-gray-9);
   }
-
   ${StyledSearchContainer} & {
     background: inherit;
     border: none;

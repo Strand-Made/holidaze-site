@@ -1,10 +1,13 @@
+import axios from "axios";
 import { Helmet } from "react-helmet-async";
+import { MdLocalPhone } from "react-icons/md";
+import { useState } from "react";
+
+import { baseUrl } from "../api/baseUrl";
+import { FormStatus } from "../utils/globalTypes";
+
 import Container from "../components/layout/Container/Container";
 import ContactForm from "../components/forms/ContactForm/ContactForm";
-import { useEffect, useState } from "react";
-import { baseUrl } from "../api/baseUrl";
-import axios from "axios";
-import { FormStatus } from "../utils/globalTypes";
 import Heading from "../components/Typography/Heading";
 import Box from "../components/layout/Box/Box";
 import Spacer from "../components/layout/utilities/Spacer/Spacer";
@@ -14,17 +17,20 @@ import InfoBanner from "../components/Banner/InfoBanner/InfoBanner";
 import Paragraph from "../components/Typography/Paragraph";
 import Emphasize from "../components/Typography/Emphasize";
 import FlexContainer from "../components/layout/utilities/Flex/FlexContainer";
-import { MdLocalPhone } from "react-icons/md";
+
+type TContactMessage = {
+  from_email: string;
+  from_name: string;
+  message: string;
+  subject: string;
+};
 
 const Contact = () => {
-  useEffect(() => {
-    document.title = "Contact us | Holidaze";
-  });
-
   const [status, setStatus] = useState<FormStatus>(FormStatus.IDLE);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState("");
 
-  async function sendContactData(data) {
+  async function sendContactData(data: TContactMessage) {
+    console.log(data);
     const url = `${baseUrl}/admin-mails`;
     try {
       setStatus(FormStatus.SUBMITTING);
@@ -36,7 +42,7 @@ const Contact = () => {
       if (res.data) {
         setStatus(FormStatus.SUCCESS);
       }
-    } catch (error) {
+    } catch (error: any) {
       setStatus(FormStatus.ERROR);
       setError(error.toString());
     }
@@ -70,11 +76,9 @@ const Contact = () => {
               <FlexContainer gap="1.5rem" alignItems="baseline">
                 <MdLocalPhone size="42" />
                 <Box padding="0">
-                  <Paragraph>
-                    <Heading.H4 size="xl">Phone</Heading.H4>
-                    You can reach us 24/7 at this number:
-                    <Emphasize> +999 999 999</Emphasize>
-                  </Paragraph>
+                  <Heading.H4 size="xl">Phone</Heading.H4>
+                  You can reach us 24/7 at this number:
+                  <Emphasize> +999 999 999</Emphasize>
                 </Box>
               </FlexContainer>
             </InfoBanner>

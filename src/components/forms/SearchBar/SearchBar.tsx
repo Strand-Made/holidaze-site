@@ -12,7 +12,6 @@ import { baseUrl } from "../../../api/baseUrl";
 import { FetchStatus } from "../../../utils/globalTypes";
 import Spacer from "../../layout/utilities/Spacer/Spacer";
 import Input from "../Input/Input";
-import Box from "../../layout/Box/Box";
 import SearchContainer from "./SearchContainer/SearchContainer";
 import { PrimaryButton } from "../../Button/Button";
 
@@ -51,10 +50,10 @@ const SearchBar = () => {
         );
         const { data } = res;
         return data;
-      } catch (error) {
+      } catch (error: any) {
         setStatus(FetchStatus.ERROR);
         setError(error.toString());
-        return [];
+        return null;
       }
     }
     if (debouncedSearchValue) {
@@ -108,6 +107,7 @@ const SearchBar = () => {
           <>
             <Spacer mt={"0.5"} />
             <SearchResultList
+              searchValue={searchValue}
               status={status}
               setStatus={setStatus}
               establishments={hotels}

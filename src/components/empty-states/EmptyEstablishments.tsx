@@ -1,7 +1,5 @@
 import styled from "styled-components";
 import EmptyEstablishmentsImage from "../../assets/emptyEstablishments.svg";
-import Box from "../layout/Box/Box";
-import Heading from "../Typography/Heading";
 import Image from "../layout/Image/Image";
 import Stack from "../layout/Stack/Stack";
 import Paragraph from "../Typography/Paragraph";

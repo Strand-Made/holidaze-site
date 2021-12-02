@@ -9,14 +9,16 @@ import FlexContainer from "../../layout/utilities/Flex/FlexContainer";
 import Heading from "../../Typography/Heading";
 import Box from "../../layout/Box/Box";
 
+type amenity = {
+  shower: boolean;
+  office: boolean;
+  gym: boolean;
+  cleaning: boolean;
+  breakfast: boolean;
+};
+
 type TAmenities = {
-  amenities: {
-    shower: boolean;
-    office: boolean;
-    gym: boolean;
-    cleaning: boolean;
-    breakfast: boolean;
-  };
+  amenities: amenity;
 };
 
 const Amenitites = ({ amenities }: TAmenities) => {
@@ -44,7 +46,7 @@ const Amenitites = ({ amenities }: TAmenities) => {
     },
   ];
 
-  const iconCheck = (amenity) => {
+  const iconCheck = (amenity: amenity) => {
     if (amenity.breakfast)
       return <MdEmojiFoodBeverage color="var(--teal-6)" size={24} />;
 
@@ -63,7 +65,7 @@ const Amenitites = ({ amenities }: TAmenities) => {
 
   return (
     <FlexContainer gap="1.5rem" wrap="wrap">
-      {removeNullFromArr.map((service, index) => {
+      {removeNullFromArr.map((service: any, index: number) => {
         return (
           <Box
             padding="1.5rem"

@@ -6,6 +6,19 @@ import Emphasize from "../../Typography/Emphasize";
 import Heading from "../../Typography/Heading";
 import Paragraph from "../../Typography/Paragraph";
 import EnquireForm from "../../forms/EnquireForm/EnquireForm";
+import { TUser } from "../../../utils/globalTypes";
+
+interface IEnquirePopup {
+  host?: TUser;
+  establishmentTitle?: string;
+  setToggle: () => void;
+  establishment?: {
+    title: string;
+  };
+  startDate: Date;
+  endDate?: Date;
+  guests: number;
+}
 
 const EnquirePopup = ({
   host,
@@ -15,7 +28,7 @@ const EnquirePopup = ({
   guests,
   startDate,
   endDate,
-}) => {
+}: IEnquirePopup) => {
   return (
     <Box background={"var(--cool-gray-1)"} borderRadius shadow>
       <Box padding="0.5rem">
@@ -29,7 +42,7 @@ const EnquirePopup = ({
             </button>
           </FlexContainer>
           <Box>
-            <Heading.H5 size="xl">Staying at {establishment.title}</Heading.H5>
+            <Heading.H5 size="xl">Staying at {establishment?.title}</Heading.H5>
           </Box>
         </Stack>
         {guests || startDate ? (

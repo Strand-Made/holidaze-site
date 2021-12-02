@@ -33,7 +33,7 @@ const Establishment = () => {
   const [error, setError] = useState("");
 
   const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(null);
+  const [endDate, setEndDate] = useState(undefined);
   const [guests, setGuests] = useState(1);
   const [establishment, setEstablishment] = useState<EstablishmentType | null>(
     null
@@ -51,7 +51,7 @@ const Establishment = () => {
         setStatus(FetchStatus.SUCCESS);
 
         setEstablishment(data);
-      } catch (error) {
+      } catch (error: any) {
         setStatus(FetchStatus.ERROR);
         setError(error.toString());
       }
@@ -59,7 +59,7 @@ const Establishment = () => {
     fetchEstablishment();
   }, [baseUrl, establishmentSlug, setEstablishment]);
 
-  const dateOnChange = (dates) => {
+  const dateOnChange = (dates: any) => {
     const [start, end] = dates;
     setStartDate(start);
     setEndDate(end);

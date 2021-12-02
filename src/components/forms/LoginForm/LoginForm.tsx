@@ -1,21 +1,22 @@
 import styled from "styled-components";
+import axios from "axios";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import axios from "axios";
+
+import { schema } from "./loginSchema";
+import { PrimaryButton } from "../../Button/Button";
+import { baseUrl } from "../../../api/baseUrl";
+import { useAuth } from "../../../context/AuthContext";
+import { FetchStatus } from "../../../utils/globalTypes";
 import { borderRadius, shadows } from "../../../globalStyle/_variables";
 import FlexContainer from "../../layout/utilities/Flex/FlexContainer";
 import Heading from "../../Typography/Heading";
 import Label from "../Label/Label";
 import Input from "../Input/Input";
-import { PrimaryButton } from "../../Button/Button";
-import { baseUrl } from "../../../api/baseUrl";
-import { useAuth } from "../../../context/AuthContext";
 import Message from "../../Message/Message";
 import Spacer from "../../layout/utilities/Spacer/Spacer";
-import { useState } from "react";
 import Stack from "../../layout/Stack/Stack";
-import { FetchStatus } from "../../../utils/globalTypes";
 
 const Modal = styled.div`
   background: white;
@@ -40,13 +41,6 @@ type FormData = {
   password: string;
 };
 
-const schema = yup
-  .object({
-    email: yup.string().required().email("Please include a valid email"),
-    password: yup.string().required(),
-  })
-  .required();
-
 const LoginForm = () => {
   const {
     register,
@@ -61,8 +55,7 @@ const LoginForm = () => {
   const { setAuth } = useAuth();
   const loginUser = async (user: FormData) => {
     setStatus(FetchStatus.FETCHING);
-    setFormError(null);
-    const res = axios
+    await axios
       .post(`${baseUrl}/auth/local`, {
         identifier: user.email,
         password: user.password,

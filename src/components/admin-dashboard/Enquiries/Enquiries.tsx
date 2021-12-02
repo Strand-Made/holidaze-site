@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 import { borderRadius } from "../../../globalStyle/_variables";
 import Heading from "../../Typography/Heading";
@@ -20,8 +21,8 @@ type TEnquiry = {
     id: number;
     guests: number;
   };
-  setToggle?: any;
-  setOpenEnquiry?: any;
+  setToggle: Function;
+  setOpenEnquiry: React.Dispatch<React.SetStateAction<number | null>>;
 };
 
 const EnquiryContainer = styled.div`

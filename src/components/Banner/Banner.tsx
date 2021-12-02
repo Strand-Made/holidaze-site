@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import Heading from "../Typography/Heading";
 import BannerSection from "./BannerSection";
 import FlexContainer from "../layout/utilities/Flex/FlexContainer";
@@ -6,7 +5,14 @@ import { Link } from "react-router-dom";
 import BannerButton from "../BannerButton/BannerButton";
 import FlexEnd from "../layout/utilities/Flex/FlexEnd";
 
-const Banner = ({ image, heading, to, linkText }) => {
+interface IBanner {
+  image: string;
+  heading: string;
+  to: string;
+  linkText: string;
+}
+
+const Banner = ({ image, heading, to, linkText }: IBanner) => {
   return (
     <Link to={to}>
       <BannerSection image={image}>

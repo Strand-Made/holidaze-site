@@ -7,11 +7,10 @@ import Frame from "../../layout/utilities/Frame/Frame";
 import Box from "../../layout/Box/Box";
 
 interface EstablishmentPropTypes {
-  img?: string;
-  title?: string;
-  price?: number;
+  img: string;
+  title: string;
+  price: number;
   slug: string;
-  id?: number;
   altText?: string;
 }
 

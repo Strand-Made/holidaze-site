@@ -15,9 +15,9 @@ interface IStayCalculator {
   handleDateSelect: any;
   guests: number;
   setGuests: any;
-  days?: number;
   startDate: Date;
-  endDate: Date;
+  endDate: Date | undefined;
+  days?: number;
 }
 const Planner = styled.div`
   box-shadow: ${shadows.md};

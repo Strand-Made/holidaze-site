@@ -17,18 +17,34 @@ import Main from "../components/layout/Main/Main";
 import useToggle from "../hooks/useToggle";
 import EnquiriesContainer from "../components/admin-dashboard/Enquiries/EnquiriesContainer/EnquiriresContainer";
 import EnquiryModal from "../components/admin-dashboard/Enquiries/EnquiryModal/EnquiriyModal";
-import { FetchStatus } from "../utils/globalTypes";
+import { EstablishmentType, FetchStatus } from "../utils/globalTypes";
 import Message from "../components/Message/Message";
 import DashboardLoader from "../components/layout/SkeleteonLoader/Dashboard/DashboardLoader";
 import EmptyEnquiries from "../components/empty-states/EmptyEnquiries";
 import EmptyEstablishments from "../components/empty-states/EmptyEstablishments";
+
+type TUserEnquiries = {
+  Message: String;
+  Name: String;
+  email: string;
+  establishment_name: string;
+  from_date: string;
+  guests: number;
+  id: number;
+  users_permissions_user: {
+    id: number;
+    username: string;
+    email: string;
+    confirmed: boolean;
+  };
+};
 
 const Admin = () => {
   let navigate = useNavigate();
   const { auth } = useAuth();
 
   const [enquiries, setEnquiries] = useState([]);
-  const [openEnquiry, setOpenEnquiry] = useState(null);
+  const [openEnquiry, setOpenEnquiry] = useState<number | null>(null);
 
   const [establishments, setEstablishments] = useState([]);
   const [error, setError] = useState("");
@@ -44,13 +60,13 @@ const Admin = () => {
     if (!auth) {
       navigate("/");
     }
-    const userType = auth?.userinfo.type;
+    const userType = auth.userinfo?.type;
     if (userType === "super") {
       navigate("/super");
     }
   }, [auth, navigate]);
 
-  const user = auth?.userinfo?.email;
+  const user = auth.userinfo?.email;
   useEffect(() => {
     const url = `${baseUrl}/enquiries`;
     const token = auth?.token;
@@ -63,7 +79,8 @@ const Admin = () => {
           },
         });
         const { data } = res;
-        const userEnquiries = data.filter((enquiry) => {
+        const userEnquiries = data.filter((enquiry: TUserEnquiries) => {
+          console.log(enquiry);
           if (enquiry.users_permissions_user.email === user) {
             return enquiry;
           }
@@ -75,7 +92,7 @@ const Admin = () => {
           return setStatus(FetchStatus.NO_RESULT);
         }
         setStatus(FetchStatus.SUCCESS);
-      } catch (error) {
+      } catch (error: any) {
         setStatus(FetchStatus.ERROR);
         setError(error.toString());
       }
@@ -91,7 +108,7 @@ const Admin = () => {
         const res = await axios.get(url);
         const { data } = res;
 
-        const isOwner = data.filter((establishment) => {
+        const isOwner = data.filter((establishment: EstablishmentType) => {
           if (establishment.user?.email === user) {
             return establishment;
           }
@@ -103,7 +120,7 @@ const Admin = () => {
           return setEstablishStatus(FetchStatus.NO_RESULT);
         }
         setEstablishStatus(FetchStatus.SUCCESS);
-      } catch (error) {
+      } catch (error: any) {
         setEstablishStatus(FetchStatus.ERROR);
         setEstablishError(error.toString());
       }
@@ -139,7 +156,7 @@ const Admin = () => {
                 )}
 
                 {enquiries.length > 0
-                  ? enquiries.map((enquiry) => (
+                  ? enquiries.map((enquiry: any) => (
                       <Enquiries
                         key={enquiry.id}
                         enquiry={enquiry}
@@ -156,7 +173,7 @@ const Admin = () => {
                 <Message.Error>{establishError}</Message.Error>
               )}
               {establishments.length > 0
-                ? establishments.map((establishment) => (
+                ? establishments.map((establishment: EstablishmentType) => (
                     <EstablishmentElement
                       key={establishment.id}
                       name={establishment.title}

@@ -42,11 +42,19 @@ export const CheckBoxInput = styled.input`
 `;
 export const CheckboxContainer = styled.div``;
 
-const Checkbox = ({ name, labelText, onChange, checked, value }: ICheckbox) => {
+const Checkbox = ({
+  name,
+  labelText,
+  onChange,
+  checked,
+  value,
+  ...props
+}: ICheckbox) => {
   return (
     <CheckboxContainer>
       <Label htmlFor={name}>
         <CheckBoxInput
+          {...props}
           name={name}
           type="checkbox"
           checked={checked}

@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import { PrimaryButton } from "../../Button/Button";
+import { schema } from "./formSchema";
+import { FetchStatus } from "../../../utils/globalTypes";
 import Box from "../../layout/Box/Box";
 import Stack from "../../layout/Stack/Stack";
 import FlexContainer from "../../layout/utilities/Flex/FlexContainer";
@@ -17,39 +18,33 @@ import Select from "../Select/Select";
 import Input from "../Input/Input";
 import InputContainer from "../Input/InputContainer";
 import Checkbox from "../Input/Checkbox/Checkbox";
-import { FetchStatus } from "../../../utils/globalTypes";
 
-const schema = yup.object({
-  establishmentName: yup
-    .string()
-    .min(3, "Name must be longer than 3 characters ")
-    .required("Please name your establishment"),
-  category: yup.string().required("Please choose a category"),
-  slug: yup.string(),
-  amenitites: yup.object({
-    shower: yup.bool(),
-    office: yup.bool(),
-    gym: yup.bool(),
-    cleaning: yup.bool(),
-    breakfast: yup.bool(),
-  }),
-  price: yup
-    .number()
-    .typeError("Please include price per night")
-    .min(5, "Price has to be higher than 5")
-    .required("Please include a price"),
-  bedrooms: yup
-    .number()
-    .typeError("Please include how many bedrooms you offer")
-    .min(1)
-    .required("Please include how many bedrooms"),
-  distanceToCentre: yup
-    .number()
-    .typeError("Please include how far it is to the city centre")
-    .required(),
-  establishmentDescription: yup.string().required("An description is required"),
-  files: yup.mixed().required("Please include a image of your establishment"),
-});
+interface ICreateEstablishmentForm {
+  createEstablishment: any;
+  status: string;
+  error: string;
+  setFiles: any;
+  auth: any;
+}
+type TCreateFormData = {
+  id: number;
+  amenities: {
+    breakfast: boolean | undefined;
+    cleaning: boolean | undefined;
+    gym: boolean | undefined;
+    office: boolean | undefined;
+    shower: boolean | undefined;
+  };
+  bedrooms: number;
+  distanceToCentre: number;
+  establishmentDescription: string;
+  establishmentName: string;
+  files: FileList;
+  price: number;
+  slug: string;
+};
+
+export type TCategory = "hotels" | "cabin" | "house" | "";
 
 const CreateEstablishmentForm = ({
   createEstablishment,
@@ -57,10 +52,10 @@ const CreateEstablishmentForm = ({
   error,
   setFiles,
   auth,
-}) => {
+}: ICreateEstablishmentForm) => {
   const [name, setName] = useState("");
   const [slug, setSlug] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState<TCategory>("");
 
   const [breakfast, setBreakfast] = useState(false);
   const [office, setOffice] = useState(false);
@@ -68,20 +63,20 @@ const CreateEstablishmentForm = ({
   const [cleaning, setCleaning] = useState(false);
   const [shower, setShower] = useState(false);
 
-  const handleChange = (e, setter) => {
+  const handleChange = (e: any, setter: any) => {
     setter(e.target.value);
   };
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: any) => {
     setFiles(e.target.files[0]);
   };
-  const handleCheckbox = (state, setState) => {
+  const handleCheckbox = (state: any, setState: any) => {
     setState(!state);
   };
 
-  const handleSelect = (e) => {
+  const handleSelect = (e: any) => {
     setCategory(e.target.value);
   };
-  const categoryId = (category) => {
+  const categoryId = (category: TCategory) => {
     if (category === "hotels") {
       return 1;
     }
@@ -100,7 +95,8 @@ const CreateEstablishmentForm = ({
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const onSubmit = (data) => {
+  const onSubmit = (data: TCreateFormData) => {
+    console.log("OnSubmit data", data);
     const formdata = {
       amenities: {
         id: data.id,
@@ -119,7 +115,7 @@ const CreateEstablishmentForm = ({
       description: data.establishmentDescription,
       title: data.establishmentName,
       price: data.price,
-      slug: data.slug,
+      slug: slug,
       user: {
         id: auth.userinfo.id,
         username: auth.userinfo.username,
@@ -131,7 +127,7 @@ const CreateEstablishmentForm = ({
   };
 
   useEffect(() => {
-    const createSlug = (name) => {
+    const createSlug = (name: string) => {
       if (name.length < 0) {
         return null;
       }
@@ -157,7 +153,6 @@ const CreateEstablishmentForm = ({
             <Input
               value={name}
               type="text"
-              name="establishmentName"
               {...register("establishmentName")}
               onChange={(e) => handleChange(e, setName)}
             />
@@ -167,11 +162,7 @@ const CreateEstablishmentForm = ({
           </InputContainer>
           <InputContainer>
             <Label htmlFor="category">Category</Label>
-            <Select
-              name="category"
-              {...register("category")}
-              onChange={(e) => handleSelect(e)}
-            >
+            <Select {...register("category")} onChange={(e) => handleSelect(e)}>
               <option value="">Choose category</option>
               <option value="hotels">Hotel</option>
               <option value="cabin">Cabin</option>
@@ -186,7 +177,6 @@ const CreateEstablishmentForm = ({
             <Label htmlFor="slug">Slug</Label>
             <DisabledInput
               type="text"
-              name="slug"
               readOnly
               {...register("slug")}
               placeholder="your-slug"
@@ -198,12 +188,7 @@ const CreateEstablishmentForm = ({
           </InputContainer>
           <InputContainer>
             <Label htmlFor="price">Price</Label>
-            <Input
-              name="price"
-              placeholder="$0"
-              type="number"
-              {...register("price")}
-            />
+            <Input placeholder="$0" type="number" {...register("price")} />
             {errors.price && (
               <Message.Error>{errors.price.message}</Message.Error>
             )}
@@ -215,7 +200,6 @@ const CreateEstablishmentForm = ({
                 <FlexContainer col alignItems="center">
                   <Checkbox
                     labelText="Shower"
-                    name="shower"
                     {...register("shower")}
                     value="shower"
                     checked={shower}
@@ -225,7 +209,6 @@ const CreateEstablishmentForm = ({
                 <FlexContainer col alignItems="center">
                   <Checkbox
                     labelText="Cleaning"
-                    name="cleaning"
                     {...register("cleaning")}
                     value="cleaning"
                     checked={cleaning}
@@ -235,7 +218,6 @@ const CreateEstablishmentForm = ({
                 <FlexContainer col alignItems="center">
                   <Checkbox
                     labelText="Office"
-                    name="office"
                     {...register("office")}
                     value="office"
                     checked={office}
@@ -245,7 +227,6 @@ const CreateEstablishmentForm = ({
                 <FlexContainer col alignItems="center">
                   <Checkbox
                     labelText="Gym"
-                    name="gym"
                     {...register("gym")}
                     value="gym"
                     checked={gym}
@@ -255,7 +236,6 @@ const CreateEstablishmentForm = ({
                 <FlexContainer col alignItems="center">
                   <Checkbox
                     labelText="Breakfast"
-                    name="breakfast"
                     {...register("breakfast")}
                     value="breakfast"
                     onChange={(e) => handleCheckbox(breakfast, setBreakfast)}
@@ -269,7 +249,7 @@ const CreateEstablishmentForm = ({
           </Stack>
           <InputContainer>
             <Label htmlFor="bedrooms">Bedrooms</Label>
-            <Input type="number" name="bedrooms" {...register("bedrooms")} />
+            <Input type="number" {...register("bedrooms")} />
             {errors.bedrooms && (
               <Message.Error>{errors.bedrooms.message}</Message.Error>
             )}
@@ -278,11 +258,7 @@ const CreateEstablishmentForm = ({
             <Label htmlFor="distance-to-city-centre">
               Distance to city centre
             </Label>
-            <Input
-              name="distance-to-city-centre"
-              type="number"
-              {...register("distanceToCentre")}
-            />
+            <Input type="number" {...register("distanceToCentre")} />
             {errors.distanceToCentre && (
               <Message.Error>{errors.distanceToCentre.message}</Message.Error>
             )}
@@ -290,10 +266,7 @@ const CreateEstablishmentForm = ({
 
           <InputContainer>
             <Label htmlFor="description">Establishment description</Label>
-            <TextBox
-              name="description"
-              {...register("establishmentDescription")}
-            />
+            <TextBox {...register("establishmentDescription")} />
             {errors.establishmentDescription && (
               <Message.Error>
                 {errors.establishmentDescription.message}
@@ -304,7 +277,6 @@ const CreateEstablishmentForm = ({
             <Label htmlFor="files">Upload Image (Accepts ,jpg files)</Label>
             <input
               type="file"
-              name="files"
               accept="image/*"
               {...register("files")}
               onChange={handleInputChange}

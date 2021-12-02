@@ -16,13 +16,12 @@ const TitleBox = styled.div`
   display: inline-block;
   background: var(--cool-gray-1);
   font-size: 1rem;
-  }};
   color: var(--blue-6);
   font-weight: 600;
   border-radius: 8px;
   padding: ${buttonSizes.md};
   box-shadow: ${shadows.md};
-  `;
+`;
 
 const TitleContainer = styled.div<IBannerButton>`
   position: ${(props) => (props.absolute ? "absolute" : "")};

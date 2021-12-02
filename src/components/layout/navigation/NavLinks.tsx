@@ -33,8 +33,8 @@ const Link = styled(NavLink)<NavLinkProps>`
     }
   }
     `}
-  
-  ${mediaQueries("sm")`
+
+    ${mediaQueries("sm")`
     &.active{
       background: none;
       
@@ -50,17 +50,17 @@ const Link = styled(NavLink)<NavLinkProps>`
       content: "";
       border-bottom: 3px solid var(--cool-gray-9);
       transition: all 0.5s ease-in-out;
-    
     }
     :hover {
       background: none;
-      ::after {
+      &::after {
         height: 1px;
         width: 40px;
       
       }
     }
   `}
+  }
 `;
 interface NavLinkProps {
   children: React.ReactNode;

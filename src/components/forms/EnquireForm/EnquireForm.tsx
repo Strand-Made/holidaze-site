@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import Stack from "../../layout/Stack/Stack";
 import Input from "../Input/Input";
 import Label from "../Label/Label";
@@ -13,25 +12,36 @@ import axios from "axios";
 import { baseUrl } from "../../../api/baseUrl";
 import { useState } from "react";
 import { FetchStatus, TUser } from "../../../utils/globalTypes";
+import { schema } from "./enquireFormSchema";
 
 interface IEnquireForm {
-  host: TUser;
+  host?: TUser;
   startDate: Date;
-  endDate: Date;
+  endDate?: Date;
   guests: number;
-  title: string;
+  title?: string;
 }
+type TEnquireFormData = {
+  Message: string;
+  Name?: String;
+  email: string;
+  establishment_name?: string;
+  from_date?: Date;
+  guests: number;
+  to_date?: Date;
+};
+
+type TSubmitEnquireData = {
+  firstName: string;
+  message: string;
+  email: string;
+  title: string;
+};
 
 const Form = styled.form`
   min-width: 200px;
   padding: 1rem;
 `;
-
-const schema = yup.object({
-  firstName: yup.string().required(),
-  email: yup.string().email().required(),
-  message: yup.string().required(),
-});
 
 const EnquireForm = ({
   host,
@@ -43,7 +53,7 @@ const EnquireForm = ({
   const [error, setError] = useState("");
   const [status, setStatus] = useState<FetchStatus>(FetchStatus.IDLE);
 
-  async function sendEnquire(data) {
+  async function sendEnquire(data: TEnquireFormData) {
     const url = `${baseUrl}/enquiries`;
     try {
       setStatus(FetchStatus.FETCHING);
@@ -56,7 +66,7 @@ const EnquireForm = ({
       const enqRes = res.data;
       setStatus(FetchStatus.SUCCESS);
       console.log(enqRes);
-    } catch (error) {
+    } catch (error: any) {
       setStatus(FetchStatus.ERROR);
       const getErrors = error.response.data.data.errors;
 
@@ -76,15 +86,16 @@ const EnquireForm = ({
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const onSubmit = (data) => {
+
+  const onSubmit = (data: TSubmitEnquireData) => {
     const formData = {
       Name: data.firstName,
       Message: data.message,
       email: data.email,
       establishment_name: title,
       users_permissions_user: {
-        id: host.id,
-        email: host.email,
+        id: host?.id,
+        email: host?.email,
       },
       to_date: startDate,
       from_date: endDate,

@@ -12,9 +12,11 @@ interface IBox {
   color?: string;
   background?: string;
   shadow?: boolean;
-  style?: {
-    "--padding": SpacingScale;
-  };
+  style?:
+    | {
+        "--padding": SpacingScale;
+      }
+    | any;
 }
 
 const StyledBox = styled.div<IBox>`

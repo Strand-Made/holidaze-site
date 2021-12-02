@@ -16,9 +16,6 @@ const StyledStack = styled.div<IStack>`
     margin-top: ${(props) => (props.space ? props.space : 0)};
     margin-bottom: ${(props) => (props.space ? props.space : 0)};
   }
-
-  }}
-
   ${(props) => {
     return (
       props.splitAfter &&

@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
-
 import { useAuth } from "../context/AuthContext";
 import { FetchStatus } from "../utils/globalTypes";
 import { baseUrl } from "../api/baseUrl";
@@ -14,6 +13,14 @@ import Message from "../components/Message/Message";
 import EmptyEnquiries from "../components/empty-states/EmptyEnquiries";
 import DashboardLoader from "../components/layout/SkeleteonLoader/Dashboard/DashboardLoader";
 
+type TMessage = {
+  from_name: string;
+  from_email: string;
+  subject: string;
+  id: number;
+  message: string;
+}[];
+
 const Super = () => {
   const { auth } = useAuth();
   let navigate = useNavigate();
@@ -21,14 +28,14 @@ const Super = () => {
     if (!auth) {
       navigate("/");
     }
-    if (auth.userinfo.type === "authenticated") {
+    if (auth.userinfo?.type === "authenticated") {
       navigate("/admin");
     }
   }, [auth, navigate]);
 
   const [error, setError] = useState(null);
   const [status, setStatus] = useState<FetchStatus>(FetchStatus.IDLE);
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState<TMessage | []>([]);
 
   useEffect(() => {
     const fetchMessages = async () => {
@@ -42,7 +49,7 @@ const Super = () => {
         });
         setStatus(FetchStatus.SUCCESS);
         setMessages(res.data);
-      } catch (error) {
+      } catch (error: any) {
         setStatus(FetchStatus.ERROR);
         setError(error.toString());
       }

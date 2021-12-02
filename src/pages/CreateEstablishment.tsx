@@ -15,7 +15,7 @@ import { FetchStatus } from "../utils/globalTypes";
 const CreateEstablishment = () => {
   const [error, setError] = useState("");
   const [status, setStatus] = useState<FetchStatus>(FetchStatus.IDLE);
-  const [files, setFiles] = useState(null);
+  const [files, setFiles] = useState<Blob | string>("");
 
   let navigate = useNavigate();
   const { auth } = useAuth();
@@ -25,7 +25,7 @@ const CreateEstablishment = () => {
     }
   }, [auth, navigate]);
 
-  async function createEstablishment(data) {
+  async function createEstablishment(data: any) {
     const url = `${baseUrl}/establishments`;
     setStatus(FetchStatus.FETCHING);
     const res = await axios({
@@ -38,7 +38,7 @@ const CreateEstablishment = () => {
     })
       .then((res) => {
         console.log(res.data);
-        const imageUpload = async (res) => {
+        const imageUpload = async (res: any) => {
           const uploadUrl = `${baseUrl}/upload`;
           const formData = new FormData();
           const id = res.data.id;

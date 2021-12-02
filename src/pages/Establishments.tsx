@@ -38,12 +38,8 @@ type EstablishmentType = {
 const Establishments = () => {
   const [status, setStatus] = useState<FetchStatus>(FetchStatus.IDLE);
   const [error, setError] = useState("");
-  const [sortPrice, setSortPrice] = useState(null);
-  const [sortAlphabet, setSortAlphabet] = useState(null);
-  const [categories, setCategories] = useState([]);
-  const [houses, setHouses] = useState("");
-  const [hotels, setHotels] = useState("");
-  const [bb, setBb] = useState("");
+  const [sortPrice, setSortPrice] = useState<true | null | false>(null);
+  const [sortAlphabet, setSortAlphabet] = useState<true | null | false>(null);
   const [establishments, setEstablishments] = useState([]);
   const [showFilter, setShowFilter] = useToggle();
 
@@ -65,9 +61,9 @@ const Establishments = () => {
         }
         setEstablishments(res.data);
         setStatus(FetchStatus.SUCCESS);
-      } catch (error) {
+      } catch (error: any) {
         setStatus(FetchStatus.ERROR);
-        setError(error.ToString());
+        setError(error.toString());
       }
     };
     fetchEstablishments();
@@ -77,13 +73,15 @@ const Establishments = () => {
     setSortPrice(!sortPrice);
     setSortAlphabet(null);
     if (sortPrice) {
-      let sortedByCheap = establishments.sort((a, b) =>
-        a.price > b.price ? 1 : -1
+      let sortedByCheap = establishments.sort(
+        (a: EstablishmentType, b: EstablishmentType) =>
+          a.price > b.price ? 1 : -1
       );
       return setEstablishments(sortedByCheap);
     }
-    let sortedByExpensive = establishments.sort((a, b) =>
-      a.price < b.price ? 1 : -1
+    let sortedByExpensive = establishments.sort(
+      (a: EstablishmentType, b: EstablishmentType) =>
+        a.price < b.price ? 1 : -1
     );
     return setEstablishments(sortedByExpensive);
   }
@@ -91,13 +89,15 @@ const Establishments = () => {
   function sortByAlphabet() {
     setSortAlphabet(!sortAlphabet);
     if (sortAlphabet) {
-      let sortedbyAlphAsc = establishments.sort((a, b) =>
-        a.title < b.title ? 1 : -1
+      let sortedbyAlphAsc = establishments.sort(
+        (a: EstablishmentType, b: EstablishmentType) =>
+          a.title < b.title ? 1 : -1
       );
       return setEstablishments(sortedbyAlphAsc);
     }
-    let sortedAlphDesc = establishments.sort((a, b) =>
-      a.title > b.title ? 1 : -1
+    let sortedAlphDesc = establishments.sort(
+      (a: EstablishmentType, b: EstablishmentType) =>
+        a.title > b.title ? 1 : -1
     );
     return setEstablishments(sortedAlphDesc);
   }
@@ -123,14 +123,6 @@ const Establishments = () => {
               sortByAlphabet={sortByAlphabet}
               sortPrice={sortPrice}
               sortByPrice={sortByPrice}
-              houses={houses}
-              setHouses={setHouses}
-              setHotels={setHotels}
-              hotels={hotels}
-              bb={bb}
-              setBb={setBb}
-              categories={categories}
-              setCategories={setCategories}
             />
           )}
           <Spacer mt="2" />

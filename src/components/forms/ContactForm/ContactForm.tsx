@@ -13,36 +13,41 @@ import { useEffect, useState } from "react";
 import Message from "../../Message/Message";
 import Heading from "../../Typography/Heading";
 
+interface IContactform {
+  status: string;
+  sendFormData: any;
+  error: string;
+}
+
 const ContactBox = styled.div`
   display: flex;
   background: white;
+  max-width: 600px;
+  margin: 0 auto;
   border-radius: ${borderRadius.md};
   box-shadow: ${shadows.sm};
-  }
-`;
-
-const FormContainer = styled.div`
-  max-width: 600px;
 `;
 
 const Form = styled.form`
   width: 100%;
   padding: 2rem;
 `;
-const ContactImage = styled.div`
-  width: 100%;
-  border-top-right-radius: ${borderRadius.md};
-  border-bottom-right-radius: ${borderRadius.md};
-`;
 
 const schema = yup.object({
-  name: yup.string(),
+  userName: yup.string(),
   email: yup.string().email().required("Please include an email"),
   subject: yup.string().required("Please include a subject"),
   message: yup.string().required("Please include a message"),
 });
 
-const ContactForm = ({ status, sendFormData, error }) => {
+type TContactFormData = {
+  email: string;
+  message: string;
+  subject: string;
+  userName: string;
+};
+
+const ContactForm = ({ status, sendFormData, error }: IContactform) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
@@ -56,10 +61,10 @@ const ContactForm = ({ status, sendFormData, error }) => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: TContactFormData) => {
     const contactData = {
       from_email: data.email,
-      from_name: data.name,
+      from_name: data.userName,
       message,
       subject,
     };
@@ -79,15 +84,14 @@ const ContactForm = ({ status, sendFormData, error }) => {
     <ContactBox>
       <Form onSubmit={handleSubmit(onSubmit)}>
         {error && <Message.Error>{error}</Message.Error>}
-        <FormContainer>
+        <Box>
           <Heading.H2 size="l">Drop us a line</Heading.H2>
           <Stack space={"0.5rem"}>
             <Box>
-              <Label htmlFor="name">Name</Label>
+              <Label htmlFor="userName">Name</Label>
               <Input
                 type="text"
-                name="name"
-                {...register("name")}
+                {...register("userName")}
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
@@ -100,7 +104,6 @@ const ContactForm = ({ status, sendFormData, error }) => {
               <Stack space={"0.5rem"}>
                 <Input
                   type="text"
-                  name="email"
                   {...register("email")}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -115,7 +118,6 @@ const ContactForm = ({ status, sendFormData, error }) => {
               <Stack space={"0.5rem"}>
                 <Input
                   type="text"
-                  name="subject"
                   {...register("subject")}
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
@@ -129,7 +131,6 @@ const ContactForm = ({ status, sendFormData, error }) => {
               <Label htmlFor="message">Message</Label>
               <Stack space={"0.5rem"}>
                 <TextBox
-                  name="message"
                   {...register("message")}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
@@ -148,7 +149,7 @@ const ContactForm = ({ status, sendFormData, error }) => {
               </PrimaryButton>
             </Box>
           </Stack>
-        </FormContainer>
+        </Box>
       </Form>
     </ContactBox>
   );
