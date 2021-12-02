@@ -15,7 +15,7 @@ export const HeroSection = styled.section`
   background-repeat: no-repeat;
   background-position: center;
   background-attachment: scroll;
-  height: 50vh;
+  height: 500px;
   padding-top: 2rem;
   padding-left: 1rem;
   padding-right: 1rem;

@@ -41,7 +41,6 @@ const Admin = () => {
   const [toggle, setToggle] = useToggle(false);
 
   useEffect(() => {
-    console.log(auth);
     if (!auth) {
       navigate("/");
     }
@@ -70,8 +69,12 @@ const Admin = () => {
           }
           return null;
         });
-        setStatus(FetchStatus.SUCCESS);
+
         setEnquiries(userEnquiries);
+        if (userEnquiries.length === 0) {
+          return setStatus(FetchStatus.NO_RESULT);
+        }
+        setStatus(FetchStatus.SUCCESS);
       } catch (error) {
         setStatus(FetchStatus.ERROR);
         setError(error.toString());
@@ -87,7 +90,7 @@ const Admin = () => {
         setEstablishStatus(FetchStatus.FETCHING);
         const res = await axios.get(url);
         const { data } = res;
-        setEstablishStatus(FetchStatus.SUCCESS);
+
         const isOwner = data.filter((establishment) => {
           if (establishment.user?.email === user) {
             return establishment;
@@ -96,6 +99,10 @@ const Admin = () => {
         });
 
         setEstablishments(isOwner);
+        if (isOwner.length === 0) {
+          return setEstablishStatus(FetchStatus.NO_RESULT);
+        }
+        setEstablishStatus(FetchStatus.SUCCESS);
       } catch (error) {
         setEstablishStatus(FetchStatus.ERROR);
         setEstablishError(error.toString());
@@ -131,33 +138,33 @@ const Admin = () => {
                   <DashboardLoader height={300} />
                 )}
 
-                {enquiries.length > 0 ? (
-                  enquiries.map((enquiry) => (
-                    <Enquiries
-                      key={enquiry.id}
-                      enquiry={enquiry}
-                      setToggle={setToggle}
-                      setOpenEnquiry={setOpenEnquiry}
-                    />
-                  ))
-                ) : (
-                  <EmptyEnquiries />
-                )}
+                {enquiries.length > 0
+                  ? enquiries.map((enquiry) => (
+                      <Enquiries
+                        key={enquiry.id}
+                        enquiry={enquiry}
+                        setToggle={setToggle}
+                        setOpenEnquiry={setOpenEnquiry}
+                      />
+                    ))
+                  : null}
+                {status === FetchStatus.NO_RESULT && <EmptyEnquiries />}
               </EnquiriesContainer>
             </Box>
             <EstablishmentsPanel>
               {establishStatus === FetchStatus.ERROR && (
                 <Message.Error>{establishError}</Message.Error>
               )}
-              {establishments.length > 0 ? (
-                establishments.map((establishment) => (
-                  <EstablishmentElement
-                    key={establishment.id}
-                    name={establishment.title}
-                    slug={establishment.slug}
-                  />
-                ))
-              ) : (
+              {establishments.length > 0
+                ? establishments.map((establishment) => (
+                    <EstablishmentElement
+                      key={establishment.id}
+                      name={establishment.title}
+                      slug={establishment.slug}
+                    />
+                  ))
+                : null}
+              {establishStatus === FetchStatus.NO_RESULT && (
                 <EmptyEstablishments />
               )}
             </EstablishmentsPanel>

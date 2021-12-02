@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { mediaQueries } from "../../../utils/styleHelpers";
-import Logo from "../../Logo/Logo";
+import Logo from "../Logo/Logo";
 import Heading from "../../Typography/Heading";
 import Box from "../Box/Box";
 import Container from "../Container/Container";

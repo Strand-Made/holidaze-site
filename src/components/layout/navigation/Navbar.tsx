@@ -3,7 +3,7 @@ import useToggle from "../../../hooks/useToggle";
 import { useAuth } from "../../../context/AuthContext";
 import { mediaQueries } from "../../../utils/styleHelpers";
 import Header from "../Header/Header";
-import Logo from "../../Logo/Logo";
+import Logo from "../Logo/Logo";
 import NavLinks from "./NavLinks";
 import MobileNav from "./MobileNav/MobileNav";
 import { HiMenu, HiX } from "react-icons/hi";

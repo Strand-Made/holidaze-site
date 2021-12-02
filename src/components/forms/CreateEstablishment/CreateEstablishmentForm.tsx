@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -16,6 +17,7 @@ import Select from "../Select/Select";
 import Input from "../Input/Input";
 import InputContainer from "../Input/InputContainer";
 import Checkbox from "../Input/Checkbox/Checkbox";
+import { FetchStatus } from "../../../utils/globalTypes";
 
 const schema = yup.object({
   establishmentName: yup
@@ -46,12 +48,12 @@ const schema = yup.object({
     .typeError("Please include how far it is to the city centre")
     .required(),
   establishmentDescription: yup.string().required("An description is required"),
-  file: yup.object().required("Please include a image of your establishment"),
+  files: yup.mixed().required("Please include a image of your establishment"),
 });
 
 const CreateEstablishmentForm = ({
   createEstablishment,
-  success,
+  status,
   error,
   setFiles,
   auth,
@@ -144,8 +146,11 @@ const CreateEstablishmentForm = ({
       <form onSubmit={handleSubmit(onSubmit)}>
         <Stack space={"0.5rem"}>
           {error && <Message.Error>{error}</Message.Error>}
-          {success && (
-            <Message.Success> Successfully created! </Message.Success>
+          {status === FetchStatus.SUCCESS && (
+            <>
+              <Message.Success> Successfully created! </Message.Success>
+              <Link to={`/establishments/${slug}`}>View</Link>
+            </>
           )}
           <InputContainer>
             <Label htmlFor="establishmentName"> Establishment Name </Label>
@@ -301,15 +306,19 @@ const CreateEstablishmentForm = ({
               type="file"
               name="files"
               accept="image/*"
+              {...register("files")}
               onChange={handleInputChange}
             />
-            {errors.file && (
-              <Message.Error>{errors.file.message}</Message.Error>
+            {errors.files && (
+              <Message.Error>{errors.files.message}</Message.Error>
             )}
           </InputContainer>
 
           <PrimaryButton type="submit" role="submit" full size="md">
-            Create Establishment
+            {status === FetchStatus.FETCHING && "Creating"}
+            {status === FetchStatus.SUCCESS && "Successfully Created"}
+            {status === FetchStatus.ERROR && "Create Establishment"}
+            {status === FetchStatus.IDLE && "Create Establishment"}
           </PrimaryButton>
         </Stack>
       </form>

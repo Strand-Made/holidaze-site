@@ -2,9 +2,11 @@ import styled from "styled-components";
 import { borderRadius } from "../../../globalStyle/_variables";
 import Heading from "../../Typography/Heading";
 import Switcher from "../../layout/utilities/Switcher/Switcher";
+import Spacer from "../../layout/utilities/Spacer/Spacer";
 import Box from "../../layout/Box/Box";
 import FlexContainer from "../../layout/utilities/Flex/FlexContainer";
 import { SecondaryButton } from "../../Button/Button";
+import FlexEnd from "../../layout/utilities/Flex/FlexEnd";
 
 type TEnquiry = {
   enquiry: {
@@ -57,17 +59,22 @@ const Enquiries = ({ enquiry, setToggle, setOpenEnquiry }: TEnquiry) => {
             <EnquiryData>{sentDate}</EnquiryData>
           </Box>
         </Switcher>
-        <Box>
-          <SecondaryButton
-            onClick={() => {
-              setOpenEnquiry(enquiry.id);
-              setToggle();
-            }}
-            invert
-          >
-            View
-          </SecondaryButton>
-        </Box>
+        <Spacer mt="1" />
+        <FlexContainer col>
+          <FlexEnd>
+            <Box>
+              <SecondaryButton
+                onClick={() => {
+                  setOpenEnquiry(enquiry.id);
+                  setToggle();
+                }}
+                invert
+              >
+                View
+              </SecondaryButton>
+            </Box>
+          </FlexEnd>
+        </FlexContainer>
       </Box>
     </EnquiryContainer>
   );

@@ -6,8 +6,10 @@ import { baseUrl } from "../../../../api/baseUrl";
 import { borderRadius } from "../../../../globalStyle/_variables";
 import { FetchStatus } from "../../../../utils/globalTypes";
 import LinkButton from "../../../Button/LinkButton";
+import MailButton from "../../../Button/MailButton";
 import Box from "../../../layout/Box/Box";
 import Popover from "../../../layout/Popover/Popover";
+import DashboardLoader from "../../../layout/SkeleteonLoader/Dashboard/DashboardLoader";
 import Stack from "../../../layout/Stack/Stack";
 import FlexContainer from "../../../layout/utilities/Flex/FlexContainer";
 import Message from "../../../Message/Message";
@@ -73,9 +75,7 @@ const EnquiryModal = ({ enquiry, token, setToggle }: IEnquiryModal) => {
     };
     getEnquiry();
   }, [enquiry, token]);
-
-  status === FetchStatus.SUCCESS && console.log(myEnquiry);
-
+  console.log(myEnquiry);
   return (
     <Popover position="fixed">
       <StylingBox>
@@ -126,9 +126,11 @@ const EnquiryModal = ({ enquiry, token, setToggle }: IEnquiryModal) => {
                   </MessageBox>
                 </Stack>
 
-                <LinkButton to="" size="md" full>
+                <MailButton
+                  href={`mailto:${myEnquiry.email}?subject=Your stay at ${myEnquiry.establishment_name}`}
+                >
                   Respond
-                </LinkButton>
+                </MailButton>
               </FlexContainer>
             </Stack>
           )}
@@ -136,7 +138,7 @@ const EnquiryModal = ({ enquiry, token, setToggle }: IEnquiryModal) => {
           {status === FetchStatus.ERROR && (
             <Message.Error>{error}</Message.Error>
           )}
-          {status === FetchStatus.FETCHING && <div>FETCHING</div>}
+          {status === FetchStatus.FETCHING && <DashboardLoader />}
         </Box>
       </StylingBox>
     </Popover>

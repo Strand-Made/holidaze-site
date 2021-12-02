@@ -1,6 +1,6 @@
-import { ReactNode } from "react";
-import { MdError } from "react-icons/md";
 import styled from "styled-components";
+import { ReactNode } from "react";
+import { MdCheckCircle, MdError } from "react-icons/md";
 import { borderRadius } from "../../globalStyle/_variables";
 
 type TMessage = {
@@ -21,6 +21,11 @@ const ErrorStyle = styled.div`
   font-weight: bold;
 `;
 
+const SuccessStyle = styled(ErrorStyle)`
+  background: var(--yellow-1);
+  color: var(--yellow-6);
+`;
+
 const Error = ({ children }: TMessage) => {
   return (
     <ErrorStyle>
@@ -29,7 +34,15 @@ const Error = ({ children }: TMessage) => {
     </ErrorStyle>
   );
 };
-const Success = styled.div``;
+
+const Success = ({ children }: TMessage) => {
+  return (
+    <SuccessStyle>
+      <MdCheckCircle color="inherit" size="25" />
+      <p>{children}</p>
+    </SuccessStyle>
+  );
+};
 const Info = styled.div``;
 
 Message.Error = Error;

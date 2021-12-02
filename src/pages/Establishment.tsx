@@ -85,8 +85,9 @@ const Establishment = () => {
               <>
                 <Box borderRadius>
                   <Image
+                    height={500}
                     fullWidth
-                    src={establishment?.image.formats.large.url}
+                    src={`${baseUrl}/${establishment?.image.formats.large.url}`}
                     alt={establishment.image.alternativeText}
                   />
                 </Box>

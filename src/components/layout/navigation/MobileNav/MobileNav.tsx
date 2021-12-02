@@ -21,7 +21,7 @@ const MobileMenuContainer = styled.div<IMobileNavProps>`
   width: 100%;
   height: 100%;
   transform: ${(props) =>
-    props.isToggled ? "translateX(0)" : "translateX(-1000px)"};
+    props.isToggled ? "translateX(0)" : "translateX(-800px)"};
   transition: var(--animate-transf);
 
   ${mediaQueries("sm")`

@@ -8,7 +8,7 @@ const EnquiriesContainer = styled.div`
   background: var(--cool-gray-2);
   border-radius: ${borderRadius.md};
   padding: 1rem;
-  overflow-y: scroll;
+
   box-shadow: ${shadows.sm};
 `;
 

@@ -12,13 +12,13 @@ import Box from "../../layout/Box/Box";
 import { useEffect, useState } from "react";
 import Message from "../../Message/Message";
 import Heading from "../../Typography/Heading";
-import Image from "../../layout/Image/Image";
 
 const ContactBox = styled.div`
   display: flex;
   background: white;
   border-radius: ${borderRadius.md};
   box-shadow: ${shadows.sm};
+  }
 `;
 
 const FormContainer = styled.div`
@@ -150,13 +150,6 @@ const ContactForm = ({ status, sendFormData, error }) => {
           </Stack>
         </FormContainer>
       </Form>
-      <ContactImage>
-        <Image
-          forceHeight
-          src="https://images.unsplash.com/photo-1551927411-95e412943b58?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=749&q=80"
-          alt="bergen"
-        />
-      </ContactImage>
     </ContactBox>
   );
 };

@@ -10,10 +10,11 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { baseUrl } from "../api/baseUrl";
 import Main from "../components/layout/Main/Main";
+import { FetchStatus } from "../utils/globalTypes";
 
 const CreateEstablishment = () => {
-  const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
+  const [status, setStatus] = useState<FetchStatus>(FetchStatus.IDLE);
   const [files, setFiles] = useState(null);
 
   let navigate = useNavigate();
@@ -26,8 +27,7 @@ const CreateEstablishment = () => {
 
   async function createEstablishment(data) {
     const url = `${baseUrl}/establishments`;
-    setSuccess(false);
-    setError(null);
+    setStatus(FetchStatus.FETCHING);
     const res = await axios({
       method: "POST",
       url: url,
@@ -57,9 +57,11 @@ const CreateEstablishment = () => {
           });
         };
         imageUpload(res);
+        setStatus(FetchStatus.SUCCESS);
       })
       .catch((err) => {
         setError(err.toString());
+        setStatus(FetchStatus.ERROR);
       });
   }
 
@@ -78,7 +80,7 @@ const CreateEstablishment = () => {
           <Link to="/admin">Go back</Link>
           <CreateEstablishmentForm
             createEstablishment={createEstablishment}
-            success={success}
+            status={status}
             error={error}
             setFiles={setFiles}
             auth={auth}

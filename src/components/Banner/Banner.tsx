@@ -4,10 +4,7 @@ import BannerSection from "./BannerSection";
 import FlexContainer from "../layout/utilities/Flex/FlexContainer";
 import { Link } from "react-router-dom";
 import BannerButton from "../BannerButton/BannerButton";
-
-const FlexEnd = styled.div`
-  align-self: flex-end;
-`;
+import FlexEnd from "../layout/utilities/Flex/FlexEnd";
 
 const Banner = ({ image, heading, to, linkText }) => {
   return (
