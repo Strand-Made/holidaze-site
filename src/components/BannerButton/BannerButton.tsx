@@ -38,9 +38,16 @@ const BannerButton = ({
   top,
   right,
   bottom,
+  absolute,
 }: IBannerButton) => {
   return (
-    <TitleContainer left={left} right={right} top={top} bottom={bottom}>
+    <TitleContainer
+      absolute={absolute}
+      left={left}
+      right={right}
+      top={top}
+      bottom={bottom}
+    >
       <TitleBox>{children}</TitleBox>
     </TitleContainer>
   );

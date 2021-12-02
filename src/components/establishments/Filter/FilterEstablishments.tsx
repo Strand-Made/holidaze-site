@@ -6,6 +6,7 @@ import Spacer from "../../layout/utilities/Spacer/Spacer";
 import Modal from "../../Modal/Modal";
 import Emphasize from "../../Typography/Emphasize";
 import Heading from "../../Typography/Heading";
+import FlexContainer from "../../layout/utilities/Flex/FlexContainer";
 
 interface IFilter {
   sortByPrice: any;
@@ -67,12 +68,14 @@ const FilterEstablishments = ({
           <Box>
             <Heading.H3>Filter</Heading.H3>
             <Spacer mt={"0.75"} />
-            <SecondaryButton onClick={sortByPrice}>
-              Price {sortPrice ? "(Descending)" : "(Ascending)"}
-            </SecondaryButton>
-            <SecondaryButton onClick={sortByAlphabet}>
-              Alphabetically {sortAlphabet ? "(Descending)" : "(Ascending)"}
-            </SecondaryButton>
+            <FlexContainer gap="0.75rem">
+              <SecondaryButton onClick={sortByPrice}>
+                Price {sortPrice ? "(Descending)" : "(Ascending)"}
+              </SecondaryButton>
+              <SecondaryButton onClick={sortByAlphabet}>
+                Alphabetically {sortAlphabet ? "(Descending)" : "(Ascending)"}
+              </SecondaryButton>
+            </FlexContainer>
           </Box>
           <Box>
             <Emphasize>Categories</Emphasize>

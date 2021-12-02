@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { borderRadius } from "../../../globalStyle/_variables";
 import { mediaQueries } from "../../../utils/styleHelpers";
 
 interface IImage {
@@ -8,12 +9,13 @@ interface IImage {
   forceHeight?: boolean;
   height?: number;
   width?: number;
+  borderRadius?: boolean;
 }
 
 const StyledImage = styled.img<IImage>`
   width: 100%;
   object-fit: cover;
-  border-radius: inherit;
+  border-radius: ${(props) => (props.borderRadius ? borderRadius.md : null)};
   min-height: ${(props) => (props.forceHeight ? "100%" : "")};
   ${(props) => {
     return (
@@ -39,9 +41,18 @@ const StyledImage = styled.img<IImage>`
   }};
 `;
 
-const Image = ({ src, alt, fullWidth, forceHeight, width, height }: IImage) => {
+const Image = ({
+  src,
+  alt,
+  fullWidth,
+  forceHeight,
+  width,
+  height,
+  borderRadius,
+}: IImage) => {
   return (
     <StyledImage
+      borderRadius={borderRadius}
       forceHeight={forceHeight}
       fullWidth={fullWidth}
       alt={alt}

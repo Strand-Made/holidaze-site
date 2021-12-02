@@ -18,10 +18,10 @@ interface EstablishmentPropTypes {
 const Card = ({ img, title, price, slug, altText }: EstablishmentPropTypes) => {
   return (
     <Box>
-      <Box borderRadius>
+      <Box>
         <Link to={slug}>
           <Frame>
-            <Image src={img} alt={altText ? altText : title} />
+            <Image borderRadius src={img} alt={altText ? altText : title} />
           </Frame>
         </Link>
       </Box>

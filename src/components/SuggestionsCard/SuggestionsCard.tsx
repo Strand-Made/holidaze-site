@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { borderRadius, shadows } from "../../globalStyle/_variables";
+import { borderRadius } from "../../globalStyle/_variables";
 import { mediaQueries } from "../../utils/styleHelpers";
 import BannerButton from "../BannerButton/BannerButton";
-import { buttonSizes } from "../Button/Button";
 
 interface SuggestionProps {
   title: string;
