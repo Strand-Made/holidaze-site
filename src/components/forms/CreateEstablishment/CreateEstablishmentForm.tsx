@@ -44,7 +44,7 @@ type TCreateFormData = {
   slug: string;
 };
 
-export type TCategory = "hotels" | "cabin" | "house" | "";
+export type TCategory = "hotels" | "b&b" | "house" | "";
 
 const CreateEstablishmentForm = ({
   createEstablishment,
@@ -80,7 +80,7 @@ const CreateEstablishmentForm = ({
     if (category === "hotels") {
       return 1;
     }
-    if (category === "cabin") {
+    if (category === "b&b") {
       return 2;
     }
     if (category === "house") {
@@ -165,7 +165,7 @@ const CreateEstablishmentForm = ({
             <Select {...register("category")} onChange={(e) => handleSelect(e)}>
               <option value="">Choose category</option>
               <option value="hotels">Hotel</option>
-              <option value="cabin">Cabin</option>
+              <option value="b&b">B&B</option>
               <option value="house">House</option>
             </Select>
             {errors.category && (

@@ -87,7 +87,7 @@ const Establishment = () => {
                   <Image
                     height={500}
                     fullWidth
-                    src={`${baseUrl}/${establishment?.image.formats.large.url}`}
+                    src={`${establishment?.image.formats.large.url}`}
                     alt={establishment.image.alternativeText}
                   />
                 </Box>

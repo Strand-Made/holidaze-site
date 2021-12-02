@@ -45,7 +45,7 @@ interface ListProps {
 }
 
 type TCategory = {
-  name: "Hotels" | "b&b" | "House";
+  name: "Hotels" | "B&B" | "House";
 };
 
 const SearchResultList = ({
@@ -55,6 +55,7 @@ const SearchResultList = ({
 }: ListProps) => {
   const [lengthCheck, setLengthCheck] = useState(false);
   const iconCheck = (category: string) => {
+    console.log(category);
     if (category === "Hotels") {
       return (
         <MdApartment
@@ -64,7 +65,7 @@ const SearchResultList = ({
         />
       );
     }
-    if (category === "b&b") {
+    if (category === "B&B") {
       return (
         <MdHouseboat
           aria-label="B&B category"
