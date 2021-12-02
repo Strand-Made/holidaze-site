@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { MdClose } from "react-icons/md";
 import Box from "../../layout/Box/Box";
 import Stack from "../../layout/Stack/Stack";
@@ -7,13 +6,6 @@ import Emphasize from "../../Typography/Emphasize";
 import Heading from "../../Typography/Heading";
 import Paragraph from "../../Typography/Paragraph";
 import EnquireForm from "../../forms/EnquireForm/EnquireForm";
-import { shadows } from "../../../globalStyle/_variables";
-
-const EnquireModal = styled.div`
-  background: var(--cool-gray-1);
-  box-shadow: ${shadows.md};
-  border-radius: 5px;
-`;
 
 const EnquirePopup = ({
   host,
@@ -25,7 +17,7 @@ const EnquirePopup = ({
   endDate,
 }) => {
   return (
-    <EnquireModal>
+    <Box background={"var(--cool-gray-1)"} borderRadius shadow>
       <Box padding="0.5rem">
         <Stack>
           <FlexContainer justifyContent="space-between">
@@ -75,7 +67,7 @@ const EnquirePopup = ({
           title={establishmentTitle}
         />
       </Box>
-    </EnquireModal>
+    </Box>
   );
 };
 

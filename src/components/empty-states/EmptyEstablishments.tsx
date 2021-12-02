@@ -21,7 +21,7 @@ const EmptyEstablishments = () => {
   return (
     <EmptyContainer>
       <ImageContainer>
-        <Image src={EmptyEstablishmentsImage} alt="no result" />
+        <Image src={EmptyEstablishmentsImage} alt="no result" width={200} />
       </ImageContainer>
       <Stack>
         <Paragraph weight="600">

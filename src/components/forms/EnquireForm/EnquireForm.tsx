@@ -11,9 +11,8 @@ import Message from "../../Message/Message";
 import Box from "../../layout/Box/Box";
 import axios from "axios";
 import { baseUrl } from "../../../api/baseUrl";
-import { TUser } from "../../../pages/Establishment";
 import { useState } from "react";
-import { FetchStatus } from "../../../utils/globalTypes";
+import { FetchStatus, TUser } from "../../../utils/globalTypes";
 
 interface IEnquireForm {
   host: TUser;

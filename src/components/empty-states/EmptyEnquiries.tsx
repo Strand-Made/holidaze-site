@@ -19,7 +19,7 @@ const EmptyEnquiries = () => {
   return (
     <EmptyContainer>
       <ImageContainer>
-        <Image src={EmptyEnquiryList} alt="no result" />
+        <Image src={EmptyEnquiryList} alt="no result" width={100} />
       </ImageContainer>
       <Box>
         <Heading.H2 size="md">You have no enquiries at this time</Heading.H2>

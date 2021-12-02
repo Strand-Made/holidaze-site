@@ -2,8 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { baseUrl } from "../api/baseUrl";
-import { FetchStatus } from "../utils/globalTypes";
-import { EstablishmentType } from "./Establishment";
+import { EstablishmentType, FetchStatus } from "../utils/globalTypes";
 import EmptyIllustration from "../components/empty-states/EmptyIllustration/EmptyIllustration";
 import Card from "../components/establishment/Card/Card";
 import Container from "../components/layout/Container/Container";
@@ -55,27 +54,30 @@ const Results = () => {
           <Heading size="xl">Search results for: {search} </Heading>
         </FlexContainer>
         <Spacer mt="2" />
-        {filteredEstablishments.length < 1 && <EmptyIllustration />}
         {status === FetchStatus.ERROR && <Message.Error>{error}</Message.Error>}
         {status === FetchStatus.FETCHING && (
           <SkeletonLoader numberofLoaders={6} />
         )}
         <Grid gap="1.5rem">
-          {filteredEstablishments.map((establishment: EstablishmentType) => {
-            const { id, price, slug, title } = establishment;
-            const imgUrl = establishment.image.formats.small.url;
-            const altText = establishment.image.alternativeText;
-            return (
-              <Card
-                key={id}
-                price={price}
-                slug={`/establishments/${slug}`}
-                title={title}
-                img={imgUrl}
-                altText={altText}
-              />
-            );
-          })}
+          {filteredEstablishments.length > 0 ? (
+            filteredEstablishments.map((establishment: EstablishmentType) => {
+              const { id, price, slug, title } = establishment;
+              const imgUrl = establishment.image.formats.small.url;
+              const altText = establishment.image.alternativeText;
+              return (
+                <Card
+                  key={id}
+                  price={price}
+                  slug={`/establishments/${slug}`}
+                  title={title}
+                  img={imgUrl}
+                  altText={altText}
+                />
+              );
+            })
+          ) : (
+            <EmptyIllustration />
+          )}
         </Grid>
       </Container>
     </Main>

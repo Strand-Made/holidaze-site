@@ -6,6 +6,8 @@ interface IImage {
   alt: string;
   fullWidth?: boolean;
   forceHeight?: boolean;
+  height?: number;
+  width?: number;
 }
 
 const StyledImage = styled.img<IImage>`
@@ -37,13 +39,15 @@ const StyledImage = styled.img<IImage>`
   }};
 `;
 
-const Image = ({ src, alt, fullWidth, forceHeight }: IImage) => {
+const Image = ({ src, alt, fullWidth, forceHeight, width, height }: IImage) => {
   return (
     <StyledImage
       forceHeight={forceHeight}
       fullWidth={fullWidth}
       alt={alt}
       src={src}
+      width={width}
+      height={height}
     />
   );
 };

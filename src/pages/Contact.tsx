@@ -10,7 +10,7 @@ import Box from "../components/layout/Box/Box";
 import Spacer from "../components/layout/utilities/Spacer/Spacer";
 import Main from "../components/layout/Main/Main";
 import Stack from "../components/layout/Stack/Stack";
-import SmallBanner from "../components/Banner/SmallBanner/SmallBanner";
+import InfoBanner from "../components/Banner/InfoBanner/InfoBanner";
 import Paragraph from "../components/Typography/Paragraph";
 import Emphasize from "../components/Typography/Emphasize";
 import FlexContainer from "../components/layout/utilities/Flex/FlexContainer";
@@ -66,7 +66,7 @@ const Contact = () => {
           <Spacer mt="2" />
           <Stack>
             <Heading.H3 size="xl">You can also call us </Heading.H3>
-            <SmallBanner>
+            <InfoBanner>
               <FlexContainer gap="1.5rem" alignItems="baseline">
                 <MdLocalPhone size="42" />
                 <Box padding="0">
@@ -77,7 +77,7 @@ const Contact = () => {
                   </Paragraph>
                 </Box>
               </FlexContainer>
-            </SmallBanner>
+            </InfoBanner>
           </Stack>
         </Container>
       </Main>

@@ -5,7 +5,7 @@ import Heading from "../components/Typography/Heading";
 import Enquiries from "../components/admin-dashboard/Enquiries/Enquiries";
 import EstablishmentsPanel from "../components/admin-dashboard/EstablishmentsPanel/EstablishmentsPanel";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import Switcher from "../components/layout/utilities/Switcher/Switcher";
 import Emphasize from "../components/Typography/Emphasize";
 import axios from "axios";
@@ -87,13 +87,14 @@ const Admin = () => {
         setEstablishStatus(FetchStatus.FETCHING);
         const res = await axios.get(url);
         const { data } = res;
+        setEstablishStatus(FetchStatus.SUCCESS);
         const isOwner = data.filter((establishment) => {
           if (establishment.user?.email === user) {
             return establishment;
           }
           return null;
         });
-        setEstablishStatus(FetchStatus.SUCCESS);
+
         setEstablishments(isOwner);
       } catch (error) {
         setEstablishStatus(FetchStatus.ERROR);
@@ -123,11 +124,11 @@ const Admin = () => {
             <Box>
               <Heading.H2>Your Enquiries</Heading.H2>
               <EnquiriesContainer>
-                {status === FetchStatus.ERROR ? (
+                {status === FetchStatus.ERROR && (
                   <Message.Error>{error}</Message.Error>
-                ) : null}
+                )}
                 {status === FetchStatus.FETCHING && (
-                  <DashboardLoader height={700} />
+                  <DashboardLoader height={300} />
                 )}
 
                 {enquiries.length > 0 ? (

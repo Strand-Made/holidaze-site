@@ -1,6 +1,6 @@
 import { MdOutlineKingBed, MdOutlineWifi, MdPinDrop } from "react-icons/md";
 import styled from "styled-components";
-import { EstablishmentType } from "../../../pages/Establishment";
+import { EstablishmentType } from "../../../utils/globalTypes";
 import { IconContainer } from "../../IconsContainer/IconsContainer";
 import FlexContainer from "../../layout/utilities/Flex/FlexContainer";
 import Emphasize from "../../Typography/Emphasize";
@@ -13,6 +13,7 @@ const StyledOfferList = styled.ul`
   display: flex;
   flex-wrap: wrap;
   gap: 1.5rem;
+  padding: 0;
 `;
 
 const OfferList = ({ establishment }: IStyledList) => {

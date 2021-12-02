@@ -60,6 +60,7 @@ const Establishments = () => {
         const res = await axios.get(url);
         if (catergoryFilter) {
           let filteredEstablishments = res.data[0].establishments;
+          setStatus(FetchStatus.SUCCESS);
           return setEstablishments(filteredEstablishments);
         }
         setEstablishments(res.data);

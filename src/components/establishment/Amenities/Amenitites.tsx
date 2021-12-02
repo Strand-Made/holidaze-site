@@ -1,21 +1,13 @@
-import styled from "styled-components";
 import {
   MdEmojiFoodBeverage,
   MdShower,
   MdOutlineCleaningServices,
   MdSportsTennis,
 } from "react-icons/md";
-import { borderRadius } from "../../../globalStyle/_variables";
 import { IconContainer } from "../../IconsContainer/IconsContainer";
 import FlexContainer from "../../layout/utilities/Flex/FlexContainer";
 import Heading from "../../Typography/Heading";
 import Box from "../../layout/Box/Box";
-
-const BannerBox = styled.div`
-  background: var(--teal-2);
-  border-radius: ${borderRadius.md};
-  padding: 1.5rem;
-`;
 
 type TAmenities = {
   amenities: {
@@ -65,26 +57,31 @@ const Amenitites = ({ amenities }: TAmenities) => {
       return <MdOutlineCleaningServices color="var(--teal-6)" size={24} />;
   };
 
-  let removeNullArr = amenitiesArray.filter((ameni) => {
+  let removeNullFromArr = amenitiesArray.filter((ameni) => {
     return ameni.text !== null;
   });
 
   return (
     <FlexContainer gap="1.5rem" wrap="wrap">
-      {removeNullArr.map((service, index) => {
+      {removeNullFromArr.map((service, index) => {
         return (
-          <BannerBox key={index}>
+          <Box
+            padding="1.5rem"
+            background="var(--teal-2)"
+            borderRadius
+            key={index}
+          >
             <FlexContainer gap="0.5rem" alignItems="center">
-              <Box>
+              <Box padding={"0"}>
                 <IconContainer background="var--cool-gray-1">
                   {iconCheck(service)}
                 </IconContainer>
               </Box>
-              <Box>
+              <Box padding={"0"}>
                 <Heading.H5 size="md">{service.text}</Heading.H5>
               </Box>
             </FlexContainer>
-          </BannerBox>
+          </Box>
         );
       })}
     </FlexContainer>

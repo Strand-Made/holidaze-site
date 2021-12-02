@@ -35,15 +35,13 @@ export const PrimaryButton = styled.button<IButtonProps>`
     if (props.size === "l") return buttonSizes.l;
   }};
   box-shadow: ${shadows.md};
-  transition-property: background, color, box-shadow, transform;
+  transition-property: background, color, box-shadow;
   transition-duration: 0.3s;
   transition-timing-function: ease-in;
-
-  :active,
-  :focus {
+  &:active,
+  &:focus {
     background: var(--blue-6);
     box-shadow: ${shadows.sm};
-    transform: scale(0.99);
   }
   ${Header} & {
     display: none;

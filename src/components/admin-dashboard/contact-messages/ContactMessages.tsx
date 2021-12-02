@@ -19,10 +19,9 @@ const MessageContainer = styled.div`
   background: white;
 `;
 
-const ContactMessages = ({ message, status }) => {
+const ContactMessages = ({ message }) => {
   return (
     <MessageContainer>
-      {status === FetchStatus.FETCHING && "Loading"}
       <Switcher limit={1} threshold={200}>
         <Box>
           <Heading.H3 size="md">{message.from_name}</Heading.H3>

@@ -17,7 +17,7 @@ const EmptyIllustration = () => {
   return (
     <IllustrationContainer>
       <Stack>
-        <Image src={NoResult} alt="no result" />
+        <Image src={NoResult} alt="no result" width={200} />
 
         <Stack space="0.5rem">
           <Heading.H2 size="l">

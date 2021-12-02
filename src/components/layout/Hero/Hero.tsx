@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { ReactNode } from "react";
 import { mediaQueries } from "../../../utils/styleHelpers";
 import HeroContent from "./HeroContent";
-import hero from "../../../assets/hero.jpg";
+import hero from "../../../assets/herowebp.webp";
 import Heading from "../../Typography/Heading";
 
 type HeroProps = {
@@ -14,6 +14,7 @@ export const HeroSection = styled.section`
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  background-attachment: scroll;
   height: 50vh;
   padding-top: 2rem;
   padding-left: 1rem;
