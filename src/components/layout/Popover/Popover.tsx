@@ -25,6 +25,7 @@ const StyledPopover = styled.div<IPopover>`
 `;
 const Contain = styled.div<TContain>`
   --margin: ${(props) => (props.margin ? props.margin : "0")};
+  min-width: 300px;
   max-width: calc(100% - var(--margin) * 2);
   max-height: calc(100% - var(--margin) * 2);
   border-radius: ${borderRadius.md};

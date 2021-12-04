@@ -99,7 +99,7 @@ const Establishment = () => {
                 </Box>
                 <Spacer mt="1.5" />
                 <Grid minWidth={400}>
-                  <Aside minWidth={60} asideWidth={400}>
+                  <Aside minWidth={60} asideWidth={350}>
                     <Section>
                       <Stack space="1rem">
                         <Heading size="2xl">{establishment.title}</Heading>
