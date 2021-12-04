@@ -57,7 +57,7 @@ html, body, #root {
     height: 100%;
 }
 #root {
-    font-size: 14px;
+    font-size: 16px;
     isolation: isolate;
 }
 

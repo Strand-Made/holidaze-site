@@ -21,6 +21,7 @@ const NavList = styled.ul`
 `}
 `;
 const ButtonContainer = styled.div`
+  color: var(--cool-gray-9);
   display: none;
   ${mediaQueries("sm")`
   display: block;

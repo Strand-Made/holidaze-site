@@ -59,26 +59,28 @@ const Home = () => {
       <Spacer mb="4" />
       <Container>
         <Section>
-          <Heading.H2 weight="700" size="2xl">
-            Looking for something special?
-          </Heading.H2>
-          <Grid>
-            {isLoading && <SkeletonLoader numberofLoaders={3} />}
-            {error && <div>{error}</div>}
-            {category.map((suggestion: CategorySuggestion) => {
-              const { category_suggestion_title, id, Slug } = suggestion;
-              const { url, alternativeText } = suggestion.category_image;
-              return (
-                <SuggestionsCard
-                  slug={Slug}
-                  key={id}
-                  title={category_suggestion_title}
-                  img={url}
-                  imgDesc={alternativeText}
-                />
-              );
-            })}
-          </Grid>
+          <Stack space="1rem">
+            <Heading.H2 weight="700" size="2xl">
+              Looking for something special?
+            </Heading.H2>
+            <Grid>
+              {isLoading && <SkeletonLoader numberofLoaders={3} />}
+              {error && <div>{error}</div>}
+              {category.map((suggestion: CategorySuggestion) => {
+                const { category_suggestion_title, id, Slug } = suggestion;
+                const { url, alternativeText } = suggestion.category_image;
+                return (
+                  <SuggestionsCard
+                    slug={Slug}
+                    key={id}
+                    title={category_suggestion_title}
+                    img={url}
+                    imgDesc={alternativeText}
+                  />
+                );
+              })}
+            </Grid>
+          </Stack>
         </Section>
         <Spacer mb="6" />
         <Section>
