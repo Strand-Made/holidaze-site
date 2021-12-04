@@ -17,43 +17,46 @@ interface EstablishmentPropTypes {
   altText?: string;
 }
 
-const EstablishmentCardImage = styled.div`
+const EstablishmentCard = styled(Link)`
+  color: inherit;
   transition-property: transform, opacity;
   transition-duration: 0.2s;
   transition-timing-function: ease-out;
   backface-visibility: hidden;
   :hover {
     transform: scale(1.02);
-    opacity: 0.8;
+    opacity: 0.9;
   }
 `;
 
+const EstablishmentCardImage = styled.div``;
+
 const Card = ({ img, title, price, slug, altText }: EstablishmentPropTypes) => {
   return (
-    <Box>
-      <EstablishmentCardImage>
-        <Link to={slug}>
+    <EstablishmentCard to={slug}>
+      <Box>
+        <EstablishmentCardImage>
           <Frame>
             <Image borderRadius src={img} alt={altText ? altText : title} />
           </Frame>
-        </Link>
-      </EstablishmentCardImage>
-      <Spacer mt="0.75" />
-      <FlexContainer justifyContent="space-between" alignItems="center">
-        <Paragraph weight="400" size="l">
-          {title}
-        </Paragraph>
-        <Box>
-          <Stack>
-            <Demphasize>from</Demphasize>
-            <Paragraph weight="600" size="l" color="var(--cool-gray-9)">
-              <Demphasize fontSize="1rem">$ </Demphasize> {price}
-              <Demphasize fontSize="1rem"> per night</Demphasize>
-            </Paragraph>
-          </Stack>
-        </Box>
-      </FlexContainer>
-    </Box>
+        </EstablishmentCardImage>
+        <Spacer mt="0.75" />
+        <FlexContainer justifyContent="space-between" alignItems="center">
+          <Paragraph weight="600" size="l">
+            {title}
+          </Paragraph>
+          <Box>
+            <Stack>
+              <Demphasize>from</Demphasize>
+              <Paragraph weight="600" size="l" color="var(--cool-gray-9)">
+                <Demphasize fontSize="1rem">$ </Demphasize> {price}
+                <Demphasize fontSize="1rem"> per night</Demphasize>
+              </Paragraph>
+            </Stack>
+          </Box>
+        </FlexContainer>
+      </Box>
+    </EstablishmentCard>
   );
 };
 

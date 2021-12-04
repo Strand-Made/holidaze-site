@@ -94,6 +94,7 @@ const ContactForm = ({ status, sendFormData, error }: IContactform) => {
                 type="text"
                 {...register("userName")}
                 value={name}
+                name="userName"
                 onChange={(e) => setName(e.target.value)}
               />
               {errors.name && (
@@ -106,6 +107,7 @@ const ContactForm = ({ status, sendFormData, error }: IContactform) => {
                 <Input
                   type="text"
                   {...register("email")}
+                  name="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
@@ -121,6 +123,7 @@ const ContactForm = ({ status, sendFormData, error }: IContactform) => {
                   type="text"
                   {...register("subject")}
                   value={subject}
+                  name="subject"
                   onChange={(e) => setSubject(e.target.value)}
                 />
                 {errors.subject && (
@@ -134,6 +137,7 @@ const ContactForm = ({ status, sendFormData, error }: IContactform) => {
                 <TextBox
                   {...register("message")}
                   value={message}
+                  name="message"
                   onChange={(e) => setMessage(e.target.value)}
                 />
                 {errors.message && (

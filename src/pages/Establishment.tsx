@@ -106,11 +106,11 @@ const Establishment = () => {
                         <OfferList establishment={establishment} />
                         <FlexContainer col gap="2rem">
                           <Stack space="1rem">
-                            <Heading.H3 size="l">Description</Heading.H3>
+                            <Heading.H2 size="l">Description</Heading.H2>
                             <Paragraph>{establishment.description}</Paragraph>
                           </Stack>
                           <Stack space="1rem">
-                            <Heading.H4 size="l">Amenities</Heading.H4>
+                            <Heading.H3 size="l">Amenities</Heading.H3>
                             <Amenitites amenities={establishment.amenities} />
                           </Stack>
                         </FlexContainer>

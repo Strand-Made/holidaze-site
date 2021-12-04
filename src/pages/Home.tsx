@@ -28,6 +28,11 @@ type CategorySuggestion = {
 type CategoryImage = {
   alternativeText: string;
   url: string;
+  formats: {
+    small: {
+      url: string;
+    };
+  };
 };
 
 const Home = () => {
@@ -68,13 +73,14 @@ const Home = () => {
               {error && <div>{error}</div>}
               {category.map((suggestion: CategorySuggestion) => {
                 const { category_suggestion_title, id, Slug } = suggestion;
-                const { url, alternativeText } = suggestion.category_image;
+                const { alternativeText } = suggestion.category_image;
+                const smallImage = suggestion.category_image.formats.small.url;
                 return (
                   <SuggestionsCard
                     slug={Slug}
                     key={id}
                     title={category_suggestion_title}
-                    img={url}
+                    img={smallImage}
                     imgDesc={alternativeText}
                   />
                 );
