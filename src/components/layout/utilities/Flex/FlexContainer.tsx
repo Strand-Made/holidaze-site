@@ -45,8 +45,8 @@ const Flex = styled.div<FlexProps>`
   justify-content: ${(props) => props.justifyContent};
   ${(props) =>
     mediaQueries("md")(`
-  flex-direction: ${props.responsive};
-  align-items: ${props.responsiveAlignItems};
+  flex-direction: ${props.responsive ? props.responsive : ""};
+  align-items: ${props.responsiveAlignItems ? props.responsiveAlignItems : ""};
   `)}
   flex-grow: ${(props) => props.flexGrow && props.flexGrow};
 `;

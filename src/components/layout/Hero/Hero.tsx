@@ -24,7 +24,7 @@ export const HeroSection = styled.section`
   ${mediaQueries("md")`
   max-width: 1100px;
   border-radius: 8px;
-  padding: 5rem;
+  padding: 6rem;
   `}
   ${mediaQueries("lg")`
   max-width: 1200px;

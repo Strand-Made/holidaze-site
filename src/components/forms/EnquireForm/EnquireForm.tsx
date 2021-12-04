@@ -138,10 +138,10 @@ const EnquireForm = ({
           )}
         </Box>
         <Box>
-          <Label htmlFor="message"> Enquiry </Label>
+          <Label htmlFor="message"> Additional details </Label>
           <TextBox
             rows={5}
-            placeholder="Additional details"
+            placeholder="Additional details about your booking"
             aria-invalid={errors.message ? "true" : "false"}
             {...register("message")}
           />

@@ -70,7 +70,7 @@ const Contact = () => {
             sendFormData={sendContactData}
           />
           <Spacer mt="2" />
-          <Stack>
+          <Stack space="1rem">
             <Heading.H3 size="xl">You can also call us </Heading.H3>
             <InfoBanner>
               <FlexContainer gap="1.5rem" alignItems="baseline">

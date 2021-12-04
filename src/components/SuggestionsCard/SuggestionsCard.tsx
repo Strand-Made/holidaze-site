@@ -13,6 +13,15 @@ interface SuggestionProps {
 
 const SuggestionContainer = styled(Link)`
   width: 100%;
+  transition-property: transform, opacity;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-out;
+  backface-visibility: hidden;
+  :hover,
+  :focus {
+    transform: scale(1.02);
+    opacity: 0.8;
+  }
 `;
 const ImageContainer = styled.div`
   position: relative;
@@ -32,7 +41,7 @@ const SuggestionsCard = ({ title, img, imgDesc, slug }: SuggestionProps) => {
     <SuggestionContainer to={link}>
       <ImageContainer>
         <Image width="300" src={img} alt={imgDesc} />
-        <BannerButton absolute left={1} bottom={1}>
+        <BannerButton absolute right={1} bottom={1}>
           {title}
         </BannerButton>
       </ImageContainer>

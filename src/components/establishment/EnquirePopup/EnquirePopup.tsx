@@ -35,7 +35,7 @@ const EnquirePopup = ({
         <Stack>
           <FlexContainer justifyContent="space-between">
             <Box>
-              <Heading.H4 size="l">Enquire</Heading.H4>
+              <Heading.H4 size="l">Your Enquiry</Heading.H4>
             </Box>
             <button onClick={setToggle}>
               <MdClose size="24" />

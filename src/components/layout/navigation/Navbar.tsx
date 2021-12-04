@@ -34,6 +34,10 @@ const ToggleMenuBtn = styled.button`
   height: 40px;
   width: 40px;
   padding: 0.5rem;
+  border: 1px solid var(--cool-gray-2);
+  &:focus {
+    border: 1px solid var(--cool-gray-9);
+  }
   ${mediaQueries("sm")`
   display: none;
   `}
@@ -46,7 +50,7 @@ const Navbar = () => {
     <Container>
       <Header>
         <Logo />
-        <Nav>
+        <Nav role="navigation">
           <NavList>
             <li>
               <NavLinks to="/">Home</NavLinks>
@@ -65,7 +69,8 @@ const Navbar = () => {
           </NavList>
 
           <ToggleMenuBtn
-            aria-roledescription="Navmenu toggle button"
+            aria-label="Menu Button"
+            aria-expanded={isToggled ? "true" : "false"}
             onClick={setIsToggled}
           >
             {isToggled ? <HiX size={24} /> : <HiMenu size={24} />}

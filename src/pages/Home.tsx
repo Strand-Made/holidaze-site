@@ -5,6 +5,8 @@ import SearchBar from "../components/forms/SearchBar/SearchBar";
 import Section from "../components/layout/Section/Section";
 import Container from "../components/layout/Container/Container";
 import SuggestionsCard from "../components/SuggestionsCard/SuggestionsCard";
+import JoinUs from "../assets/join-us.webp";
+import ExploreStays from "../assets/explore-stays.webp";
 import Banner from "../components/Banner/Banner";
 import Heading from "../components/Typography/Heading";
 import Spacer from "../components/layout/utilities/Spacer/Spacer";
@@ -13,6 +15,8 @@ import Main from "../components/layout/Main/Main";
 import SkeletonLoader from "../components/layout/SkeleteonLoader/SkeletonLoader";
 import Switcher from "../components/layout/utilities/Switcher/Switcher";
 import Box from "../components/layout/Box/Box";
+import Paragraph from "../components/Typography/Paragraph";
+import Stack from "../components/layout/Stack/Stack";
 
 type CategorySuggestion = {
   category_image: CategoryImage;
@@ -63,15 +67,13 @@ const Home = () => {
             {error && <div>{error}</div>}
             {category.map((suggestion: CategorySuggestion) => {
               const { category_suggestion_title, id, Slug } = suggestion;
-
               const { url, alternativeText } = suggestion.category_image;
-              const imageUrl = `${url}`;
               return (
                 <SuggestionsCard
                   slug={Slug}
                   key={id}
                   title={category_suggestion_title}
-                  img={imageUrl}
+                  img={url}
                   imgDesc={alternativeText}
                 />
               );
@@ -86,9 +88,7 @@ const Home = () => {
                 heading=" Explore stays Bergen"
                 to={"/establishments"}
                 linkText="Explore"
-                image={
-                  "https://images.unsplash.com/photo-1570571054854-8f5a9f80504a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"
-                }
+                image={ExploreStays}
               />
             </Box>
             <Box>
@@ -96,14 +96,46 @@ const Home = () => {
                 heading="Join us"
                 to={"/contact"}
                 linkText="Contact us"
-                image={
-                  "https://images.unsplash.com/photo-1507038772120-7fff76f79d79?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"
-                }
+                image={JoinUs}
               />
             </Box>
           </Switcher>
         </Section>
       </Container>
+      <Spacer mt="3" />
+      <Section pt={5} pb={20} background="var(--teal-4)">
+        <Container>
+          <Stack space="2rem">
+            <Heading.H4 color="var(--teal-1)" size="3xl">
+              Establishments vetted for you
+            </Heading.H4>
+            <Switcher threshold={500} space={2}>
+              <Stack space="1rem">
+                <Paragraph size="l" weight="600" color="var(--teal-1)">
+                  Book with confidence
+                </Paragraph>
+                <Paragraph color="var(--teal-1)">
+                  We have vetted all the establishments, to make sure that our
+                  customers have the best stay possible. Because who likes
+                  surprises? Except when they have to do with good food or a
+                  pool.
+                </Paragraph>
+              </Stack>
+              <Stack space="1rem">
+                <Paragraph size="l" weight="600" color="var(--teal-1)">
+                  Browse away
+                </Paragraph>
+                <Paragraph color="var(--teal-1)">
+                  We recognize that being connected is important. Therefore all
+                  establishments we offer has wifi, so that you can connect with
+                  your mom or post how sweet of a house you are staying at to
+                  Instagram.
+                </Paragraph>
+              </Stack>
+            </Switcher>
+          </Stack>
+        </Container>
+      </Section>
     </Main>
   );
 };

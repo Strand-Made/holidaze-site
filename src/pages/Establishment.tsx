@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import axios from "axios";
@@ -23,10 +23,12 @@ import Main from "../components/layout/Main/Main";
 import EnquirePopup from "../components/establishment/EnquirePopup/EnquirePopup";
 import Message from "../components/Message/Message";
 import EstablishmentLoader from "../components/layout/SkeleteonLoader/Establishment/EstablishmentLoader";
+import Stack from "../components/layout/Stack/Stack";
 
 const Establishment = () => {
   const baseUrl = process.env.REACT_APP_BASE_URL;
   let params = useParams();
+  let navigate = useNavigate();
   const { establishmentSlug } = params;
 
   const [status, setStatus] = useState<FetchStatus>(FetchStatus.IDLE);
@@ -47,8 +49,12 @@ const Establishment = () => {
         const res = await axios.get(
           `${baseUrl}/establishments?slug=${establishmentSlug}`
         );
+
         const data = res.data[0];
         setStatus(FetchStatus.SUCCESS);
+        if (!data) {
+          navigate("/");
+        }
 
         setEstablishment(data);
       } catch (error: any) {
@@ -57,7 +63,7 @@ const Establishment = () => {
       }
     };
     fetchEstablishment();
-  }, [baseUrl, establishmentSlug, setEstablishment]);
+  }, [baseUrl, establishmentSlug, navigate, setEstablishment]);
 
   const dateOnChange = (dates: any) => {
     const [start, end] = dates;
@@ -95,19 +101,20 @@ const Establishment = () => {
                 <Grid minWidth={400}>
                   <Aside minWidth={60} asideWidth={400}>
                     <Section>
-                      <Heading size="2xl">{establishment.title}</Heading>
-                      <OfferList establishment={establishment} />
-                      <Spacer mt="2" />
-                      <FlexContainer col gap="1.5rem">
-                        <Box>
-                          <Heading.H3 size="l">Description</Heading.H3>
-                          <Paragraph>{establishment.description}</Paragraph>
-                        </Box>
-                        <Box>
-                          <Heading.H4 size="l">Amenities</Heading.H4>
-                          <Amenitites amenities={establishment.amenities} />
-                        </Box>
-                      </FlexContainer>
+                      <Stack space="1rem">
+                        <Heading size="2xl">{establishment.title}</Heading>
+                        <OfferList establishment={establishment} />
+                        <FlexContainer col gap="2rem">
+                          <Stack space="1rem">
+                            <Heading.H3 size="l">Description</Heading.H3>
+                            <Paragraph>{establishment.description}</Paragraph>
+                          </Stack>
+                          <Stack space="1rem">
+                            <Heading.H4 size="l">Amenities</Heading.H4>
+                            <Amenitites amenities={establishment.amenities} />
+                          </Stack>
+                        </FlexContainer>
+                      </Stack>
                     </Section>
 
                     <Section>

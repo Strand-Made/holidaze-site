@@ -36,10 +36,11 @@ export const PrimaryButton = styled.button<IButtonProps>`
   }};
   box-shadow: ${shadows.md};
   transition-property: background, color, box-shadow;
-  transition-duration: 0.3s;
-  transition-timing-function: ease-in;
-  &:active,
-  &:focus {
+  transition-duration: 0.2s;
+  transition-timing-function: ease-out;
+  :active,
+  :focus,
+  :hover {
     background: var(--blue-6);
     box-shadow: ${shadows.sm};
   }
@@ -58,9 +59,10 @@ export const SecondaryButton = styled(PrimaryButton)`
   border: 1px solid var(--blue-6);
   box-shadow: none;
   :active,
-  :focus {
-    background: none;
-    color: var(--blue-6);
+  :focus,
+  :hover {
+    background: var(--blue-5);
+    color: var(--blue-1);
     box-shadow: none;
   }
 `;

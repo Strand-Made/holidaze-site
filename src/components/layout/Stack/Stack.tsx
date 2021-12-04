@@ -12,9 +12,8 @@ const StyledStack = styled.div<IStack>`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  & > * {
+  & > * + * {
     margin-top: ${(props) => (props.space ? props.space : 0)};
-    margin-bottom: ${(props) => (props.space ? props.space : 0)};
   }
   ${(props) => {
     return (

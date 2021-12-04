@@ -80,7 +80,6 @@ const Admin = () => {
         });
         const { data } = res;
         const userEnquiries = data.filter((enquiry: TUserEnquiries) => {
-          console.log(enquiry);
           if (enquiry.users_permissions_user.email === user) {
             return enquiry;
           }

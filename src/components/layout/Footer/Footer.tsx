@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { mediaQueries } from "../../../utils/styleHelpers";
 import Logo from "../Logo/Logo";
-import Heading from "../../Typography/Heading";
 import Box from "../Box/Box";
 import Container from "../Container/Container";
 import Footerlink from "./FooterlInk/Footerlink";
@@ -31,28 +30,22 @@ const Flex = styled.div`
 const Footer = () => {
   return (
     <FooterMain>
-      <Logo white />
       <Container>
+        <Logo white />
         <Flex>
           <Box>
             <Footerlink to="/establishments">
-              <Heading.H6 weight="400" size="l">
-                Establishments
-              </Heading.H6>
+              <span>Establishments</span>
             </Footerlink>
           </Box>
           <Box>
             <Footerlink to="/contact">
-              <Heading.H6 weight="400" size="l">
-                Contact
-              </Heading.H6>
+              <span>Contact</span>
             </Footerlink>
           </Box>
           <Box>
             <Footerlink to="/login">
-              <Heading.H6 weight="400" size="l">
-                Login
-              </Heading.H6>
+              <span>Login</span>
             </Footerlink>
           </Box>
         </Flex>

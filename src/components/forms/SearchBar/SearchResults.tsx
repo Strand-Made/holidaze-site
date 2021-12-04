@@ -22,6 +22,7 @@ const ResultItem = styled.li`
     display: flex;
     border-radius: inherit;
     align-items: baseline;
+    color: var(--cool-gray-9);
     gap: 0.5rem;
     &:hover,
     &:focus,
@@ -55,13 +56,12 @@ const SearchResultList = ({
 }: ListProps) => {
   const [lengthCheck, setLengthCheck] = useState(false);
   const iconCheck = (category: string) => {
-    console.log(category);
     if (category === "Hotels") {
       return (
         <MdApartment
           aria-label="Hotel Category"
           size="24"
-          color="var(--blue-3)"
+          color="var(--cool-gray-5)"
         />
       );
     }
@@ -70,13 +70,17 @@ const SearchResultList = ({
         <MdHouseboat
           aria-label="B&B category"
           size="24"
-          color="var(--blue-3)"
+          color="var(--cool-gray-5)"
         />
       );
     }
     if (category === "House") {
       return (
-        <MdHouse aria-label="House category" size="24" color="var(--blue-3)" />
+        <MdHouse
+          aria-label="House category"
+          size="24"
+          color="var(--cool-gray-5)"
+        />
       );
     }
   };

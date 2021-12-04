@@ -15,7 +15,7 @@ const GlobalStyle = createGlobalStyle`
     --cool-gray-7: #3e4c59;
     --cool-gray-6: #52606d;
     --cool-gray-5: #616e7c;
-    --cool-gray-4: #7b9794;
+    --cool-gray-4: #7B8794;
     --cool-gray-3: #9aa5b1;
     --cool-gray-2: #cbd2d9;
     --cool-gray-1: #f5f7fa;

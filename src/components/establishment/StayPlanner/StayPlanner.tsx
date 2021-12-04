@@ -43,11 +43,11 @@ const StayPlanner = ({
           color="var(--cool-gray-9)"
           background="var(--cool-gray-2)"
         >
-          <Heading.H5 size="l">Enquire Stay</Heading.H5>
+          <Heading.H5 size="l">Your Stay</Heading.H5>
         </Box>
         <Box padding={"2rem"} borderRadiusB background="var(--cool-gray-1)">
           <span>
-            <Emphasize>$ {price}</Emphasize> / night
+            <Emphasize>$ {price}</Emphasize> per night
           </span>
           <form>
             <Box padding={"0.5rem"}>
@@ -61,7 +61,7 @@ const StayPlanner = ({
               />
             </Box>
             <Box padding={"0.5rem"}>
-              <Label>Pick Date </Label>
+              <Label>How long are you staying?</Label>
               <StayDatePicker
                 minDate={startDate}
                 placeholderText="Select Dates"

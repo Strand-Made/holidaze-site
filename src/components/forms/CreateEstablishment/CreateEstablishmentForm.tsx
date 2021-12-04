@@ -140,7 +140,7 @@ const CreateEstablishmentForm = ({
   return (
     <Box background="white" borderRadius padding="3rem" shadow>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Stack space={"0.5rem"}>
+        <Stack space="1rem">
           {error && <Message.Error>{error}</Message.Error>}
           {status === FetchStatus.SUCCESS && (
             <>

@@ -73,7 +73,7 @@ const Amenitites = ({ amenities }: TAmenities) => {
             borderRadius
             key={index}
           >
-            <FlexContainer gap="0.5rem" alignItems="center">
+            <FlexContainer gap="0.5rem" alignItems="baseline">
               <Box padding={"0"}>
                 <IconContainer background="var--cool-gray-1">
                   {iconCheck(service)}
