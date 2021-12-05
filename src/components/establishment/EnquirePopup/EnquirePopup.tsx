@@ -38,7 +38,7 @@ const EnquirePopup = ({
               <Heading.H4 size="l">Your Enquiry</Heading.H4>
             </Box>
             <button onClick={setToggle}>
-              <MdClose size="24" />
+              <MdClose size="24" color="var(--cool-gray-9)" />
             </button>
           </FlexContainer>
           <Box>
@@ -51,7 +51,8 @@ const EnquirePopup = ({
               {guests ? (
                 <Box>
                   <Paragraph>
-                    With<Emphasize> {guests}</Emphasize> guests
+                    With<Emphasize> {guests} </Emphasize>
+                    {guests > 1 ? "guests" : "guest"}
                   </Paragraph>
                 </Box>
               ) : null}

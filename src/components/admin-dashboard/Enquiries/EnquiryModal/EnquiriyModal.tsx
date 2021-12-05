@@ -85,7 +85,7 @@ const EnquiryModal = ({ enquiry, token, setToggle }: IEnquiryModal) => {
         >
           <Heading.H4 size="l">Enquiry</Heading.H4>
           <button onClick={setToggle}>
-            <MdClose size="24" />
+            <MdClose size="24" color="var(--cool-gray-9)" />
           </button>
         </FlexContainer>
         <Box padding={"1rem"}>
@@ -98,7 +98,8 @@ const EnquiryModal = ({ enquiry, token, setToggle }: IEnquiryModal) => {
               </Box>
               <Box padding={"0"}>
                 <span>
-                  Guests <Emphasize>{myEnquiry?.guests}</Emphasize>
+                  <Emphasize>{myEnquiry?.guests}</Emphasize>
+                  {myEnquiry && myEnquiry.guests > 1 ? "Guests" : "Guest"}
                 </span>
               </Box>
 

@@ -6,6 +6,7 @@ import styled from "styled-components";
 const Link = styled(NavLink)<NavLinkProps>`
   display: block;
   position: relative;
+  font-weight: 400;
   padding: 1rem;
   border-radius: 8px;
   color: var(--cool-gray-5);

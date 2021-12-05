@@ -85,6 +85,7 @@ const Contact = () => {
           </Stack>
         </Container>
       </Main>
+      <Spacer mt="3" />
     </>
   );
 };

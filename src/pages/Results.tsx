@@ -45,7 +45,6 @@ const Results = () => {
   }
 
   let filteredEstablishments = filterSearch(establishments, search);
-  console.log(filteredEstablishments);
 
   return (
     <Main>
@@ -80,6 +79,7 @@ const Results = () => {
           )}
         </Grid>
       </Container>
+      <Spacer mt="3" />
     </Main>
   );
 };

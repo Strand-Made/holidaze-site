@@ -53,7 +53,6 @@ function App() {
         </Routes>
       </RelativeWrapper>
 
-      <Spacer mt="3" />
       <Footer />
     </AuthProvider>
   );

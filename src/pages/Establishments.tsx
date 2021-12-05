@@ -35,12 +35,33 @@ type EstablishmentType = {
     name: string;
   };
 };
+
+type EstablishmentsArray = {
+  id: number;
+  image: {
+    alternativeText?: string;
+    url: string;
+    formats: {
+      small: {
+        url: string;
+      };
+    };
+  };
+  price: number;
+  slug: string;
+  title: string;
+  category: {
+    name: string;
+  };
+}[];
 const Establishments = () => {
   const [status, setStatus] = useState<FetchStatus>(FetchStatus.IDLE);
   const [error, setError] = useState("");
   const [sortPrice, setSortPrice] = useState<true | null | false>(null);
   const [sortAlphabet, setSortAlphabet] = useState<true | null | false>(null);
-  const [establishments, setEstablishments] = useState([]);
+  const [establishments, setEstablishments] = useState<
+    EstablishmentsArray | []
+  >([]);
   const [showFilter, setShowFilter] = useToggle();
 
   let params = useLocation();
@@ -151,6 +172,7 @@ const Establishments = () => {
           </Grid>
         </Container>
       </Main>
+      <Spacer mt="3" />
     </>
   );
 };

@@ -149,6 +149,7 @@ const Establishment = () => {
           </Container>
         </RelativeWrapper>
       </Main>
+      <Spacer mt="3" />
     </>
   );
 };

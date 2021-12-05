@@ -20,19 +20,18 @@ interface LinkProps {
 const StyledLink = styled(Link)<LinkProps>`
   display: block;
   text-align: center;
-  background: ${(props) =>
-    props.invert ? "var(--cool-gray-1)" : "var(--blue-5)"};
+  background: ${(props) => (props.invert ? "var(--blue-1)" : "var(--blue-5)")};
   font-size: ${(props) => {
     if (props.size === "sm") return "0.833rem";
     if (props.size === "md") return "1rem";
     if (props.size === "l") return "1.4rem";
     return "1rem";
   }};
-  border: ${(props) => props.invert && "2px solid var(--blue-6)"};
   color: ${(props) => (props.invert ? "var(--blue-6)" : "var(--blue-1)")};
   font-weight: 600;
   border-radius: 8px;
   width: ${(props) => props.full && "100%"};
+  max-width: ${(props) => (props.full ? "100%" : "200px")};
   padding: ${(props) => {
     if (props.size === "sm") return buttonSizes.sm;
     if (props.size === "md") return buttonSizes.md;
@@ -55,6 +54,7 @@ const LinkButton = ({
   size,
   invert,
   shadow,
+  full,
 }: LinkProps) => {
   return (
     <StyledLink
@@ -65,6 +65,7 @@ const LinkButton = ({
       to={to}
       invert={invert}
       shadow={shadow}
+      full={full}
     >
       {children}
     </StyledLink>

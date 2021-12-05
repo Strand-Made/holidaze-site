@@ -17,6 +17,8 @@ import Switcher from "../components/layout/utilities/Switcher/Switcher";
 import Box from "../components/layout/Box/Box";
 import Paragraph from "../components/Typography/Paragraph";
 import Stack from "../components/layout/Stack/Stack";
+import FlexContainer from "../components/layout/utilities/Flex/FlexContainer";
+import LinkButton from "../components/Button/LinkButton";
 
 type CategorySuggestion = {
   category_image: CategoryImage;
@@ -66,7 +68,7 @@ const Home = () => {
         <Section>
           <Stack space="1rem">
             <Heading.H2 weight="700" size="2xl">
-              Looking for something special?
+              Find you dream stay today
             </Heading.H2>
             <Grid>
               {isLoading && <SkeletonLoader numberofLoaders={3} />}
@@ -111,9 +113,9 @@ const Home = () => {
         </Section>
       </Container>
       <Spacer mt="3" />
-      <Section pt={5} pb={20} background="var(--teal-4)">
+      <Section pt={5} pb={20} background="var(--teal-5)">
         <Container>
-          <Stack space="2rem">
+          <Stack space="4rem">
             <Heading.H4 color="var(--teal-1)" size="3xl">
               Establishments vetted for you
             </Heading.H4>
@@ -141,6 +143,13 @@ const Home = () => {
                 </Paragraph>
               </Stack>
             </Switcher>
+            <FlexContainer col alignItems="center">
+              <Box>
+                <LinkButton invert full size="md" to="/establishments">
+                  See Bergen
+                </LinkButton>
+              </Box>
+            </FlexContainer>
           </Stack>
         </Container>
       </Section>
