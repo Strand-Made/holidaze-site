@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import NoResult from "../../../assets/no-result.svg";
 import LinkButton from "../../Button/LinkButton";
-
 import Image from "../../layout/Image/Image";
 import Stack from "../../layout/Stack/Stack";
 import FlexContainer from "../../layout/utilities/Flex/FlexContainer";

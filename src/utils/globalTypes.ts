@@ -61,22 +61,3 @@ export type EstablishmentType = {
   description: string;
   short_description: string;
 };
-
-export type EstablishmentsArray = {
-  id: number;
-  image: {
-    alternativeText?: string;
-    url: string;
-    formats: {
-      small: {
-        url: string;
-      };
-    };
-  };
-  price: number;
-  slug: string;
-  title: string;
-  category: {
-    name: string;
-  };
-}[];

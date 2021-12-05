@@ -46,6 +46,7 @@ const ToggleMenuBtn = styled.button`
 const Navbar = () => {
   const [isToggled, setIsToggled] = useToggle();
   const { auth, setAuth } = useAuth();
+  const userType = auth?.userinfo?.type;
   return (
     <Container>
       <Header>
@@ -61,7 +62,12 @@ const Navbar = () => {
             <li>
               <NavLinks to="/contact">Contact</NavLinks>
             </li>
-            {auth && (
+            {auth && userType === "super" && (
+              <li>
+                <NavLinks to="/super">Admin</NavLinks>
+              </li>
+            )}
+            {auth && userType === "authenticated" && (
               <li>
                 <NavLinks to="/admin">Admin</NavLinks>
               </li>
