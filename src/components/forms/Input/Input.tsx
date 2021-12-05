@@ -3,7 +3,7 @@ import { borderRadius } from "../../../globalStyle/_variables";
 import { StyledSearchContainer } from "../SearchBar/SearchContainer/SearchContainer";
 
 const Input = styled.input`
-  border: 2px solid var(--cool-gray-2);
+  border: 1px solid var(--cool-gray-2);
   padding: 0.5rem;
   background: white;
   width: 100%;
@@ -11,7 +11,7 @@ const Input = styled.input`
   outline: none;
   transition: var(--animate-input);
   &:focus {
-    border: 2px solid var(--cool-gray-9);
+    border: 1px solid var(--cool-gray-9);
   }
   ${StyledSearchContainer} & {
     background: inherit;
