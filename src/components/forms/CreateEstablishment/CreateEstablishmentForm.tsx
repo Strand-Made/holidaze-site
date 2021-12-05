@@ -193,10 +193,11 @@ const CreateEstablishmentForm = ({
               <Message.Error>{errors.price.message}</Message.Error>
             )}
           </InputContainer>
-          <Stack space={"0.5rem"}>
-            <Fieldset>
+
+          <Fieldset>
+            <InputContainer>
               <legend>Amenities</legend>
-              <Switcher>
+              <FlexContainer gap="1rem" wrap="wrap">
                 <FlexContainer col alignItems="center">
                   <Checkbox
                     labelText="Shower"
@@ -241,12 +242,13 @@ const CreateEstablishmentForm = ({
                     onChange={(e) => handleCheckbox(breakfast, setBreakfast)}
                   />
                 </FlexContainer>
-              </Switcher>
+              </FlexContainer>
               {errors.amenities && (
                 <Message.Error>{errors.amenities.message}</Message.Error>
               )}
-            </Fieldset>
-          </Stack>
+            </InputContainer>
+          </Fieldset>
+
           <InputContainer>
             <Label htmlFor="bedrooms">Bedrooms</Label>
             <Input type="number" {...register("bedrooms")} />
