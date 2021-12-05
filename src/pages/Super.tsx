@@ -47,8 +47,9 @@ const Super = () => {
             Authorization: `Bearer ${auth.token}`,
           },
         });
-        setStatus(FetchStatus.SUCCESS);
+
         setMessages(res.data);
+        setStatus(FetchStatus.SUCCESS);
       } catch (error: any) {
         setStatus(FetchStatus.ERROR);
         setError(error.toString());
