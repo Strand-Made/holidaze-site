@@ -145,8 +145,8 @@ const Home = () => {
             </Switcher>
             <FlexContainer col alignItems="center">
               <Box>
-                <LinkButton invert full size="md" to="/establishments">
-                  See Bergen
+                <LinkButton shadow invert full size="l" to="/establishments">
+                  Find you next dream stay
                 </LinkButton>
               </Box>
             </FlexContainer>

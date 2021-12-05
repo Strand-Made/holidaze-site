@@ -4,6 +4,7 @@ import LinkButton from "../../Button/LinkButton";
 
 import Image from "../../layout/Image/Image";
 import Stack from "../../layout/Stack/Stack";
+import FlexContainer from "../../layout/utilities/Flex/FlexContainer";
 import Heading from "../../Typography/Heading";
 
 const IllustrationContainer = styled.div`
@@ -23,9 +24,11 @@ const EmptyIllustration = () => {
           <Heading.H2 size="l">
             No establishment matching your search
           </Heading.H2>
-          <LinkButton size="md" to="/">
-            Go Back
-          </LinkButton>
+          <FlexContainer justifyContent="center">
+            <LinkButton size="md" to="/">
+              Go Back
+            </LinkButton>
+          </FlexContainer>
         </Stack>
       </Stack>
     </IllustrationContainer>

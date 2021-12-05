@@ -196,6 +196,7 @@ const Admin = () => {
           </Switcher>
         </Container>
       </Main>
+      <Spacer mt="3" />
     </>
   );
 };
